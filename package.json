@@ -1,0 +1,37 @@
+{
+  "name": "saint-of-the-day-content",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static content pipeline for the Saint of the Day Android app.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "generate": "npm run build && node dist/cli/generate.js",
+    "validate": "npm run build && node dist/cli/validate.js",
+    "plates": "npm run build && node dist/cli/plates.js",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@romcal/calendar.general-roman": "3.0.0-dev.140",
+    "romcal": "3.0.0-dev.140",
+    "sharp": "^0.35.4",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^22.18.0",
+    "eslint": "^9.39.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.0",
+    "vitest": "^3.2.4"
+  }
+}
