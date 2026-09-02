@@ -73,7 +73,10 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
 
   const source = strings['source'] as string;
   if (!isHttpUrl(source)) {
-    throw new CurationError(file, `\`source\` must be an http(s) URL, got ${JSON.stringify(source)}`);
+    throw new CurationError(
+      file,
+      `\`source\` must be an http(s) URL, got ${JSON.stringify(source)}`,
+    );
   }
 
   const crop = document['crop'];
@@ -84,7 +87,10 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
   for (const key of CROP_FIELDS) {
     const value = crop[key];
     if (typeof value !== 'number' || !Number.isInteger(value) || value < 0) {
-      throw new CurationError(file, `\`crop.${key}\` is required and must be a non-negative integer`);
+      throw new CurationError(
+        file,
+        `\`crop.${key}\` is required and must be a non-negative integer`,
+      );
     }
     box[key] = value;
   }
@@ -93,7 +99,10 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
   }
 
   const unknownKeys = Object.keys(document).filter(
-    (key) => !REQUIRED_STRINGS.includes(key as (typeof REQUIRED_STRINGS)[number]) && key !== 'years' && key !== 'crop',
+    (key) =>
+      !REQUIRED_STRINGS.includes(key as (typeof REQUIRED_STRINGS)[number]) &&
+      key !== 'years' &&
+      key !== 'crop',
   );
   if (unknownKeys.length > 0) {
     throw new CurationError(file, `unknown field(s): ${unknownKeys.sort().join(', ')}`);

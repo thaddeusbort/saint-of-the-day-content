@@ -60,7 +60,10 @@ async function exists(file: string): Promise<boolean> {
  * Returns the variant descriptors regardless of whether anything was written,
  * so the caller can build the record either way.
  */
-export async function renderVariants(request: RenderRequest, imgDir: string): Promise<RenderResult> {
+export async function renderVariants(
+  request: RenderRequest,
+  imgDir: string,
+): Promise<RenderResult> {
   await mkdir(imgDir, { recursive: true });
 
   let rendered = 0;

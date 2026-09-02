@@ -39,7 +39,9 @@ export function renderWorklist(today: string, items: readonly WorklistItem[]): s
       const offset = daysBetween(today, item.date);
       return offset >= 0 && offset <= WORKLIST_HORIZON_DAYS;
     })
-    .sort((a, b) => (a.date === b.date ? a.subject.id.localeCompare(b.subject.id) : a.date.localeCompare(b.date)));
+    .sort((a, b) =>
+      a.date === b.date ? a.subject.id.localeCompare(b.subject.id) : a.date.localeCompare(b.date),
+    );
 
   const groups = new Map<string, { first: WorklistItem; dates: string[] }>();
   for (const item of upcoming) {

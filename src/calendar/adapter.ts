@@ -58,7 +58,11 @@ const RANKS: Readonly<Record<string, Rank>> = {
   WEEKDAY: 'weekday',
 };
 
-function mapEnum<T>(table: Readonly<Record<string, T>>, value: string | undefined, what: string): T {
+function mapEnum<T>(
+  table: Readonly<Record<string, T>>,
+  value: string | undefined,
+  what: string,
+): T {
   const mapped = value === undefined ? undefined : table[value];
   if (mapped === undefined) {
     // A romcal upgrade that introduces a new season, colour or rank must fail
@@ -135,15 +139,22 @@ function toLiturgicalDay(date: string, entries: readonly RomcalEntry[]): Liturgi
     throw new Error(`romcal produced an empty celebration list for ${date}`);
   }
 
-  // romcal lists the most specific season first: the Paschal Triduum days
-  // carry ["PASCHAL_TRIDUUM", "EASTER_TIME"].
-  const season = mapEnum(SEASONS, principal.seasons[0], 'season');
+  // romcal's season list runs from the narrowest containing season to the
+  // broadest, and the published label wants the broadest — so take the last.
+  // This matters for exactly one day a year: Easter Sunday is
+  // ["PASCHAL_TRIDUUM", "EASTER_TIME"], because the Triduum ends with Evening
+  // Prayer that day (UNLY n. 19), and every published calendar lists it as the
+  // first day of Easter Time rather than the last of the Triduum. Good Friday
+  // and Holy Saturday are Triduum only and are unaffected.
+  const season = mapEnum(SEASONS, principal.seasons.at(-1), 'season');
 
-  // Likewise the first colour is the one the day is actually kept in: Laetare
-  // Sunday is ["ROSE", "PURPLE"], All Souls is ["PURPLE", "BLACK"]. An unknown
-  // colour still fails loudly; only an absent one falls back to the season.
+  // The colour list is not a hierarchy but a preference: Laetare Sunday is
+  // ["ROSE", "PURPLE"] — rose may be used, else purple — and All Souls is
+  // ["PURPLE", "BLACK"]. So here the first entry is the one to publish. An
+  // unknown colour still fails loudly; only an absent one falls back.
   const rawColor = principal.colors[0];
-  const color = rawColor === undefined ? SEASON_COLORS[season] : mapEnum(COLORS, rawColor, 'colour');
+  const color =
+    rawColor === undefined ? SEASON_COLORS[season] : mapEnum(COLORS, rawColor, 'colour');
 
   return {
     date,

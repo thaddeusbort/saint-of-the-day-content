@@ -8,7 +8,10 @@
 import { validateCuration } from '../validate.js';
 
 const report = await validateCuration(
-  process.argv.slice(2).find((arg) => arg.startsWith('--root='))?.slice('--root='.length),
+  process.argv
+    .slice(2)
+    .find((arg) => arg.startsWith('--root='))
+    ?.slice('--root='.length),
 );
 
 for (const problem of report.problems) {
@@ -21,4 +24,6 @@ if (report.problems.length > 0) {
 }
 
 console.log(`${report.checked} curated saint(s) validated.`);
-console.log('Note: licence clearance is not machine-checkable and remains the curator’s responsibility.');
+console.log(
+  'Note: licence clearance is not machine-checkable and remains the curator’s responsibility.',
+);

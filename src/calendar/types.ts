@@ -9,13 +9,7 @@ export type Season = 'advent' | 'christmas' | 'lent' | 'triduum' | 'easter' | 'o
 
 export type Color = 'white' | 'red' | 'green' | 'violet' | 'rose' | 'black';
 
-export type Rank =
-  | 'solemnity'
-  | 'feast'
-  | 'memorial'
-  | 'optional_memorial'
-  | 'sunday'
-  | 'weekday';
+export type Rank = 'solemnity' | 'feast' | 'memorial' | 'optional_memorial' | 'sunday' | 'weekday';
 
 /** One celebration occurring on a date. */
 export interface Celebration {

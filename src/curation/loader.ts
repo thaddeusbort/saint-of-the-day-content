@@ -38,7 +38,11 @@ async function listDir(dir: string): Promise<string[]> {
 }
 
 /** Finds the committed original for `id`, or null. */
-async function findOriginal(originalsDir: string, names: Set<string>, id: string): Promise<string | null> {
+async function findOriginal(
+  originalsDir: string,
+  names: Set<string>,
+  id: string,
+): Promise<string | null> {
   for (const extension of ORIGINAL_EXTENSIONS) {
     if (names.has(`${id}${extension}`)) {
       return path.join(originalsDir, `${id}${extension}`);

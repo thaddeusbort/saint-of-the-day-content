@@ -8,8 +8,17 @@
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
+/**
+ * True for a real calendar date in `yyyy-MM-dd` form.
+ *
+ * The round-trip matters: V8 silently rolls `2026-02-30` over to 2 March
+ * rather than returning NaN, and `prune` uses this to decide whether a
+ * published filename names a day inside the window.
+ */
 export function isIsoDate(value: string): boolean {
-  return ISO_DATE.test(value) && !Number.isNaN(Date.parse(`${value}T00:00:00Z`));
+  if (!ISO_DATE.test(value)) return false;
+  const parsed = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
 }
 
 export function toIsoDate(date: Date): string {

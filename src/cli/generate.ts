@@ -12,7 +12,10 @@ import { isIsoDate } from '../dates.js';
 
 function flag(name: string): string | undefined {
   const prefix = `--${name}=`;
-  return process.argv.slice(2).find((arg) => arg.startsWith(prefix))?.slice(prefix.length);
+  return process.argv
+    .slice(2)
+    .find((arg) => arg.startsWith(prefix))
+    ?.slice(prefix.length);
 }
 
 const today = flag('today');
@@ -28,6 +31,8 @@ const summary = await generate({
 });
 
 console.log(`romcal ${LiturgicalCalendar.version()}`);
-console.log(`window ${summary.start} .. ${summary.end} (${summary.days} days, today ${summary.today})`);
+console.log(
+  `window ${summary.start} .. ${summary.end} (${summary.days} days, today ${summary.today})`,
+);
 console.log(`curated ${summary.curatedDays}, placeholder ${summary.placeholderDays}`);
 console.log(`images rendered ${summary.imagesRendered}, days pruned ${summary.daysPruned}`);

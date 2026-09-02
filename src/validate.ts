@@ -42,7 +42,9 @@ export async function validateCuration(root?: string): Promise<ValidationReport>
     problems.push(`originals/${name} has no matching saints/*.yaml`);
   }
 
-  for (const [id, { entry, originalPath }] of [...curation.saints].sort(([a], [b]) => a.localeCompare(b))) {
+  for (const [id, { entry, originalPath }] of [...curation.saints].sort(([a], [b]) =>
+    a.localeCompare(b),
+  )) {
     const original = `originals/${path.basename(originalPath)}`;
     let size;
     try {
