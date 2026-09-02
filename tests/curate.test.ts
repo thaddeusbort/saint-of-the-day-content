@@ -6,7 +6,7 @@
  * fixtures rather than against Wikimedia.
  */
 
-import { readFile, rm } from 'node:fs/promises';
+import { mkdir, readdir, readFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
@@ -407,6 +407,127 @@ describe('saving', () => {
     } finally {
       await rm(root, { recursive: true, force: true });
     }
+  });
+
+  describe('a rejected save leaves nothing behind', () => {
+    // A saint is two files or none. An original with no entry beside it is
+    // worse than no saint at all: `npm run validate` reports it as orphaned, so
+    // the failure surfaces later, in CI, on a pull request.
+    async function expectNothingWritten(root: string): Promise<void> {
+      expect(await readdir(path.join(root, 'originals'))).toEqual([]);
+      expect(await readdir(path.join(root, 'saints'))).toEqual([]);
+      const report = await validateCuration(root);
+      expect(report.problems).toEqual([]);
+      expect(report.checked).toBe(0);
+    }
+
+    it('when the served image is smaller than its metadata claimed', async () => {
+      // The regression this suite exists for: the check against the real bytes
+      // happens after the download, and used to happen after the write too.
+      const root = await makeCheckout();
+      try {
+        await expect(
+          saveCuratedSaint(
+            { id: 'liar', name: 'X', years: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
+            { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(1500, 1600), root },
+          ),
+        ).rejects.toThrow(/falls outside/);
+        await expectNothingWritten(root);
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    });
+
+    it('when the licence is refused', async () => {
+      const root = await makeCheckout();
+      try {
+        await expect(
+          saveCuratedSaint(
+            { id: 'nc', name: 'X', years: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
+            {
+              fetcher: fetcherFor([
+                page({}, { License: 'cc-by-nc-2.0', LicenseShortName: 'CC BY-NC 2.0' }),
+              ]),
+              downloader: await jpegDownloader(),
+              root,
+            },
+          ),
+        ).rejects.toThrow(/Refusing to save/);
+        await expectNothingWritten(root);
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    });
+
+    it('when the entry fails the schema', async () => {
+      const root = await makeCheckout();
+      try {
+        await expect(
+          saveCuratedSaint(
+            {
+              id: 'noblurb',
+              name: 'X',
+              years: '',
+              blurb: '  ',
+              fileTitle: 'File:Example.jpg',
+              crop,
+            },
+            { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+          ),
+        ).rejects.toThrow(/blurb/);
+        await expectNothingWritten(root);
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    });
+
+    it('when the crop would need upscaling', async () => {
+      const root = await makeCheckout();
+      try {
+        await expect(
+          saveCuratedSaint(
+            {
+              id: 'tiny',
+              name: 'X',
+              years: '',
+              blurb: 'b',
+              fileTitle: 'File:Example.jpg',
+              crop: { x: 0, y: 0, width: 900, height: 1950 },
+            },
+            { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+          ),
+        ).rejects.toThrow(/smaller than the largest variant/);
+        await expectNothingWritten(root);
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    });
+
+    it('takes the original back out when the entry cannot be written', async () => {
+      const root = await makeCheckout();
+      try {
+        // A directory where the YAML file needs to go makes the write fail
+        // after the original has already landed — the one ordering the
+        // validate-first fix cannot rule out.
+        await mkdir(path.join(root, 'saints', 'blocked.yaml'), { recursive: true });
+        await expect(
+          saveCuratedSaint(
+            {
+              id: 'blocked',
+              name: 'X',
+              years: '',
+              blurb: 'b',
+              fileTitle: 'File:Example.jpg',
+              crop,
+            },
+            { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+          ),
+        ).rejects.toThrow();
+        expect(await readdir(path.join(root, 'originals'))).toEqual([]);
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    });
   });
 });
 

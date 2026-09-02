@@ -7,7 +7,7 @@
  * restates a rule that already exists in `src/curation/` or `src/config.ts`.
  */
 
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { stringify as stringifyYaml } from 'yaml';
 import { VARIANTS } from '../config.js';
@@ -123,17 +123,25 @@ export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Pr
   const entry = parseSaintEntry(request.id, `saints/${request.id}.yaml`, document);
 
   const bytes = await deps.downloader(file.url);
+
+  // Measure the bytes actually served, not what the metadata claimed — Commons
+  // can disagree with itself. This runs before anything is written, so a
+  // mismatch leaves the working tree untouched rather than stranding an
+  // original with no entry beside it.
+  assertCropFits(request.crop, await imageSize(bytes));
+
   const originalPath = path.join(paths.originals, `${request.id}${extension}`);
   await mkdir(paths.originals, { recursive: true });
-  await writeFile(originalPath, bytes);
-
-  // Re-check against the bytes actually downloaded rather than the metadata:
-  // this is the same check `npm run validate` runs in CI.
-  const size = await imageSize(originalPath);
-  assertCropFits(request.crop, size);
-
   await mkdir(paths.saints, { recursive: true });
-  await writeFile(yamlFile, stringifyYaml(document, { lineWidth: 80 }), 'utf8');
+  await writeFile(originalPath, bytes);
+  try {
+    await writeFile(yamlFile, stringifyYaml(document, { lineWidth: 80 }), 'utf8');
+  } catch (error) {
+    // A saint is two files or none. If the entry cannot be written, take the
+    // original back out rather than leaving one CI will reject as orphaned.
+    await rm(originalPath, { force: true });
+    throw error;
+  }
 
   return { id: request.id, yamlPath: yamlFile, originalPath, entry };
 }

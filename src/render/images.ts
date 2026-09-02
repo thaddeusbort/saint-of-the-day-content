@@ -96,12 +96,20 @@ export async function renderVariants(
   return { variants: variantsFor(request.id), rendered };
 }
 
-/** Reads a source image's pixel dimensions. Used by PR validation. */
-export async function imageSize(file: string): Promise<{ width: number; height: number }> {
-  const metadata = await sharp(file).metadata();
+/**
+ * Reads a source image's pixel dimensions.
+ *
+ * Accepts a path or the bytes themselves, so a candidate can be measured
+ * before it is written anywhere.
+ */
+export async function imageSize(
+  source: string | Buffer,
+): Promise<{ width: number; height: number }> {
+  const metadata = await sharp(source).metadata();
   const { width, height } = metadata;
   if (typeof width !== 'number' || typeof height !== 'number') {
-    throw new Error(`${file}: could not read image dimensions`);
+    const label = typeof source === 'string' ? source : 'image';
+    throw new Error(`${label}: could not read image dimensions`);
   }
   return { width, height };
 }
