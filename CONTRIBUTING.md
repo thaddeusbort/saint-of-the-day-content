@@ -6,6 +6,30 @@ already emits a valid record pointing at a generic liturgical-colour plate, so
 nothing is broken while a day waits its turn — a curated saint is a strict
 improvement that goes live on the next run, with no app release.
 
+## The quick way: `npm run curate`
+
+```bash
+npm ci
+npm run curate      # http://127.0.0.1:4173
+```
+
+This walks the outstanding queue soonest first, searches Wikimedia Commons,
+gives you a crop box fixed at the render's 1290:2796 with guide lines where the
+clock and notifications sit, and writes both files for you. It validates with
+the same schema and geometry checks CI runs, so if it saves, CI will pass.
+
+Two things it will not do for you, by design:
+
+- **It will not clear the licence.** It only searches Commons and only offers
+  files whose licence reads as free, and it copies `credit`, `license` and
+  `source` from the file's own metadata rather than letting you type them. That
+  is a floor, not a guarantee — read the file page it links before you save.
+- **It will not write the blurb.** Commons' description is shown for reference
+  and is never copied. An empty blurb is rejected.
+
+The rest of this document describes the files themselves, which is what you need
+if you are adding one by hand or reviewing somebody else's pull request.
+
 ## Pick something from the worklist
 
 [`WORKLIST.md`](WORKLIST.md) lists upcoming days still showing a plate, soonest

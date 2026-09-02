@@ -38,11 +38,12 @@ node dist/cli/generate.js --root=/tmp/scratch  # write somewhere else
 
 Other commands:
 
-| Command                 | What it does                                                                            |
-| ----------------------- | --------------------------------------------------------------------------------------- |
-| `npm run validate`      | The curation checks CI runs on pull requests.                                           |
-| `npm run check:derived` | Regenerates `docs/` for the window it already holds, so a hand edit shows up as a diff. |
-| `npm run plates`        | Redraws the fallback plates in `fallbacks/`. Rarely needed — see below.                 |
+| Command                 | What it does                                                                                         |
+| ----------------------- | ---------------------------------------------------------------------------------------------------- |
+| `npm run validate`      | The curation checks CI runs on pull requests.                                                        |
+| `npm run check:derived` | Regenerates `docs/` for the window it already holds, so a hand edit shows up as a diff.              |
+| `npm run curate`        | Opens the curation tool on `127.0.0.1:4173` — see [Curating with the tool](#curating-with-the-tool). |
+| `npm run plates`        | Redraws the fallback plates in `fallbacks/`. Rarely needed — see below.                              |
 
 ## What a run does
 
@@ -210,7 +211,49 @@ contract already supports.
 The same applies to `npm run plates`: redrawing a plate in `fallbacks/` has no
 effect on anything already rendered into `docs/v1/img/`, by design.
 
+## Curating with the tool
+
+`npm run curate` serves a local page that walks the outstanding queue soonest
+first, searches Wikimedia Commons, and writes `saints/{id}.yaml` and
+`originals/{id}.*`. It binds to loopback, holds no state, and never writes under
+`docs/`.
+
+It lives in this repository rather than beside the app for one reason: the files
+it produces are only correct if they satisfy rules that already exist here as
+code — the curation schema, the "at least 1290×2796, never upscale" geometry,
+and the id derivation. The tool imports those directly and validates before it
+writes, so it cannot produce a pull request that CI will reject. Keeping it
+anywhere else would mean a second copy of those rules, and a second copy drifts.
+
+It adds **no dependency**: `node:http`, `fetch`, `sharp` and `yaml` were already
+here.
+
+Three deliberate constraints:
+
+- **Wikimedia Commons only.** CI cannot verify that an image is free to publish,
+  so the tool must not make it easy to save one that is not. Commons returns
+  machine-readable licence and attribution per file, so `credit`, `license` and
+  `source` are derived from the API rather than typed from memory. Files whose
+  licence is not demonstrably free are dropped, and the count of what was
+  dropped is shown. A generic image search would do the opposite, which is why
+  there isn't one.
+- **Attribution is re-read on save.** The client cannot assert a licence — the
+  server fetches the file's metadata again and writes what Commons actually
+  says.
+- **The blurb is yours.** The tool will not write one, and the schema rejects an
+  empty one. Commons' own description is shown for reference and never copied.
+  Licence clearance stays a human judgement, as
+  [CONTRIBUTING.md](CONTRIBUTING.md) says.
+
+The queue separates **saints** from **days**. In a typical year roughly 167 days
+have a saint available and about 198 are ferial days and Sundays where the
+subject is the liturgical day itself, so the tool defaults to the saints —
+walking strictly by date would spend most of its time on days with no saint to
+find.
+
+Flags: `--port=`, `--today=`, `--horizon=`, `--root=`.
+
 ## Adding a saint
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). `WORKLIST.md` is the queue: upcoming
-days still on a placeholder, soonest first.
+See [CONTRIBUTING.md](CONTRIBUTING.md). `WORKLIST.md` is the same queue in file
+form: upcoming days still on a placeholder, soonest first.

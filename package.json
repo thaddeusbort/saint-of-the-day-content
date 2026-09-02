@@ -17,7 +17,8 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "check:derived": "npm run build && node dist/cli/check.js"
+    "check:derived": "npm run build && node dist/cli/check.js",
+    "curate": "npm run build && node dist/cli/curate.js"
   },
   "dependencies": {
     "@romcal/calendar.general-roman": "3.0.0-dev.140",
