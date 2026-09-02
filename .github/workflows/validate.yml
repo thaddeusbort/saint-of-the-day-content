@@ -1,0 +1,50 @@
+name: Validate
+
+# Runs on every pull request. Curation PRs are the main case, but the same
+# checks guard changes to the generator itself.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Validate curation
+        # Mechanical checks only: schema, crop geometry, and that every
+        # saints/*.yaml has a matching original and vice versa. CI cannot
+        # verify that an image is public domain and does not try to.
+        run: npm run validate
+
+      - name: Check that docs/ is derived, not edited
+        # Only the publish job writes under docs/. If a run against the PR's
+        # inputs produces a different tree than the PR committed, the two have
+        # diverged — which in practice means docs/ was edited by hand.
+        run: |
+          set -euo pipefail
+          npm run check:derived
+          if ! git diff --quiet -- docs; then
+            echo '::error::docs/ does not match a fresh run of the generator.'
+            echo 'docs/ is entirely derived — change an input, never the output.'
+            git diff --stat -- docs
+            exit 1
+          fi

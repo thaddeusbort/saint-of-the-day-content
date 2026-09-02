@@ -16,7 +16,8 @@
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "check:derived": "npm run build && node dist/cli/check.js"
   },
   "dependencies": {
     "@romcal/calendar.general-roman": "3.0.0-dev.140",

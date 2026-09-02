@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "date": "2027-01-07",
+  "season": "christmas",
+  "color": "white",
+  "rank": "weekday",
+  "celebration": "Thursday after the Epiphany of the Lord",
+  "all_celebrations": [
+    "Thursday after the Epiphany of the Lord",
+    "Saint Raymond of Penyafort, Priest"
+  ],
+  "saint": {
+    "id": "raymond-of-penyafort-priest",
+    "name": "Saint Raymond of Penyafort, Priest",
+    "years": "",
+    "blurb": "",
+    "is_fallback": true
+  },
+  "image": {
+    "credit": "Generated liturgical colour plate",
+    "license": "CC0-1.0",
+    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
+    "is_placeholder": true,
+    "variants": [
+      {
+        "w": 1290,
+        "h": 2796,
+        "url": "img/fallback-white-1290x2796.jpg"
+      },
+      {
+        "w": 1179,
+        "h": 2556,
+        "url": "img/fallback-white-1179x2556.jpg"
+      },
+      {
+        "w": 1080,
+        "h": 2400,
+        "url": "img/fallback-white-1080x2400.jpg"
+      }
+    ]
+  }
+}

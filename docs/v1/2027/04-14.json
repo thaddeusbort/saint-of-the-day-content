@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "date": "2027-04-14",
+  "season": "easter",
+  "color": "white",
+  "rank": "weekday",
+  "celebration": "Wednesday of the third week of Easter",
+  "all_celebrations": [
+    "Wednesday of the third week of Easter"
+  ],
+  "saint": {
+    "id": "easter-time-3-wednesday",
+    "name": "Wednesday of the third week of Easter",
+    "years": "",
+    "blurb": "",
+    "is_fallback": true
+  },
+  "image": {
+    "credit": "Generated liturgical colour plate",
+    "license": "CC0-1.0",
+    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
+    "is_placeholder": true,
+    "variants": [
+      {
+        "w": 1290,
+        "h": 2796,
+        "url": "img/fallback-white-1290x2796.jpg"
+      },
+      {
+        "w": 1179,
+        "h": 2556,
+        "url": "img/fallback-white-1179x2556.jpg"
+      },
+      {
+        "w": 1080,
+        "h": 2400,
+        "url": "img/fallback-white-1080x2400.jpg"
+      }
+    ]
+  }
+}

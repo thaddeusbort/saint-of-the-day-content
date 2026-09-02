@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "date": "2026-12-04",
+  "season": "advent",
+  "color": "violet",
+  "rank": "weekday",
+  "celebration": "Friday of the first week of Advent",
+  "all_celebrations": [
+    "Friday of the first week of Advent",
+    "Saint John Damascene, Priest and Doctor of the Church"
+  ],
+  "saint": {
+    "id": "john-damascene-priest",
+    "name": "Saint John Damascene, Priest and Doctor of the Church",
+    "years": "",
+    "blurb": "",
+    "is_fallback": true
+  },
+  "image": {
+    "credit": "Generated liturgical colour plate",
+    "license": "CC0-1.0",
+    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
+    "is_placeholder": true,
+    "variants": [
+      {
+        "w": 1290,
+        "h": 2796,
+        "url": "img/fallback-violet-1290x2796.jpg"
+      },
+      {
+        "w": 1179,
+        "h": 2556,
+        "url": "img/fallback-violet-1179x2556.jpg"
+      },
+      {
+        "w": 1080,
+        "h": 2400,
+        "url": "img/fallback-violet-1080x2400.jpg"
+      }
+    ]
+  }
+}

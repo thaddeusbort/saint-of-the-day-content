@@ -1,0 +1,69 @@
+name: Publish
+
+# Nightly, plus every push to main so merged curation goes live in minutes
+# rather than waiting for midnight. workflow_dispatch is for a manual re-run.
+#
+# The output is committed rather than uploaded as a Pages artifact. GitHub
+# disables scheduled workflows after 60 days of repository inactivity, and
+# committing is what keeps the repository active — as well as giving a
+# diffable record of exactly what was published.
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  push:
+    branches: [main]
+    # A push that changes nothing the output depends on cannot change the
+    # output. Skipping those keeps the history to real changes.
+    paths:
+      - 'saints/**'
+      - 'originals/**'
+      - 'fallbacks/**'
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/publish.yml'
+  workflow_dispatch:
+
+# Never run two publishes at once: both would write docs/ and the second push
+# would fail on a stale ref.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate
+        run: npm run generate
+
+      - name: Commit the published tree
+        run: |
+          set -euo pipefail
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs WORKLIST.md
+          # A deterministic run usually changes two day files: the new day at
+          # one edge and the pruned one at the other. Nothing to do otherwise.
+          if git diff --cached --quiet; then
+            echo 'No change to publish.'
+            exit 0
+          fi
+          git commit -m "Publish $(date -u +%Y-%m-%d)"
+          # The scheduled run can race a merge to main; rebase and retry once.
+          git push || {
+            git pull --rebase origin main
+            git push
+          }

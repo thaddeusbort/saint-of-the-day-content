@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "date": "2027-01-25",
+  "season": "ordinary",
+  "color": "white",
+  "rank": "feast",
+  "celebration": "The Conversion of Saint Paul the Apostle",
+  "all_celebrations": [
+    "The Conversion of Saint Paul the Apostle"
+  ],
+  "saint": {
+    "id": "conversion-of-saint-paul-the-apostle",
+    "name": "The Conversion of Saint Paul the Apostle",
+    "years": "",
+    "blurb": "",
+    "is_fallback": false
+  },
+  "image": {
+    "credit": "Generated liturgical colour plate",
+    "license": "CC0-1.0",
+    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
+    "is_placeholder": true,
+    "variants": [
+      {
+        "w": 1290,
+        "h": 2796,
+        "url": "img/fallback-white-1290x2796.jpg"
+      },
+      {
+        "w": 1179,
+        "h": 2556,
+        "url": "img/fallback-white-1179x2556.jpg"
+      },
+      {
+        "w": 1080,
+        "h": 2400,
+        "url": "img/fallback-white-1080x2400.jpg"
+      }
+    ]
+  }
+}

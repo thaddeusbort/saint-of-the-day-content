@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "date": "2027-09-20",
+  "season": "ordinary",
+  "color": "red",
+  "rank": "memorial",
+  "celebration": "Saints Andrew Kim Tae-gŏn, Priest, Paul Chŏng Ha-sang and Companions, Martyrs",
+  "all_celebrations": [
+    "Saints Andrew Kim Tae-gŏn, Priest, Paul Chŏng Ha-sang and Companions, Martyrs"
+  ],
+  "saint": {
+    "id": "andrew-kim-tae-gon-priest-paul-chong-ha-sang-and-companions-martyrs",
+    "name": "Saints Andrew Kim Tae-gŏn, Priest, Paul Chŏng Ha-sang and Companions, Martyrs",
+    "years": "",
+    "blurb": "",
+    "is_fallback": false
+  },
+  "image": {
+    "credit": "Generated liturgical colour plate",
+    "license": "CC0-1.0",
+    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
+    "is_placeholder": true,
+    "variants": [
+      {
+        "w": 1290,
+        "h": 2796,
+        "url": "img/fallback-red-1290x2796.jpg"
+      },
+      {
+        "w": 1179,
+        "h": 2556,
+        "url": "img/fallback-red-1179x2556.jpg"
+      },
+      {
+        "w": 1080,
+        "h": 2400,
+        "url": "img/fallback-red-1080x2400.jpg"
+      }
+    ]
+  }
+}
