@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-01 | day | `ordinary-time-22-tuesday` | Tuesday of the twenty-second week of Ordinary Time | weekday | green |
 | 2026-09-02 | day | `ordinary-time-22-wednesday` | Wednesday of the twenty-second week of Ordinary Time | weekday | green |
 | 2026-09-03 | saint | `gregory-i-the-great-pope` | Saint Gregory the Great, Pope and Doctor of the Church | memorial | white |
 | 2026-09-04 | day | `ordinary-time-22-friday` | Friday of the twenty-second week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-10-28 | saint | `simon-and-jude-apostles` | Saints Simon and Jude, Apostles | feast | red |
 | 2026-10-29 | day | `ordinary-time-30-thursday` | Thursday of the thirtieth week of Ordinary Time | weekday | green |
 | 2026-10-30 | day | `ordinary-time-30-friday` | Friday of the thirtieth week of Ordinary Time | weekday | green |
+| 2026-10-31 | day | `ordinary-time-30-saturday` | Saturday of the thirtieth week of Ordinary Time | weekday | green |

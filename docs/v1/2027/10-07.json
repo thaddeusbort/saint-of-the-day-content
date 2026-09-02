@@ -1,21 +1,19 @@
 {
   "schema": 1,
-  "date": "2026-08-25",
+  "date": "2027-10-07",
   "season": "ordinary",
-  "color": "green",
-  "rank": "weekday",
-  "celebration": "Tuesday of the twenty-first week of Ordinary Time",
+  "color": "white",
+  "rank": "memorial",
+  "celebration": "Our Lady of the Rosary",
   "all_celebrations": [
-    "Tuesday of the twenty-first week of Ordinary Time",
-    "Saint Louis",
-    "Saint Joseph of Calasanz, Priest"
+    "Our Lady of the Rosary"
   ],
   "saint": {
-    "id": "louis-ix-of-france",
-    "name": "Saint Louis",
+    "id": "our-lady-of-the-rosary",
+    "name": "Our Lady of the Rosary",
     "years": "",
     "blurb": "",
-    "is_fallback": true
+    "is_fallback": false
   },
   "image": {
     "credit": "Generated liturgical colour plate",
@@ -26,17 +24,17 @@
       {
         "w": 1290,
         "h": 2796,
-        "url": "img/fallback-green-1290x2796.jpg"
+        "url": "img/fallback-white-1290x2796.jpg"
       },
       {
         "w": 1179,
         "h": 2556,
-        "url": "img/fallback-green-1179x2556.jpg"
+        "url": "img/fallback-white-1179x2556.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-green-1080x2400.jpg"
+        "url": "img/fallback-white-1080x2400.jpg"
       }
     ]
   }
