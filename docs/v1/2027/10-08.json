@@ -1,16 +1,16 @@
 {
   "schema": 1,
-  "date": "2026-08-26",
+  "date": "2027-10-08",
   "season": "ordinary",
   "color": "green",
   "rank": "weekday",
-  "celebration": "Wednesday of the twenty-first week of Ordinary Time",
+  "celebration": "Friday of the twenty-seventh week of Ordinary Time",
   "all_celebrations": [
-    "Wednesday of the twenty-first week of Ordinary Time"
+    "Friday of the twenty-seventh week of Ordinary Time"
   ],
   "saint": {
-    "id": "ordinary-time-21-wednesday",
-    "name": "Wednesday of the twenty-first week of Ordinary Time",
+    "id": "ordinary-time-27-friday",
+    "name": "Friday of the twenty-seventh week of Ordinary Time",
     "years": "",
     "blurb": "",
     "is_fallback": true
