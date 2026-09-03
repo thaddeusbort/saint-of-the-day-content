@@ -179,6 +179,8 @@ export interface SearchResult {
   readonly files: readonly CommonsFile[];
   /** Results dropped because their licence could not be read or is not free. */
   readonly rejectedForLicense: number;
+  /** Offset to pass back for the next page, or null when the results ran out. */
+  readonly nextOffset: number | null;
 }
 
 /**
@@ -188,12 +190,18 @@ export interface SearchResult {
  * are too small are kept but flagged, so the constraint is visible rather than
  * mysterious.
  */
-export async function search(fetcher: Fetcher, term: string, limit = 24): Promise<SearchResult> {
+export async function search(
+  fetcher: Fetcher,
+  term: string,
+  limit = 24,
+  offset = 0,
+): Promise<SearchResult> {
   const payload = await query(fetcher, {
     generator: 'search',
     gsrsearch: `filetype:bitmap ${term}`,
     gsrnamespace: '6',
     gsrlimit: String(limit),
+    ...(offset > 0 ? { gsroffset: String(offset) } : {}),
     prop: 'imageinfo',
     iiprop: 'url|size|mime|extmetadata',
     iiurlwidth: '320',
@@ -210,7 +218,22 @@ export async function search(fetcher: Fetcher, term: string, limit = 24): Promis
     return b.width * b.height - a.width * a.height;
   });
 
-  return { files: sorted, rejectedForLicense: all.length - files.length };
+  return {
+    files: sorted,
+    rejectedForLicense: all.length - files.length,
+    // Commons signals more results with a continuation offset. Fall back to
+    // counting a full page, so paging still works if it is absent.
+    nextOffset: continueOffset(payload) ?? (all.length >= limit ? offset + limit : null),
+  };
+}
+
+/** Reads `continue.gsroffset` from a search response, when present. */
+function continueOffset(payload: unknown): number | null {
+  if (typeof payload !== 'object' || payload === null) return null;
+  const cont = (payload as Record<string, unknown>)['continue'];
+  if (typeof cont !== 'object' || cont === null) return null;
+  const value = (cont as Record<string, unknown>)['gsroffset'];
+  return typeof value === 'number' ? value : null;
 }
 
 /**

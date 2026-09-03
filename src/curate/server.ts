@@ -143,7 +143,8 @@ export function createCurationServer(options: ServerOptions = {}) {
         sendJson(response, 400, { error: 'q is required' });
         return;
       }
-      const result = await search(fetcher, term);
+      const offset = Number(url.searchParams.get('offset') ?? '0');
+      const result = await search(fetcher, term, 24, Number.isFinite(offset) ? offset : 0);
       sendJson(response, 200, result);
       return;
     }
@@ -194,6 +195,7 @@ export function createCurationServer(options: ServerOptions = {}) {
         id: result.id,
         yamlPath: path.basename(result.yamlPath),
         originalPath: path.basename(result.originalPath),
+        staleRenders: result.staleRenders,
       });
       return;
     }

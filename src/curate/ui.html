@@ -145,6 +145,10 @@
         border: 1px solid var(--line);
         color: var(--muted);
       }
+      .tag.done {
+        color: var(--ok);
+        border-color: var(--ok);
+      }
       .tag.saint {
         color: var(--accent);
         border-color: var(--accent);
@@ -308,6 +312,7 @@
           <button data-kind="saint" aria-pressed="true">Saints</button>
           <button data-kind="day" aria-pressed="false">Days</button>
           <button data-kind="all" aria-pressed="false">All</button>
+          <button data-kind="curated" aria-pressed="false">Curated</button>
         </div>
       </header>
       <div id="list"></div>
@@ -324,6 +329,14 @@
         crop: null,
         scale: 1,
         results: [],
+        // 'search' while choosing an image, 'crop' once one is chosen. The
+        // search card is hidden in 'crop' so the picture being framed is not
+        // competing with a grid of alternatives.
+        step: 'search',
+        hideSmall: true,
+        nextOffset: null,
+        lastQuery: '',
+        rejectedForLicense: 0,
         // Replaced by the server's frozen largest variant on boot; never
         // restated here, so changing VARIANTS changes this page too.
         render: { width: 0, height: 0 },
@@ -344,9 +357,13 @@
       };
 
       const visible = () =>
-        state.items.filter(
-          (i) => state.kind === 'all' || (state.kind === 'saint' ? i.isSanctoral : !i.isSanctoral),
-        );
+        state.items.filter((i) => {
+          if (state.kind === 'curated') return i.curated;
+          // Every other view is the outstanding queue: done work drops out.
+          if (i.curated) return false;
+          if (state.kind === 'all') return true;
+          return state.kind === 'saint' ? i.isSanctoral : !i.isSanctoral;
+        });
 
       function renderQueue() {
         const items = visible();
@@ -364,6 +381,8 @@
                 className: `tag ${item.isSanctoral ? 'saint' : ''}`,
                 textContent: item.isSanctoral ? 'saint' : 'day',
               }),
+              item.curated ? ' ' : '',
+              item.curated ? el('span', { className: 'tag done', textContent: 'curated' }) : '',
               el('span', { className: 'n', textContent: item.name }),
             );
             row.onclick = () => select(item);
@@ -378,9 +397,22 @@
         state.file = null;
         state.crop = null;
         state.results = [];
+        state.nextOffset = null;
+        state.step = 'search';
+        // The remembered query belongs to the subject being looked at, not to
+        // the previous one; renderMain draws the input before runSearch runs.
+        state.lastQuery = item.query;
         renderQueue();
         renderMain();
         runSearch(item.query);
+      }
+
+      /** Return to the grid without losing the results already fetched. */
+      function backToResults() {
+        state.step = 'search';
+        state.file = null;
+        state.crop = null;
+        renderMain();
       }
 
       function renderMain() {
@@ -425,62 +457,119 @@
           ),
         );
 
-        const searchCard = el('div', { className: 'card' });
-        const input = el('input', { id: 'q', value: item.query });
-        const go = el('button', { textContent: 'Search Commons' });
-        go.onclick = () => runSearch(input.value);
-        input.onkeydown = (e) => {
-          if (e.key === 'Enter') go.click();
-        };
-        searchCard.append(
-          el('h3', { textContent: 'Wikimedia Commons', style: 'font-size:14px' }),
-          el('div', {
-            className: 'sub',
-            style: 'font-size:12px;margin-top:3px',
-            textContent:
-              'Only Commons is searched, and only files whose licence reads as free. Attribution is taken from the file, not typed.',
-          }),
-          el('div', { className: 'searchbar' }, input, go),
-          el('div', { id: 'results' }),
-          el('div', { id: 'searchMsg' }),
-        );
-        main.append(searchCard, el('div', { id: 'editor', style: 'margin-top:14px' }));
-        if (state.results.length) renderResults();
+        if (item.curated && item.entry) main.append(curatedCard(item.entry));
+
+        if (state.step === 'search') {
+          const input = el('input', { id: 'q', value: state.lastQuery || item.query });
+          const go = el('button', { textContent: 'Search Commons' });
+          go.onclick = () => runSearch(input.value);
+          input.onkeydown = (e) => {
+            if (e.key === 'Enter') go.click();
+          };
+
+          const hide = el('input', { type: 'checkbox', checked: state.hideSmall, id: 'hideSmall' });
+          hide.onchange = () => {
+            state.hideSmall = hide.checked;
+            renderResults();
+          };
+
+          main.append(
+            el(
+              'div',
+              { className: 'card' },
+              el('h3', { textContent: 'Wikimedia Commons', style: 'font-size:14px' }),
+              el('div', {
+                className: 'sub',
+                style: 'font-size:12px;margin-top:3px',
+                textContent:
+                  'Only Commons is searched, and only files whose licence reads as free. Attribution is taken from the file, not typed.',
+              }),
+              el('div', { className: 'searchbar' }, input, go),
+              el(
+                'label',
+                { className: 'rowline', style: 'margin:10px 0 0;font-size:12px' },
+                hide,
+                `Hide images too small for a ${state.render.width}x${state.render.height} crop`,
+              ),
+              el('div', { id: 'results' }),
+              el('div', { id: 'searchMsg' }),
+              el('div', { id: 'more', style: 'margin-top:10px' }),
+            ),
+          );
+          if (state.results.length) renderResults();
+        }
+
+        main.append(el('div', { id: 'editor', style: 'margin-top:14px' }));
+        if (state.step === 'crop' && state.file) renderEditor();
       }
 
-      async function runSearch(term) {
+      /** `append` continues the current search rather than starting a new one. */
+      async function runSearch(term, append = false) {
         const box = $('#searchMsg');
         if (!box) return;
         box.className = 'msg';
-        box.textContent = 'Searching…';
-        $('#results').replaceChildren();
+        box.textContent = append ? 'Fetching more…' : 'Searching…';
+        if (!append) {
+          state.results = [];
+          state.rejectedForLicense = 0;
+          state.nextOffset = null;
+          $('#results').replaceChildren();
+        }
+        state.lastQuery = term;
         try {
-          const res = await api('/api/search?q=' + encodeURIComponent(term));
-          state.results = res.files;
+          const offset = append && state.nextOffset != null ? state.nextOffset : 0;
+          const res = await api(`/api/search?q=${encodeURIComponent(term)}&offset=${offset}`);
+          // Commons can return the same file on two pages; keep the first.
+          const seen = new Set(state.results.map((f) => f.title));
+          state.results = state.results.concat(res.files.filter((f) => !seen.has(f.title)));
+          state.rejectedForLicense += res.rejectedForLicense;
+          state.nextOffset = res.nextOffset;
           renderResults();
-          const notes = [];
-          if (!res.files.length) notes.push('No usable results.');
-          if (res.rejectedForLicense)
-            notes.push(
-              `${res.rejectedForLicense} result(s) hidden: licence not free or unreadable.`,
-            );
-          const tooSmall = res.files.filter((f) => !f.largeEnough).length;
-          if (tooSmall)
-            notes.push(
-              `${tooSmall} shown but unusable: smaller than ${state.render.width}x${state.render.height}, ` +
-                'which would need upscaling.',
-            );
           box.className = 'msg';
-          box.textContent = notes.join(' ');
+          box.textContent = searchNotes();
         } catch (e) {
           box.className = 'msg err';
           box.textContent = String(e.message ?? e);
         }
       }
 
+      function searchNotes() {
+        const notes = [];
+        const tooSmall = state.results.filter((f) => !f.largeEnough).length;
+        const usable = state.results.length - tooSmall;
+        if (!state.results.length) notes.push('No usable results.');
+        else notes.push(`${usable} usable result(s).`);
+        if (state.rejectedForLicense)
+          notes.push(`${state.rejectedForLicense} hidden: licence not free or unreadable.`);
+        if (tooSmall)
+          notes.push(
+            state.hideSmall
+              ? `${tooSmall} hidden: smaller than ${state.render.width}x${state.render.height}.`
+              : `${tooSmall} shown but unusable: smaller than ${state.render.width}x${state.render.height}, ` +
+                  'which would need upscaling.',
+          );
+        return notes.join(' ');
+      }
+
       function renderResults() {
+        const shown = state.hideSmall ? state.results.filter((f) => f.largeEnough) : state.results;
+        const more = $('#more');
+        if (more) {
+          more.replaceChildren();
+          if (state.nextOffset != null) {
+            const btn = el('button', { textContent: 'Load more results' });
+            btn.onclick = async () => {
+              btn.disabled = true;
+              btn.textContent = 'Loading…';
+              await runSearch(state.lastQuery, true);
+            };
+            more.append(btn);
+          }
+        }
+        const msg = $('#searchMsg');
+        if (msg && msg.className === 'msg') msg.textContent = searchNotes();
         $('#results').replaceChildren(
-          ...state.results.map((f) => {
+          ...shown.map((f) => {
             const card = el('div', { className: 'hit' + (f.largeEnough ? '' : ' small') });
             card.setAttribute('aria-selected', String(state.file?.title === f.title));
             card.append(
@@ -509,8 +598,42 @@
       async function chooseFile(file) {
         // Re-read at a larger thumbnail so the crop is chosen on something legible.
         state.file = await api('/api/file?width=1200&title=' + encodeURIComponent(file.title));
-        renderResults();
-        renderEditor();
+        state.step = 'crop';
+        renderMain();
+      }
+
+      /** What is already on disk for a curated subject. */
+      function curatedCard(entry) {
+        return el(
+          'div',
+          { className: 'card' },
+          el('h3', { textContent: 'Already curated', style: 'font-size:14px' }),
+          el('div', {
+            className: 'sub',
+            style: 'font-size:12px;margin-top:3px',
+            textContent:
+              'Saving again overwrites this entry and drops its rendered images, so a new crop takes effect on the next run of the generator.',
+          }),
+          el('div', { style: 'margin-top:8px' }, el('strong', { textContent: entry.name })),
+          entry.years ? el('div', { className: 'sub', textContent: entry.years }) : '',
+          el('div', { style: 'margin-top:6px', textContent: entry.blurb }),
+          el(
+            'div',
+            { className: 'sub', style: 'font-size:12px;margin-top:8px' },
+            el('div', {}, 'credit: ', el('code', { textContent: entry.credit })),
+            el('div', {}, 'license: ', el('code', { textContent: entry.license })),
+            el('div', {}, 'source: ', el('code', { textContent: entry.source })),
+            el('div', {}, 'original: ', el('code', { textContent: entry.original })),
+            el(
+              'div',
+              {},
+              'crop: ',
+              el('code', {
+                textContent: `${entry.crop.width}x${entry.crop.height} at (${entry.crop.x}, ${entry.crop.y})`,
+              }),
+            ),
+          ),
+        );
       }
 
       function renderEditor() {
@@ -543,9 +666,13 @@
 
         const size = el('input', { type: 'range', min: '30', max: '100', value: '100' });
         const readout = el('span', { className: 'sub' });
-        const nameI = el('input', { value: item.name });
-        const yearsI = el('input', { value: '', placeholder: '1815–1888 (optional)' });
+        const nameI = el('input', { value: item.entry?.name ?? item.name });
+        const yearsI = el('input', {
+          value: item.entry?.years ?? '',
+          placeholder: '1815–1888 (optional)',
+        });
         const blurbI = el('textarea', {
+          value: item.entry?.blurb ?? '',
           placeholder:
             'One or two sentences. What they actually did — a place, a period, the thing they are remembered for.',
         });
@@ -650,7 +777,11 @@
             });
             msg.style.display = 'block';
             msg.className = 'msg ok';
-            msg.textContent = `Wrote saints/${res.yamlPath} and originals/${res.originalPath}. Commit and open a pull request when you are ready.`;
+            msg.textContent =
+              `Wrote saints/${res.yamlPath} and originals/${res.originalPath}.` +
+              (res.staleRenders
+                ? ` Dropped ${res.staleRenders} stale render(s) — run \`npm run generate\` before committing.`
+                : ' Commit and open a pull request when you are ready.');
             state.items = state.items.filter((i) => i.id !== item.id);
             state.current = null;
             renderQueue();
@@ -672,7 +803,16 @@
           el(
             'div',
             { className: 'card' },
-            el('h3', { textContent: 'Crop', style: 'font-size:14px' }),
+            el(
+              'div',
+              { className: 'rowline', style: 'justify-content:space-between' },
+              el('h3', { textContent: 'Crop', style: 'font-size:14px' }),
+              (() => {
+                const back = el('button', { textContent: '← Back to results' });
+                back.onclick = backToResults;
+                return back;
+              })(),
+            ),
             el('div', {
               className: 'sub',
               style: 'font-size:12px;margin-top:3px',

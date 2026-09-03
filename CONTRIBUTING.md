@@ -27,6 +27,21 @@ Two things it will not do for you, by design:
 - **It will not write the blurb.** Commons' description is shown for reference
   and is never copied. An empty blurb is rejected.
 
+The queue has four views. **Saints** and **Days** are the outstanding work,
+**All** is both, and **Curated** shows what has already been done — useful for
+checking an entry or re-framing a crop you are no longer happy with.
+
+Search results are filtered to images large enough to use; untick the box to see
+the rest, and **Load more results** fetches another page from Commons. Choosing
+an image hides the search and moves you to the crop; **← Back to results**
+returns without re-running the search.
+
+Re-saving an existing saint overwrites the entry **and deletes its rendered
+images**, because renders are keyed by id and size and are otherwise never
+rewritten — without that, a new crop would change the YAML and nothing a device
+ever sees. Run `npm run generate` before committing so the tree carries the new
+renders.
+
 The rest of this document describes the files themselves, which is what you need
 if you are adding one by hand or reviewing somebody else's pull request.
 

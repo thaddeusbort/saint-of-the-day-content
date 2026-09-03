@@ -14,7 +14,21 @@ import { WINDOW_DAYS_AHEAD } from '../config.js';
 import { loadCuration } from '../curation/loader.js';
 import { addDays, dateRange, todayUtc } from '../dates.js';
 import { resolveSubject } from '../emit/subject.js';
+import path from 'node:path';
 import { pathsFor } from '../paths.js';
+
+/** The entry already on disk for a curated subject. */
+export interface CuratedEntry {
+  readonly name: string;
+  readonly years: string;
+  readonly blurb: string;
+  readonly credit: string;
+  readonly license: string;
+  readonly source: string;
+  readonly crop: { x: number; y: number; width: number; height: number };
+  /** Basename of the committed original, for display. */
+  readonly original: string;
+}
 
 export interface QueueItem {
   /** Content id: the name of the YAML and original to create. */
@@ -33,6 +47,10 @@ export interface QueueItem {
   readonly allCelebrations: readonly string[];
   readonly rank: string;
   readonly color: string;
+  /** True when `saints/{id}.yaml` already exists. */
+  readonly curated: boolean;
+  /** The entry on disk, present only when `curated`. */
+  readonly entry?: CuratedEntry;
 }
 
 export interface QueueOptions {
@@ -50,10 +68,13 @@ export interface Queue {
 }
 
 /**
- * Every uncurated subject in the window, soonest first.
+ * Every subject in the window, soonest first.
  *
  * Grouped by subject id: a saint appearing in more than one year in the window
  * is one job for the curator, not several.
+ *
+ * Curated subjects are marked rather than dropped, so the tool can show what
+ * has already been done and re-curate it. The caller decides what to display.
  */
 export async function buildQueue(options: QueueOptions = {}): Promise<Queue> {
   const paths = pathsFor(options.root);
@@ -68,8 +89,6 @@ export async function buildQueue(options: QueueOptions = {}): Promise<Queue> {
   for (const date of dateRange(today, addDays(today, horizon))) {
     const day = await calendar.day(date);
     const subject = resolveSubject(day);
-    if (curation.saints.has(subject.id)) continue;
-
     const existing = grouped.get(subject.id);
     if (existing) {
       existing.dates.push(date);
@@ -77,6 +96,7 @@ export async function buildQueue(options: QueueOptions = {}): Promise<Queue> {
     }
 
     const dates: string[] = [date];
+    const curated = curation.saints.get(subject.id);
     grouped.set(subject.id, {
       dates,
       item: {
@@ -90,6 +110,21 @@ export async function buildQueue(options: QueueOptions = {}): Promise<Queue> {
         allCelebrations: day.celebrations.map((celebration) => celebration.name),
         rank: day.rank,
         color: day.color,
+        curated: curated !== undefined,
+        ...(curated === undefined
+          ? {}
+          : {
+              entry: {
+                name: curated.entry.name,
+                years: curated.entry.years,
+                blurb: curated.entry.blurb,
+                credit: curated.entry.credit,
+                license: curated.entry.license,
+                source: curated.entry.source,
+                crop: curated.entry.crop,
+                original: path.basename(curated.originalPath),
+              },
+            }),
       },
     });
   }

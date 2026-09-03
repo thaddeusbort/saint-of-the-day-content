@@ -7,7 +7,7 @@
  * restates a rule that already exists in `src/curation/` or `src/config.ts`.
  */
 
-import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { stringify as stringifyYaml } from 'yaml';
 import { VARIANTS } from '../config.js';
@@ -41,6 +41,8 @@ export interface SaveResult {
   readonly yamlPath: string;
   readonly originalPath: string;
   readonly entry: SaintEntry;
+  /** Renders dropped so the next run redraws them from the new crop. */
+  readonly staleRenders: number;
 }
 
 export class SaveError extends Error {
@@ -143,7 +145,30 @@ export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Pr
     throw error;
   }
 
-  return { id: request.id, yamlPath: yamlFile, originalPath, entry };
+  // Renders are keyed by id and size and are never rewritten, so a re-crop of
+  // an existing saint would change the entry and nothing else. Dropping this
+  // id's renders lets the next run redraw them from the new crop. It is the
+  // one place this tool touches docs/, and it is scoped to a single subject
+  // the curator deliberately re-framed — deterministic rendering means an
+  // unchanged crop reproduces byte-identical files and costs no history.
+  const staleRenders = await removeRenders(paths.img, request.id);
+
+  return { id: request.id, yamlPath: yamlFile, originalPath, entry, staleRenders };
+}
+
+/** Deletes every rendered variant of `id`. Returns how many were removed. */
+async function removeRenders(imgDir: string, id: string): Promise<number> {
+  let names: string[];
+  try {
+    names = await readdir(imgDir);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return 0;
+    throw error;
+  }
+  const prefix = `${id}-`;
+  const mine = names.filter((name) => name.startsWith(prefix) && name.endsWith('.jpg'));
+  for (const name of mine) await rm(path.join(imgDir, name), { force: true });
+  return mine.length;
 }
 
 function assertCropFits(crop: CropBox, image: { width: number; height: number }): void {

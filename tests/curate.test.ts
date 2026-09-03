@@ -6,7 +6,7 @@
  * fixtures rather than against Wikimedia.
  */
 
-import { mkdir, readdir, readFile, rm } from 'node:fs/promises';
+import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
@@ -233,19 +233,70 @@ describe('the queue', () => {
     }
   });
 
-  it('drops a subject once it has been curated', async () => {
+  it('marks a subject curated rather than dropping it, and carries its entry', async () => {
     const root = await makeCheckout();
     try {
       const before = await buildQueue({ root, today: TODAY, horizonDays: 60 });
-      expect(before.items.some((i) => i.id === 'gregory-i-the-great-pope')).toBe(true);
+      const uncurated = before.items.find((i) => i.id === 'gregory-i-the-great-pope');
+      expect(uncurated?.curated).toBe(false);
+      expect(uncurated?.entry).toBeUndefined();
 
       await addCuratedSaint(root, 'gregory-i-the-great-pope');
       const after = await buildQueue({ root, today: TODAY, horizonDays: 60 });
-      expect(after.items.some((i) => i.id === 'gregory-i-the-great-pope')).toBe(false);
+      const curated = after.items.find((i) => i.id === 'gregory-i-the-great-pope');
+
+      // Still present, so the tool can show what has been done — the caller
+      // decides whether to display it.
+      expect(curated?.curated).toBe(true);
+      expect(curated?.entry?.name).toBe('St. Test of Somewhere');
+      expect(curated?.entry?.crop).toEqual({ x: 100, y: 200, width: 1440, height: 3200 });
+      expect(curated?.entry?.original).toBe('gregory-i-the-great-pope.jpg');
+      // Its dates and celebration are still resolved, so it reads like any
+      // other row.
+      expect(curated?.firstDate).toBe('2026-09-03');
       expect(after.curatedCount).toBe(1);
     } finally {
       await rm(root, { recursive: true, force: true });
     }
+  });
+});
+
+describe('search paging', () => {
+  it('passes the offset through and reports where to continue', async () => {
+    let seen = '';
+    const fetcher: Fetcher = async (url) => {
+      seen = url;
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ continue: { gsroffset: 48 }, query: { pages: [page()] } }),
+      };
+    };
+    const res = await search(fetcher, 'John Bosco', 24, 24);
+    expect(new URL(seen).searchParams.get('gsroffset')).toBe('24');
+    expect(res.nextOffset).toBe(48);
+  });
+
+  it('omits the offset on the first page', async () => {
+    let seen = '';
+    const fetcher: Fetcher = async (url) => {
+      seen = url;
+      return { ok: true, status: 200, json: async () => ({ query: { pages: [] } }) };
+    };
+    await search(fetcher, 'x');
+    expect(new URL(seen).searchParams.has('gsroffset')).toBe(false);
+  });
+
+  it('stops paging when the results run out', async () => {
+    // A short page with no continuation means there is nothing more to fetch.
+    const res = await search(fetcherFor([page()]), 'x', 24);
+    expect(res.nextOffset).toBeNull();
+  });
+
+  it('falls back to counting a full page when no continuation is given', async () => {
+    const full = Array.from({ length: 3 }, (_, i) => page({ url: `https://u/${i}.jpg` }));
+    const res = await search(fetcherFor(full), 'x', 3);
+    expect(res.nextOffset).toBe(3);
   });
 });
 
@@ -404,6 +455,63 @@ describe('saving', () => {
           { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(1500, 1600), root },
         ),
       ).rejects.toThrow(/falls outside/);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  it('drops the existing renders so a re-crop actually takes effect', async () => {
+    const root = await makeCheckout();
+    try {
+      const img = path.join(root, 'docs', 'v1', 'img');
+      await mkdir(img, { recursive: true });
+      // Stand in for a previous run's output. Renders are keyed by id and size
+      // and are never rewritten, so leaving these would mean a new crop changed
+      // the entry and nothing a device ever sees.
+      for (const name of [
+        'john-bosco-priest-1440x3200.jpg',
+        'john-bosco-priest-1260x2800.jpg',
+        'john-bosco-priest-1080x2400.jpg',
+        'someone-else-1440x3200.jpg',
+      ]) {
+        await writeFile(path.join(img, name), 'stale');
+      }
+
+      const result = await saveCuratedSaint(
+        {
+          id: 'john-bosco-priest',
+          name: 'St. John Bosco',
+          years: '',
+          blurb: 'A blurb.',
+          fileTitle: 'File:Example.jpg',
+          crop,
+        },
+        { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+      );
+
+      expect(result.staleRenders).toBe(3);
+      // Another subject's renders are untouched.
+      expect((await readdir(img)).sort()).toEqual(['someone-else-1440x3200.jpg']);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  it('reports no stale renders on a first save', async () => {
+    const root = await makeCheckout();
+    try {
+      const result = await saveCuratedSaint(
+        {
+          id: 'fresh',
+          name: 'X',
+          years: '',
+          blurb: 'b',
+          fileTitle: 'File:Example.jpg',
+          crop,
+        },
+        { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+      );
+      expect(result.staleRenders).toBe(0);
     } finally {
       await rm(root, { recursive: true, force: true });
     }
