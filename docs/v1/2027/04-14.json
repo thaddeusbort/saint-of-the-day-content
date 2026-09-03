@@ -13,7 +13,8 @@
     "name": "Wednesday of the third week of Easter",
     "years": "",
     "blurb": "",
-    "is_fallback": true
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

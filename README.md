@@ -148,6 +148,30 @@ celebration of a saint. The pipeline takes, in order:
 3. Otherwise the liturgical day itself: a Sunday, a ferial weekday, or a
    solemnity of the Lord — `is_fallback: true`.
 
+`saint.source` says which of the three it was — `proper`, `optional`, or
+`temporal` — so a reader can tell a memorial the day requires from one the
+pipeline reached for. `is_fallback` stays exactly `source !== "proper"`.
+
+### Days that take no saint but their own
+
+The Triduum, the solemnities, the privileged Sundays of Advent, Lent and
+Easter, Ash Wednesday, Holy Week, the Easter octave and the feasts of the Lord
+admit no other celebration (UNLY nn. 59-61). Christmas Day is the Nativity, not
+an obscure martyr who happens to share the date.
+
+That set is not hand-listed. romcal names each precedence after its place in
+the Table of Liturgical Days — `TRIDUUM_1`, `GENERAL_SOLEMNITY_3`,
+`WEEKDAY_13` — and the adapter reads that rank back out. Ranks 1 to 5 are
+privileged; `LOWEST_PRIVILEGED_TABLE_RANK` in `src/config.ts` is the whole
+policy. In a typical year it closes 37 days, and it stays correct for years
+nobody has computed yet.
+
+Everything from rank 6 down — Sundays in Ordinary Time, feasts, ferial
+weekdays — does admit a saint. Roughly 170 days a year currently fall through
+to `temporal` there: they have no saint in the General Roman Calendar and are
+waiting on a martyrology, which this repository does not yet have. The curation
+tool keeps them in their own queue for that reason.
+
 Subject ids are romcal identifiers with underscores replaced by hyphens
 (`john_bosco_priest` → `john-bosco-priest`), so they are stable from year to
 year. That holds for temporal days too: a curated image for

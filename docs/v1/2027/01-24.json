@@ -13,7 +13,8 @@
     "name": "Third Sunday in Ordinary Time, or Sunday of the Word of God",
     "years": "",
     "blurb": "",
-    "is_fallback": true
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

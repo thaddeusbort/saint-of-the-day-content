@@ -15,7 +15,7 @@
  */
 
 import { describe, expect, it, beforeAll } from 'vitest';
-import { LiturgicalCalendar } from '../src/calendar/adapter.js';
+import { LiturgicalCalendar, __testing } from '../src/calendar/adapter.js';
 import type { LiturgicalDay } from '../src/calendar/types.js';
 
 let calendar: LiturgicalCalendar;
@@ -156,6 +156,40 @@ describe('transferred solemnities', () => {
     const d = await day('2026-03-19');
     expect(d.rank).toBe('solemnity');
     expect(d.celebrations[0]?.name).toContain('Joseph');
+  });
+});
+
+describe('the Table of Liturgical Days', () => {
+  // UNLY nn. 59-61 orders the days 1 to 13. romcal names each precedence after
+  // its place in that table, and the adapter reads the rank back out of the
+  // name — so this checks the parse against the whole vocabulary rather than
+  // against a handful of dates.
+  it('reads a rank in 1..13 out of every precedence romcal defines', async () => {
+    const { Romcal } = await import('romcal');
+    const precedences = Romcal.PRECEDENCES as string[];
+    expect(precedences.length).toBeGreaterThan(20);
+    for (const precedence of precedences) {
+      const rank = __testing.toTableRank(precedence);
+      expect(Number.isInteger(rank)).toBe(true);
+      expect(rank).toBeGreaterThanOrEqual(1);
+      expect(rank).toBeLessThanOrEqual(13);
+    }
+  });
+
+  it('refuses a precedence with no rank in its name', () => {
+    expect(() => __testing.toTableRank('SOMETHING_NEW')).toThrow(/Unmapped romcal precedence/);
+    expect(() => __testing.toTableRank(undefined)).toThrow(/Unmapped romcal precedence/);
+  });
+
+  it('ranks the days the Table ranks', async () => {
+    // Triduum is I.1; solemnities of the Lord in Ordinary Time are I.3;
+    // a Sunday in Ordinary Time is II.6; a ferial weekday is IV.13.
+    expect((await day('2026-04-03')).tableRank).toBe(1); // Good Friday
+    expect((await day('2026-12-25')).tableRank).toBe(2); // Christmas
+    expect((await day('2026-03-15')).tableRank).toBe(2); // a Sunday of Lent
+    expect((await day('2026-01-18')).tableRank).toBe(6); // a Sunday in Ordinary Time
+    expect((await day('2026-01-31')).tableRank).toBe(10); // St John Bosco, a memorial
+    expect((await day('2026-01-12')).tableRank).toBe(13); // a ferial weekday
   });
 });
 

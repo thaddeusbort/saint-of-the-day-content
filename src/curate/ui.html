@@ -98,6 +98,7 @@
       }
       #filters {
         display: flex;
+        flex-wrap: wrap;
         gap: 6px;
         margin-top: 10px;
       }
@@ -144,6 +145,10 @@
         border-radius: 3px;
         border: 1px solid var(--line);
         color: var(--muted);
+      }
+      .tag.wait {
+        color: #8a93a3;
+        border-style: dashed;
       }
       .tag.done {
         color: var(--ok);
@@ -309,10 +314,29 @@
         <h1 style="font-size: 15px">Curation queue</h1>
         <div class="sub" id="counts" style="font-size: 12px; margin-top: 3px">loading…</div>
         <div id="filters">
-          <button data-kind="saint" aria-pressed="true">Saints</button>
-          <button data-kind="day" aria-pressed="false">Days</button>
+          <button
+            data-kind="saint"
+            aria-pressed="true"
+            title="Saints the calendar gives, proper or optional"
+          >
+            Saints
+          </button>
+          <button
+            data-kind="major"
+            aria-pressed="false"
+            title="Privileged days, which take no saint but their own — worth an image of their own"
+          >
+            Major
+          </button>
+          <button
+            data-kind="awaiting"
+            aria-pressed="false"
+            title="Ordinary days with no saint yet; waiting on a martyrology, not on you"
+          >
+            Awaiting
+          </button>
+          <button data-kind="curated" aria-pressed="false" title="Already done">Curated</button>
           <button data-kind="all" aria-pressed="false">All</button>
-          <button data-kind="curated" aria-pressed="false">Curated</button>
         </div>
       </header>
       <div id="list"></div>
@@ -362,7 +386,13 @@
           // Every other view is the outstanding queue: done work drops out.
           if (i.curated) return false;
           if (state.kind === 'all') return true;
-          return state.kind === 'saint' ? i.isSanctoral : !i.isSanctoral;
+          if (state.kind === 'saint') return i.isSanctoral;
+          // A temporal subject on a day that admits no other saint is the
+          // final answer for that day — Christmas is the Nativity — so it is
+          // worth an image. One on a day that does admit a saint is only
+          // standing in until a martyrology can fill it.
+          if (state.kind === 'major') return !i.isSanctoral && !i.admitsSaint;
+          return !i.isSanctoral && i.admitsSaint;
         });
 
       function renderQueue() {
@@ -378,8 +408,8 @@
               el('span', { className: 'd', textContent: item.firstDate + extra }),
               ' ',
               el('span', {
-                className: `tag ${item.isSanctoral ? 'saint' : ''}`,
-                textContent: item.isSanctoral ? 'saint' : 'day',
+                className: `tag ${item.isSanctoral ? 'saint' : item.admitsSaint ? 'wait' : ''}`,
+                textContent: item.isSanctoral ? 'saint' : item.admitsSaint ? 'awaiting' : 'major',
               }),
               item.curated ? ' ' : '',
               item.curated ? el('span', { className: 'tag done', textContent: 'curated' }) : '',
@@ -442,6 +472,22 @@
             { className: 'sub', style: 'margin-top:6px' },
             'Celebration: ' + item.celebration,
           ),
+          !item.isSanctoral && item.admitsSaint
+            ? el('div', {
+                className: 'sub',
+                style: 'margin-top:6px;color:#8a93a3',
+                textContent:
+                  'This day admits a saint but the calendar gives none, so the liturgical day is standing in. It is waiting on a martyrology rather than on a picture — curating it here is optional.',
+              })
+            : '',
+          !item.isSanctoral && !item.admitsSaint
+            ? el('div', {
+                className: 'sub',
+                style: 'margin-top:6px',
+                textContent:
+                  'A privileged day: it takes no saint but its own, so this subject is final and an image of it is worth having.',
+              })
+            : '',
           item.allCelebrations.length > 1
             ? el('div', {
                 className: 'sub',

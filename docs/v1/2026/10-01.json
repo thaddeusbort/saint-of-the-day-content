@@ -13,7 +13,8 @@
     "name": "Saint Thérèse of the Child Jesus, Virgin and Doctor of the Church",
     "years": "",
     "blurb": "",
-    "is_fallback": false
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

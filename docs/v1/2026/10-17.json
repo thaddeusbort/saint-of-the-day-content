@@ -13,7 +13,8 @@
     "name": "Saint Ignatius of Antioch, Bishop and Martyr",
     "years": "",
     "blurb": "",
-    "is_fallback": false
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -27,9 +27,15 @@ Two things it will not do for you, by design:
 - **It will not write the blurb.** Commons' description is shown for reference
   and is never copied. An empty blurb is rejected.
 
-The queue has four views. **Saints** and **Days** are the outstanding work,
-**All** is both, and **Curated** shows what has already been done — useful for
-checking an entry or re-framing a crop you are no longer happy with.
+The queue has five views. **Saints** is the work that matters: days
+the calendar gives a saint for. **Major** is the privileged days — Christmas,
+Easter, the Sundays of Advent and Lent — which take no saint but their own, so
+the subject is final and an image of it is worth having. **Awaiting** is the
+rest: ordinary days with no saint in the calendar, standing in with the
+liturgical day until there is a martyrology to draw from. Those are waiting on
+data rather than on you, and curating "Tuesday of the twenty-second week of
+Ordinary Time" is rarely worth the effort. **Curated** shows what has already
+been done, and **All** is everything.
 
 Search results are filtered to images large enough to use; untick the box to see
 the rest, and **Load more results** fetches another page from Commons. Choosing

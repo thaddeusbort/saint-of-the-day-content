@@ -29,6 +29,16 @@ export interface Celebration {
 
 /** Everything the pipeline needs to know about one calendar date. */
 export interface LiturgicalDay {
+  /**
+   * Position in the Table of Liturgical Days (UNLY nn. 59-61), 1 for the
+   * Paschal Triduum down to 13 for a ferial weekday.
+   *
+   * Rank distinguishes a solemnity from a memorial; this distinguishes a
+   * Sunday of Lent from a Sunday in Ordinary Time, and Holy Week from an
+   * ordinary weekday — the axis that decides whether a day will admit any
+   * celebration but its own.
+   */
+  readonly tableRank: number;
   /** ISO date, `yyyy-MM-dd`. */
   readonly date: string;
   readonly season: Season;

@@ -38,6 +38,15 @@ export interface QueueItem {
   readonly isSanctoral: boolean;
   /** False when the day's own celebration is this saint. */
   readonly isFallback: boolean;
+  /** `proper`, `optional`, or `temporal` when no saint was available. */
+  readonly source: string;
+  /**
+   * False for the Triduum, solemnities, privileged Sundays and feasts of the
+   * Lord. Those days will never take a martyrology saint, so a `temporal`
+   * subject on one is the final answer and worth an image of its own; a
+   * `temporal` subject on a day that admits a saint is only waiting for one.
+   */
+  readonly admitsSaint: boolean;
   /** The soonest upcoming date this subject appears on. */
   readonly firstDate: string;
   /** Every date in the window this subject appears on. */
@@ -104,6 +113,8 @@ export async function buildQueue(options: QueueOptions = {}): Promise<Queue> {
         name: subject.name,
         isSanctoral: subject.isSanctoral,
         isFallback: subject.isFallback,
+        source: subject.source,
+        admitsSaint: subject.admitsSaint,
         firstDate: date,
         dates,
         celebration: day.celebrations[0]?.name ?? '',

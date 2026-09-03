@@ -13,7 +13,8 @@
     "name": "Thursday of the fourth week of Ordinary Time",
     "years": "",
     "blurb": "",
-    "is_fallback": true
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -13,7 +13,8 @@
     "name": "The Holy Innocents, Martyrs",
     "years": "",
     "blurb": "",
-    "is_fallback": false
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

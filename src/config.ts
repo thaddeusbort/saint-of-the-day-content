@@ -57,6 +57,21 @@ export const JPEG_OPTIONS = {
   mozjpeg: false,
 } as const;
 
+/**
+ * The lowest Table of Liturgical Days rank that still admits a saint the day
+ * does not itself celebrate.
+ *
+ * Ranks 1 to 5 are the Triduum, the solemnities, the privileged Sundays of
+ * Advent, Lent and Easter, Ash Wednesday, Holy Week, the Easter octave and the
+ * feasts of the Lord. Those days admit no other celebration (UNLY nn. 59-61),
+ * so the pipeline must not put another saint on them: Christmas Day is the
+ * Nativity, not an obscure martyr who shares the date.
+ *
+ * Rank 6 and below — Sundays in Ordinary Time, feasts, ferial weekdays — do
+ * admit one, which is where a martyrology saint would go.
+ */
+export const LOWEST_PRIVILEGED_TABLE_RANK = 5;
+
 /** Liturgical colours that have a fallback plate. */
 export const FALLBACK_COLORS = ['white', 'red', 'green', 'violet', 'rose'] as const;
 

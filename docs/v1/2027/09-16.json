@@ -13,7 +13,8 @@
     "name": "Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs",
     "years": "",
     "blurb": "",
-    "is_fallback": false
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -14,7 +14,8 @@
     "name": "Saint Gregory of Narek, Abbot and Doctor of the Church",
     "years": "",
     "blurb": "",
-    "is_fallback": true
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

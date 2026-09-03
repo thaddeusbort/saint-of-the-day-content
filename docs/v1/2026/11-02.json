@@ -13,7 +13,8 @@
     "name": "The Commemoration of All the Faithful Departed (All Soul’s Day)",
     "years": "",
     "blurb": "",
-    "is_fallback": false
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

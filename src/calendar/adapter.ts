@@ -58,6 +58,24 @@ const RANKS: Readonly<Record<string, Rank>> = {
   WEEKDAY: 'weekday',
 };
 
+/**
+ * romcal names each precedence after its place in the Table of Liturgical
+ * Days: `TRIDUUM_1`, `GENERAL_SOLEMNITY_3`, `PROPER_FEAST_8F`, `WEEKDAY_13`.
+ * The trailing number is that rank, and the optional letter distinguishes
+ * entries sharing one. A precedence that does not carry one is a romcal change
+ * this adapter has not seen, and fails loudly rather than scoring 0.
+ */
+const TABLE_RANK = /_(\d{1,2})[A-Z]?$/;
+
+function toTableRank(precedence: string | undefined): number {
+  const match = precedence === undefined ? null : TABLE_RANK.exec(precedence);
+  const rank = match?.[1] === undefined ? Number.NaN : Number(match[1]);
+  if (!Number.isInteger(rank) || rank < 1 || rank > 13) {
+    throw new Error(`Unmapped romcal precedence: ${String(precedence)}`);
+  }
+  return rank;
+}
+
 function mapEnum<T>(
   table: Readonly<Record<string, T>>,
   value: string | undefined,
@@ -127,6 +145,7 @@ type RomcalEntry = {
   id: string;
   name: string;
   rank: string;
+  precedence?: string;
   isOptional: boolean;
   seasons: readonly string[];
   colors: readonly string[];
@@ -158,6 +177,7 @@ function toLiturgicalDay(date: string, entries: readonly RomcalEntry[]): Liturgi
 
   return {
     date,
+    tableRank: toTableRank(principal.precedence),
     season,
     color,
     rank: mapEnum(RANKS, principal.rank, 'rank'),
@@ -176,4 +196,4 @@ function toCelebration(entry: RomcalEntry): Celebration {
 }
 
 /** Exposed for unit tests that map fixture entries without running romcal. */
-export const __testing = { toLiturgicalDay, toCelebration };
+export const __testing = { toLiturgicalDay, toCelebration, toTableRank };

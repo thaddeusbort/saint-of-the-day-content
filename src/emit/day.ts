@@ -52,6 +52,7 @@ export function buildDay(day: LiturgicalDay, curated: CuratedSaint | undefined):
       years: curated?.entry.years ?? '',
       blurb: curated?.entry.blurb ?? '',
       is_fallback: subject.isFallback,
+      source: subject.source,
     },
     image: curated
       ? {

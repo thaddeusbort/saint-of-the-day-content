@@ -14,7 +14,8 @@
     "name": "The First Martyrs of the Holy Roman Church",
     "years": "",
     "blurb": "",
-    "is_fallback": true
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

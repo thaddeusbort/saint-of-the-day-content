@@ -14,7 +14,8 @@
     "name": "The Dedication of the Basilica of Saint Mary Major",
     "years": "",
     "blurb": "",
-    "is_fallback": true
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

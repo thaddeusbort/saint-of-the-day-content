@@ -14,7 +14,8 @@
     "name": "Saints Marcellinus and Peter, Martyrs",
     "years": "",
     "blurb": "",
-    "is_fallback": true
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

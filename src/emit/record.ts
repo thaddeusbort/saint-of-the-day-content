@@ -24,6 +24,16 @@ export interface SaintRecord {
    * pipeline chose one. Nothing else.
    */
   readonly is_fallback: boolean;
+  /**
+   * Why this subject was chosen: `proper` for the day's own celebration,
+   * `optional` for a coinciding optional memorial, `temporal` when no saint
+   * was available and the liturgical day stands in.
+   *
+   * The app has no default for unknown keys but ignores them, so this is
+   * additive. It exists so a reader can tell a memorial the day requires from
+   * one the pipeline reached for.
+   */
+  readonly source: string;
 }
 
 export interface ImageRecord {
