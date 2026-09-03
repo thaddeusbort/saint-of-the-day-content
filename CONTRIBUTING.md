@@ -6,6 +6,45 @@ already emits a valid record pointing at a generic liturgical-colour plate, so
 nothing is broken while a day waits its turn — a curated saint is a strict
 improvement that goes live on the next run, with no app release.
 
+## The quick way: `npm run curate`
+
+```bash
+npm ci
+npm run curate      # http://127.0.0.1:4173
+```
+
+This walks the outstanding queue soonest first, searches Wikimedia Commons,
+gives you a crop box fixed at the render's 1440:3200 with guide lines where the
+clock and notifications sit, and writes both files for you. It validates with
+the same schema and geometry checks CI runs, so if it saves, CI will pass.
+
+Two things it will not do for you, by design:
+
+- **It will not clear the licence.** It only searches Commons and only offers
+  files whose licence reads as free, and it copies `credit`, `license` and
+  `source` from the file's own metadata rather than letting you type them. That
+  is a floor, not a guarantee — read the file page it links before you save.
+- **It will not write the blurb.** Commons' description is shown for reference
+  and is never copied. An empty blurb is rejected.
+
+The queue has four views. **Saints** and **Days** are the outstanding work,
+**All** is both, and **Curated** shows what has already been done — useful for
+checking an entry or re-framing a crop you are no longer happy with.
+
+Search results are filtered to images large enough to use; untick the box to see
+the rest, and **Load more results** fetches another page from Commons. Choosing
+an image hides the search and moves you to the crop; **← Back to results**
+returns without re-running the search.
+
+Re-saving an existing saint overwrites the entry **and deletes its rendered
+images**, because renders are keyed by id and size and are otherwise never
+rewritten — without that, a new crop would change the YAML and nothing a device
+ever sees. Run `npm run generate` before committing so the tree carries the new
+renders.
+
+The rest of this document describes the files themselves, which is what you need
+if you are adding one by hand or reviewing somebody else's pull request.
+
 ## Pick something from the worklist
 
 [`WORKLIST.md`](WORKLIST.md) lists upcoming days still showing a plate, soonest
@@ -67,9 +106,10 @@ check instead of silently dropping your text.
 `.jpg`, `.jpeg`, `.png` and `.webp` are accepted. Commit the original once and
 never modify it.
 
-The crop box is rendered at three sizes — 1290×2796, 1179×2556 and 1080×2400 —
-and rendering never upscales, so **the crop box must be at least 1290×2796**.
-Aim for roughly 9:19.5; any residual difference is taken off the centre.
+The crop box is rendered at three sizes — 1440×3200, 1260×2800 and 1080×2400,
+all exactly 20:9 — and rendering never upscales, so **the crop box must be at
+least 1440×3200**. The two smaller sizes are pure downscales of that crop, so
+nothing is trimmed after you have framed it.
 
 Pick the crop with the lock screen in mind: the clock sits over the top third,
 and notifications over the bottom. A face somewhere in the upper-middle reads

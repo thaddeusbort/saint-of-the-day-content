@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Curation — Saint of the Day</title>
+    <style>
+      :root {
+        --bg: #14161a;
+        --panel: #1c1f25;
+        --panel-2: #23272f;
+        --line: #333842;
+        --ink: #e8e6e3;
+        --muted: #9aa3af;
+        --accent: #c9a227;
+        --ok: #4c9f70;
+        --bad: #c9584f;
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          14px/1.5 ui-sans-serif,
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        height: 100vh;
+        overflow: hidden;
+      }
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-weight: 600;
+      }
+      button {
+        font: inherit;
+        color: inherit;
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+      button:hover:not(:disabled) {
+        border-color: var(--accent);
+      }
+      button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      button.primary {
+        background: var(--accent);
+        color: #201a06;
+        border-color: var(--accent);
+        font-weight: 600;
+      }
+      input,
+      textarea {
+        font: inherit;
+        color: inherit;
+        width: 100%;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 6px 8px;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 72px;
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+        margin: 10px 0 4px;
+      }
+
+      /* ---- queue ---- */
+      #queue {
+        border-right: 1px solid var(--line);
+        background: var(--panel);
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+      #queue header {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      #filters {
+        display: flex;
+        gap: 6px;
+        margin-top: 10px;
+      }
+      #filters button {
+        flex: 1;
+        padding: 4px;
+        font-size: 12px;
+      }
+      #filters button[aria-pressed='true'] {
+        background: var(--accent);
+        color: #201a06;
+        border-color: var(--accent);
+      }
+      #list {
+        overflow-y: auto;
+        flex: 1;
+      }
+      .row {
+        padding: 9px 14px;
+        border-bottom: 1px solid var(--line);
+        cursor: pointer;
+      }
+      .row:hover {
+        background: var(--panel-2);
+      }
+      .row[aria-current='true'] {
+        background: var(--panel-2);
+        box-shadow: inset 3px 0 0 var(--accent);
+      }
+      .row .d {
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .row .n {
+        display: block;
+        margin-top: 1px;
+      }
+      .tag {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 1px 5px;
+        border-radius: 3px;
+        border: 1px solid var(--line);
+        color: var(--muted);
+      }
+      .tag.done {
+        color: var(--ok);
+        border-color: var(--ok);
+      }
+      .tag.saint {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
+      /* ---- main ---- */
+      #main {
+        overflow-y: auto;
+        padding: 18px 22px 40px;
+        min-height: 0;
+      }
+      .sub {
+        color: var(--muted);
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 14px 16px;
+        margin-top: 14px;
+      }
+      .searchbar {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      #results {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .hit {
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .hit[aria-selected='true'] {
+        border-color: var(--accent);
+      }
+      .hit.small {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .hit img {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+        display: block;
+        background: #000;
+      }
+      .hit .meta {
+        padding: 6px 8px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .hit .lic {
+        color: var(--ok);
+      }
+      .hit.small .lic {
+        color: var(--bad);
+      }
+
+      /* ---- cropper ---- */
+      #cropWrap {
+        position: relative;
+        display: inline-block;
+        max-width: 100%;
+        margin-top: 10px;
+        line-height: 0;
+      }
+      #cropImg {
+        max-width: 100%;
+        max-height: 62vh;
+        display: block;
+      }
+      #cropBox {
+        position: absolute;
+        border: 2px solid var(--accent);
+        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+        cursor: move;
+      }
+      #cropBox::before,
+      #cropBox::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        border-top: 1px dashed rgba(255, 255, 255, 0.35);
+      }
+      /* Where the clock and the notification shade sit on the lock screen. */
+      #cropBox::before {
+        top: 33%;
+      }
+      #cropBox::after {
+        top: 72%;
+      }
+      .msg {
+        margin-top: 10px;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 13px;
+        white-space: pre-wrap;
+      }
+      .msg.err {
+        background: #3a1f1d;
+        color: #f0b7b1;
+        border: 1px solid var(--bad);
+      }
+      .msg.ok {
+        background: #1d3327;
+        color: #b6e2c8;
+        border: 1px solid var(--ok);
+      }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      /* Crop and entry side by side: the crop is portrait and narrow, so
+         stacking them would leave half the screen empty and force scrolling
+         between the picture and the fields that describe it. */
+      #editor {
+        display: grid;
+        gap: 14px;
+        align-items: start;
+      }
+      @media (min-width: 1100px) {
+        #editor {
+          grid-template-columns: minmax(340px, 460px) 1fr;
+        }
+      }
+      #editor > .card {
+        margin-top: 0;
+      }
+      #main {
+        padding-bottom: 24px;
+      }
+      .rowline {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      code {
+        background: var(--panel-2);
+        padding: 1px 5px;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <aside id="queue">
+      <header>
+        <h1 style="font-size: 15px">Curation queue</h1>
+        <div class="sub" id="counts" style="font-size: 12px; margin-top: 3px">loading…</div>
+        <div id="filters">
+          <button data-kind="saint" aria-pressed="true">Saints</button>
+          <button data-kind="day" aria-pressed="false">Days</button>
+          <button data-kind="all" aria-pressed="false">All</button>
+          <button data-kind="curated" aria-pressed="false">Curated</button>
+        </div>
+      </header>
+      <div id="list"></div>
+    </aside>
+
+    <main id="main"><p class="sub">Loading the queue…</p></main>
+
+    <script type="module">
+      const state = {
+        items: [],
+        kind: 'saint',
+        current: null,
+        file: null,
+        crop: null,
+        scale: 1,
+        results: [],
+        // 'search' while choosing an image, 'crop' once one is chosen. The
+        // search card is hidden in 'crop' so the picture being framed is not
+        // competing with a grid of alternatives.
+        step: 'search',
+        hideSmall: true,
+        nextOffset: null,
+        lastQuery: '',
+        rejectedForLicense: 0,
+        // Replaced by the server's frozen largest variant on boot; never
+        // restated here, so changing VARIANTS changes this page too.
+        render: { width: 0, height: 0 },
+      };
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const el = (tag, props = {}, ...kids) => {
+        const node = document.createElement(tag);
+        Object.assign(node, props);
+        for (const kid of kids.flat()) if (kid !== '' && kid != null) node.append(kid);
+        return node;
+      };
+
+      const api = async (url, opts) => {
+        const r = await fetch(url, opts);
+        const body = r.headers.get('content-type')?.includes('json') ? await r.json() : null;
+        if (!r.ok) throw new Error(body?.error ?? `HTTP ${r.status}`);
+        return body;
+      };
+
+      const visible = () =>
+        state.items.filter((i) => {
+          if (state.kind === 'curated') return i.curated;
+          // Every other view is the outstanding queue: done work drops out.
+          if (i.curated) return false;
+          if (state.kind === 'all') return true;
+          return state.kind === 'saint' ? i.isSanctoral : !i.isSanctoral;
+        });
+
+      function renderQueue() {
+        const items = visible();
+        $('#counts').textContent = `${items.length} outstanding · ${state.curatedCount} curated`;
+        const list = $('#list');
+        list.replaceChildren(
+          ...items.map((item) => {
+            const row = el('div', { className: 'row', tabIndex: 0 });
+            row.setAttribute('aria-current', String(item.id === state.current?.id));
+            const extra = item.dates.length > 1 ? ` (+${item.dates.length - 1})` : '';
+            row.append(
+              el('span', { className: 'd', textContent: item.firstDate + extra }),
+              ' ',
+              el('span', {
+                className: `tag ${item.isSanctoral ? 'saint' : ''}`,
+                textContent: item.isSanctoral ? 'saint' : 'day',
+              }),
+              item.curated ? ' ' : '',
+              item.curated ? el('span', { className: 'tag done', textContent: 'curated' }) : '',
+              el('span', { className: 'n', textContent: item.name }),
+            );
+            row.onclick = () => select(item);
+            list.append(row);
+            return row;
+          }),
+        );
+      }
+
+      function select(item) {
+        state.current = item;
+        state.file = null;
+        state.crop = null;
+        state.results = [];
+        state.nextOffset = null;
+        state.step = 'search';
+        // The remembered query belongs to the subject being looked at, not to
+        // the previous one; renderMain draws the input before runSearch runs.
+        state.lastQuery = item.query;
+        renderQueue();
+        renderMain();
+        runSearch(item.query);
+      }
+
+      /** Return to the grid without losing the results already fetched. */
+      function backToResults() {
+        state.step = 'search';
+        state.file = null;
+        state.crop = null;
+        renderMain();
+      }
+
+      function renderMain() {
+        const item = state.current;
+        const main = $('#main');
+        if (!item) {
+          main.replaceChildren(
+            el('p', { className: 'sub', textContent: 'Pick something from the queue.' }),
+          );
+          return;
+        }
+        main.replaceChildren();
+        const dates =
+          item.dates.length > 1
+            ? `${item.firstDate} and ${item.dates.length - 1} more in the window`
+            : item.firstDate;
+
+        main.append(
+          el('h2', { textContent: item.name, style: 'font-size:19px' }),
+          el(
+            'div',
+            { className: 'sub', style: 'margin-top:4px' },
+            `${dates} · ${item.rank} · ${item.color}`,
+          ),
+          el(
+            'div',
+            { className: 'sub', style: 'margin-top:6px' },
+            'Celebration: ' + item.celebration,
+          ),
+          item.allCelebrations.length > 1
+            ? el('div', {
+                className: 'sub',
+                style: 'margin-top:2px',
+                textContent: 'Also: ' + item.allCelebrations.slice(1).join(' · '),
+              })
+            : '',
+          el(
+            'div',
+            { className: 'sub', style: 'margin-top:6px' },
+            'Will be saved as ',
+            el('code', { textContent: `saints/${item.id}.yaml` }),
+          ),
+        );
+
+        if (item.curated && item.entry) main.append(curatedCard(item.entry));
+
+        if (state.step === 'search') {
+          const input = el('input', { id: 'q', value: state.lastQuery || item.query });
+          const go = el('button', { textContent: 'Search Commons' });
+          go.onclick = () => runSearch(input.value);
+          input.onkeydown = (e) => {
+            if (e.key === 'Enter') go.click();
+          };
+
+          const hide = el('input', { type: 'checkbox', checked: state.hideSmall, id: 'hideSmall' });
+          hide.onchange = () => {
+            state.hideSmall = hide.checked;
+            renderResults();
+          };
+
+          main.append(
+            el(
+              'div',
+              { className: 'card' },
+              el('h3', { textContent: 'Wikimedia Commons', style: 'font-size:14px' }),
+              el('div', {
+                className: 'sub',
+                style: 'font-size:12px;margin-top:3px',
+                textContent:
+                  'Only Commons is searched, and only files whose licence reads as free. Attribution is taken from the file, not typed.',
+              }),
+              el('div', { className: 'searchbar' }, input, go),
+              el(
+                'label',
+                { className: 'rowline', style: 'margin:10px 0 0;font-size:12px' },
+                hide,
+                `Hide images too small for a ${state.render.width}x${state.render.height} crop`,
+              ),
+              el('div', { id: 'results' }),
+              el('div', { id: 'searchMsg' }),
+              el('div', { id: 'more', style: 'margin-top:10px' }),
+            ),
+          );
+          if (state.results.length) renderResults();
+        }
+
+        main.append(el('div', { id: 'editor', style: 'margin-top:14px' }));
+        if (state.step === 'crop' && state.file) renderEditor();
+      }
+
+      /** `append` continues the current search rather than starting a new one. */
+      async function runSearch(term, append = false) {
+        const box = $('#searchMsg');
+        if (!box) return;
+        box.className = 'msg';
+        box.textContent = append ? 'Fetching more…' : 'Searching…';
+        if (!append) {
+          state.results = [];
+          state.rejectedForLicense = 0;
+          state.nextOffset = null;
+          $('#results').replaceChildren();
+        }
+        state.lastQuery = term;
+        try {
+          const offset = append && state.nextOffset != null ? state.nextOffset : 0;
+          const res = await api(`/api/search?q=${encodeURIComponent(term)}&offset=${offset}`);
+          // Commons can return the same file on two pages; keep the first.
+          const seen = new Set(state.results.map((f) => f.title));
+          state.results = state.results.concat(res.files.filter((f) => !seen.has(f.title)));
+          state.rejectedForLicense += res.rejectedForLicense;
+          state.nextOffset = res.nextOffset;
+          renderResults();
+          box.className = 'msg';
+          box.textContent = searchNotes();
+        } catch (e) {
+          box.className = 'msg err';
+          box.textContent = String(e.message ?? e);
+        }
+      }
+
+      function searchNotes() {
+        const notes = [];
+        const tooSmall = state.results.filter((f) => !f.largeEnough).length;
+        const usable = state.results.length - tooSmall;
+        if (!state.results.length) notes.push('No usable results.');
+        else notes.push(`${usable} usable result(s).`);
+        if (state.rejectedForLicense)
+          notes.push(`${state.rejectedForLicense} hidden: licence not free or unreadable.`);
+        if (tooSmall)
+          notes.push(
+            state.hideSmall
+              ? `${tooSmall} hidden: smaller than ${state.render.width}x${state.render.height}.`
+              : `${tooSmall} shown but unusable: smaller than ${state.render.width}x${state.render.height}, ` +
+                  'which would need upscaling.',
+          );
+        return notes.join(' ');
+      }
+
+      function renderResults() {
+        const shown = state.hideSmall ? state.results.filter((f) => f.largeEnough) : state.results;
+        const more = $('#more');
+        if (more) {
+          more.replaceChildren();
+          if (state.nextOffset != null) {
+            const btn = el('button', { textContent: 'Load more results' });
+            btn.onclick = async () => {
+              btn.disabled = true;
+              btn.textContent = 'Loading…';
+              await runSearch(state.lastQuery, true);
+            };
+            more.append(btn);
+          }
+        }
+        const msg = $('#searchMsg');
+        if (msg && msg.className === 'msg') msg.textContent = searchNotes();
+        $('#results').replaceChildren(
+          ...shown.map((f) => {
+            const card = el('div', { className: 'hit' + (f.largeEnough ? '' : ' small') });
+            card.setAttribute('aria-selected', String(state.file?.title === f.title));
+            card.append(
+              el('img', { src: f.thumbUrl, loading: 'lazy', alt: '' }),
+              el(
+                'div',
+                { className: 'meta' },
+                el('div', { className: 'lic', textContent: f.license || 'unknown licence' }),
+                el('div', {
+                  textContent: `${f.width}x${f.height}` + (f.largeEnough ? '' : ' — too small'),
+                }),
+                f.restrictions
+                  ? el('div', {
+                      style: 'color:var(--bad)',
+                      textContent: 'restrictions: ' + f.restrictions,
+                    })
+                  : '',
+              ),
+            );
+            if (f.largeEnough) card.onclick = () => chooseFile(f);
+            return card;
+          }),
+        );
+      }
+
+      async function chooseFile(file) {
+        // Re-read at a larger thumbnail so the crop is chosen on something legible.
+        state.file = await api('/api/file?width=1200&title=' + encodeURIComponent(file.title));
+        state.step = 'crop';
+        renderMain();
+      }
+
+      /** What is already on disk for a curated subject. */
+      function curatedCard(entry) {
+        return el(
+          'div',
+          { className: 'card' },
+          el('h3', { textContent: 'Already curated', style: 'font-size:14px' }),
+          el('div', {
+            className: 'sub',
+            style: 'font-size:12px;margin-top:3px',
+            textContent:
+              'Saving again overwrites this entry and drops its rendered images, so a new crop takes effect on the next run of the generator.',
+          }),
+          el('div', { style: 'margin-top:8px' }, el('strong', { textContent: entry.name })),
+          entry.years ? el('div', { className: 'sub', textContent: entry.years }) : '',
+          el('div', { style: 'margin-top:6px', textContent: entry.blurb }),
+          el(
+            'div',
+            { className: 'sub', style: 'font-size:12px;margin-top:8px' },
+            el('div', {}, 'credit: ', el('code', { textContent: entry.credit })),
+            el('div', {}, 'license: ', el('code', { textContent: entry.license })),
+            el('div', {}, 'source: ', el('code', { textContent: entry.source })),
+            el('div', {}, 'original: ', el('code', { textContent: entry.original })),
+            el(
+              'div',
+              {},
+              'crop: ',
+              el('code', {
+                textContent: `${entry.crop.width}x${entry.crop.height} at (${entry.crop.x}, ${entry.crop.y})`,
+              }),
+            ),
+          ),
+        );
+      }
+
+      function renderEditor() {
+        const f = state.file,
+          item = state.current;
+        const host = $('#editor');
+        host.replaceChildren();
+        if (!f) return;
+
+        // Start with the largest centred crop the source allows.
+        const minW = state.render.width;
+        const minH = state.render.height;
+        const ratio = minW / minH;
+        let h = Math.min(f.height, Math.floor(f.width / ratio));
+        let w = Math.round(h * ratio);
+        if (w > f.width) {
+          w = f.width;
+          h = Math.round(w / ratio);
+        }
+        state.crop = {
+          x: Math.round((f.width - w) / 2),
+          y: Math.round((f.height - h) / 2),
+          width: w,
+          height: h,
+        };
+
+        const img = el('img', { id: 'cropImg', src: f.thumbUrl, alt: '' });
+        const box = el('div', { id: 'cropBox' });
+        const wrap = el('div', { id: 'cropWrap' }, img, box);
+
+        const size = el('input', { type: 'range', min: '30', max: '100', value: '100' });
+        const readout = el('span', { className: 'sub' });
+        const nameI = el('input', { value: item.entry?.name ?? item.name });
+        const yearsI = el('input', {
+          value: item.entry?.years ?? '',
+          placeholder: '1815–1888 (optional)',
+        });
+        const blurbI = el('textarea', {
+          value: item.entry?.blurb ?? '',
+          placeholder:
+            'One or two sentences. What they actually did — a place, a period, the thing they are remembered for.',
+        });
+        const msg = el('div', { className: 'msg', style: 'display:none' });
+        const previewImg = el('img', {
+          style: 'display:none;max-height:60vh;border-radius:8px;margin-top:10px',
+        });
+
+        const place = () => {
+          const s = img.clientWidth / f.width;
+          state.scale = s;
+          box.style.left = state.crop.x * s + 'px';
+          box.style.top = state.crop.y * s + 'px';
+          box.style.width = state.crop.width * s + 'px';
+          box.style.height = state.crop.height * s + 'px';
+          readout.textContent = `${state.crop.width}x${state.crop.height} at (${state.crop.x}, ${state.crop.y}) · source ${f.width}x${f.height}`;
+        };
+        const resize = () => {
+          const pct = Number(size.value) / 100;
+          const maxH = Math.min(f.height, Math.floor(f.width / ratio));
+          let nh = Math.max(minH, Math.round(maxH * pct));
+          let nw = Math.round(nh * ratio);
+          if (nw < minW) {
+            nw = minW;
+            nh = Math.round(nw / ratio);
+          }
+          state.crop.width = nw;
+          state.crop.height = nh;
+          state.crop.x = Math.min(state.crop.x, f.width - nw);
+          state.crop.y = Math.min(state.crop.y, f.height - nh);
+          place();
+        };
+        size.oninput = resize;
+        img.onload = place;
+        if (img.complete) place();
+        addEventListener('resize', place);
+
+        let drag = null;
+        box.onpointerdown = (e) => {
+          drag = { px: e.clientX, py: e.clientY, ox: state.crop.x, oy: state.crop.y };
+          box.setPointerCapture(e.pointerId);
+        };
+        box.onpointermove = (e) => {
+          if (!drag) return;
+          const dx = (e.clientX - drag.px) / state.scale;
+          const dy = (e.clientY - drag.py) / state.scale;
+          state.crop.x = Math.max(
+            0,
+            Math.min(f.width - state.crop.width, Math.round(drag.ox + dx)),
+          );
+          state.crop.y = Math.max(
+            0,
+            Math.min(f.height - state.crop.height, Math.round(drag.oy + dy)),
+          );
+          place();
+        };
+        box.onpointerup = () => {
+          drag = null;
+        };
+
+        const preview = el('button', { textContent: 'Preview at full size' });
+        preview.onclick = async () => {
+          msg.style.display = 'none';
+          preview.disabled = true;
+          preview.textContent = 'Rendering…';
+          try {
+            const r = await fetch('/api/preview', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ fileTitle: f.title, crop: state.crop }),
+            });
+            if (!r.ok) throw new Error((await r.json()).error);
+            previewImg.src = URL.createObjectURL(await r.blob());
+            previewImg.style.display = 'block';
+          } catch (e) {
+            msg.style.display = 'block';
+            msg.className = 'msg err';
+            msg.textContent = String(e.message ?? e);
+          } finally {
+            preview.disabled = false;
+            preview.textContent = 'Preview at full size';
+          }
+        };
+
+        const save = el('button', { className: 'primary', textContent: 'Save curated saint' });
+        save.onclick = async () => {
+          msg.style.display = 'none';
+          save.disabled = true;
+          save.textContent = 'Saving…';
+          try {
+            const res = await api('/api/save', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                id: item.id,
+                name: nameI.value,
+                years: yearsI.value,
+                blurb: blurbI.value,
+                fileTitle: f.title,
+                crop: state.crop,
+              }),
+            });
+            msg.style.display = 'block';
+            msg.className = 'msg ok';
+            msg.textContent =
+              `Wrote saints/${res.yamlPath} and originals/${res.originalPath}.` +
+              (res.staleRenders
+                ? ` Dropped ${res.staleRenders} stale render(s) — run \`npm run generate\` before committing.`
+                : ' Commit and open a pull request when you are ready.');
+            state.items = state.items.filter((i) => i.id !== item.id);
+            state.current = null;
+            renderQueue();
+            setTimeout(() => {
+              const next = visible()[0];
+              if (next) select(next);
+            }, 900);
+          } catch (e) {
+            msg.style.display = 'block';
+            msg.className = 'msg err';
+            msg.textContent = String(e.message ?? e);
+          } finally {
+            save.disabled = false;
+            save.textContent = 'Save curated saint';
+          }
+        };
+
+        host.append(
+          el(
+            'div',
+            { className: 'card' },
+            el(
+              'div',
+              { className: 'rowline', style: 'justify-content:space-between' },
+              el('h3', { textContent: 'Crop', style: 'font-size:14px' }),
+              (() => {
+                const back = el('button', { textContent: '← Back to results' });
+                back.onclick = backToResults;
+                return back;
+              })(),
+            ),
+            el('div', {
+              className: 'sub',
+              style: 'font-size:12px;margin-top:3px',
+              textContent:
+                `Drag to reposition, slide to resize. Fixed at ${minW}:${minH}, the largest variant. ` +
+                'The dashed lines mark where the clock and notifications sit.',
+            }),
+            wrap,
+            el('div', { className: 'rowline', style: 'margin-top:10px' }, 'Size', size, readout),
+            el('div', { style: 'margin-top:10px' }, preview),
+            previewImg,
+          ),
+          el(
+            'div',
+            { className: 'card' },
+            el('h3', { textContent: 'Entry', style: 'font-size:14px' }),
+            el(
+              'div',
+              { className: 'grid2' },
+              el('div', {}, el('label', { textContent: 'name' }), nameI),
+              el('div', {}, el('label', { textContent: 'years (optional)' }), yearsI),
+            ),
+            el('label', {
+              textContent: 'blurb — yours to write; licence clearance is yours to judge',
+            }),
+            blurbI,
+            el(
+              'div',
+              { className: 'sub', style: 'font-size:12px;margin-top:12px' },
+              el(
+                'div',
+                {},
+                'credit: ',
+                el('code', { textContent: f.credit || 'Wikimedia Commons' }),
+              ),
+              el('div', {}, 'license: ', el('code', { textContent: f.license || '—' })),
+              el('div', {}, 'source: ', el('code', { textContent: f.descriptionUrl })),
+              f.description
+                ? el('div', {
+                    style: 'margin-top:6px',
+                    textContent:
+                      'Commons description (reference only): ' + f.description.slice(0, 300),
+                  })
+                : '',
+            ),
+            el('div', { style: 'margin-top:12px' }, save),
+            msg,
+          ),
+        );
+      }
+
+      for (const b of document.querySelectorAll('#filters button')) {
+        b.onclick = () => {
+          state.kind = b.dataset.kind;
+          for (const o of document.querySelectorAll('#filters button')) {
+            o.setAttribute('aria-pressed', String(o === b));
+          }
+          renderQueue();
+        };
+      }
+
+      const boot = await api('/api/queue');
+      state.items = boot.items;
+      state.curatedCount = boot.curatedCount;
+      state.render = boot.render;
+      renderQueue();
+      const first = visible()[0];
+      if (first) select(first);
+      else renderMain();
+    </script>
+  </body>
+</html>

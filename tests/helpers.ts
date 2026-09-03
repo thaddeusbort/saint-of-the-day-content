@@ -39,7 +39,7 @@ export async function addCuratedSaint(
     credit: 'Photograph, c. 1880',
     license: 'Public domain',
     source: 'https://commons.wikimedia.org/wiki/File:Example.jpg',
-    crop: { x: 100, y: 200, width: 1400, height: 3033 },
+    crop: { x: 100, y: 200, width: 1440, height: 3200 },
     ...overrides,
   };
 

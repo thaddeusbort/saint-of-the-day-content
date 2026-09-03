@@ -103,7 +103,7 @@ describe('a run with no curated saints', () => {
     expect(record.color).toBe('white');
     expect(record.saint.is_fallback).toBe(false);
     expect(record.image.is_placeholder).toBe(true);
-    expect(record.image.variants[0]?.url).toBe('img/fallback-white-1290x2796.jpg');
+    expect(record.image.variants[0]?.url).toBe('img/fallback-white-1440x3200.jpg');
     expect(record.image.license).not.toBe('');
     // Everything the app defaults to "" is allowed to be empty here.
     expect(record.saint.blurb).toBe('');
