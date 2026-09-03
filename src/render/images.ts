@@ -71,7 +71,11 @@ export async function renderVariants(
     const target = path.join(imgDir, variantFileName(request.id, w, h));
     if (await exists(target)) continue;
 
-    let pipeline = sharp(request.sourcePath, { failOn: 'error' });
+    // autoOrient applies the EXIF orientation before anything else, so the
+    // crop box is interpreted in the same space the curator framed it in.
+    // Without it a photograph stored sideways is extracted against its stored
+    // dimensions, and the crop lands outside the image or off the subject.
+    let pipeline = sharp(request.sourcePath, { failOn: 'error', autoOrient: true });
     if (request.crop) {
       pipeline = pipeline.extract({
         left: request.crop.x,
@@ -98,16 +102,22 @@ export async function renderVariants(
 }
 
 /**
- * Reads a source image's pixel dimensions.
+ * Reads a source image's pixel dimensions as displayed.
  *
  * Accepts a path or the bytes themselves, so a candidate can be measured
  * before it is written anywhere.
+ *
+ * These are the dimensions *after* the EXIF orientation is applied, which is
+ * what every other party means by the size of the image: what Commons reports,
+ * what the curator framed the crop against, and what rendering produces. The
+ * stored dimensions of a sideways photograph are the transpose of those, and
+ * validating a crop against them rejects a perfectly good picture.
  */
 export async function imageSize(
   source: string | Buffer,
 ): Promise<{ width: number; height: number }> {
   const metadata = await sharp(source).metadata();
-  const { width, height } = metadata;
+  const { width, height } = metadata.autoOrient ?? metadata;
   if (typeof width !== 'number' || typeof height !== 'number') {
     const label = typeof source === 'string' ? source : 'image';
     throw new Error(`${label}: could not read image dimensions`);

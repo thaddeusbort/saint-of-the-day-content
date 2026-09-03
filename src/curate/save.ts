@@ -194,7 +194,8 @@ export async function renderPreview(
 ): Promise<Buffer> {
   const sharp = (await import('sharp')).default;
   const bytes = await downloader(file.url);
-  return sharp(bytes)
+  // Same space as the render and the crop box: see `imageSize`.
+  return sharp(bytes, { autoOrient: true })
     .extract({ left: crop.x, top: crop.y, width: crop.width, height: crop.height })
     .resize(LARGEST.w, LARGEST.h, { fit: 'cover', position: 'centre' })
     .jpeg({ quality: 70 })
