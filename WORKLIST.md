@@ -6,12 +6,11 @@ Upcoming days still showing a generic liturgical-colour plate, soonest first.
 To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 [CONTRIBUTING.md](CONTRIBUTING.md). Anything curated goes live on the next run.
 
-121 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
+120 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
 | 2026-09-02 | day | `ordinary-time-22-wednesday` | Wednesday of the twenty-second week of Ordinary Time | weekday | green |
-| 2026-09-03 | saint | `gregory-i-the-great-pope` | Saint Gregory the Great, Pope and Doctor of the Church | memorial | white |
 | 2026-09-04 | day | `ordinary-time-22-friday` | Friday of the twenty-second week of Ordinary Time | weekday | green |
 | 2026-09-05 | saint | `teresa-of-calcutta-virgin` | Saint Teresa of Calcutta, Virgin | weekday | green |
 | 2026-09-06 | day | `ordinary-time-23-sunday` | twenty-third Sunday in Ordinary Time | sunday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-10-29 | day | `ordinary-time-30-thursday` | Thursday of the thirtieth week of Ordinary Time | weekday | green |
 | 2026-10-30 | day | `ordinary-time-30-friday` | Friday of the thirtieth week of Ordinary Time | weekday | green |
 | 2026-10-31 | day | `ordinary-time-30-saturday` | Saturday of the thirtieth week of Ordinary Time | weekday | green |
+| 2026-11-01 | saint | `all-saints` | All Saints | solemnity | white |

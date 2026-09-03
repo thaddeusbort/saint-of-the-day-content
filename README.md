@@ -110,8 +110,8 @@ One file per day at `v1/{yyyy}/{MM-dd}.json`:
     "source": "https://commons.wikimedia.org/wiki/File:Don_Bosco.jpg",
     "is_placeholder": false,
     "variants": [
-      { "w": 1290, "h": 2796, "url": "img/john-bosco-priest-1290x2796.jpg" },
-      { "w": 1179, "h": 2556, "url": "img/john-bosco-priest-1179x2556.jpg" },
+      { "w": 1440, "h": 3200, "url": "img/john-bosco-priest-1440x3200.jpg" },
+      { "w": 1260, "h": 2800, "url": "img/john-bosco-priest-1260x2800.jpg" },
       { "w": 1080, "h": 2400, "url": "img/john-bosco-priest-1080x2400.jpg" }
     ]
   }
@@ -197,8 +197,15 @@ A test generates twice and asserts the tree is identical.
 
 ## Never re-render an existing image
 
-The three variant sizes and the JPEG encoder settings in `src/config.ts` are
-**frozen**. Filenames are content-shaped (`{id}-{w}x{h}.jpg`), so a blob is
+The three variant sizes — 1440×3200, 1260×2800 and 1080×2400, all exactly 20:9
+— and the JPEG encoder settings in `src/config.ts` are **frozen**.
+
+They are chosen for the app's selection rule, which takes the variant _nearest_
+the screen by `|dw| + |dh|` rather than the smallest that covers it. Sharing one
+aspect ratio means the crop box matches every variant, so the smaller two are
+pure downscales and the preview is exactly what a device gets; 1260×2800 sits
+where it minimises the worst-case upscale across the plausible width range
+(~1.08×, against ~1.17× with only 1080 and 1440). Filenames are content-shaped (`{id}-{w}x{h}.jpg`), so a blob is
 written once and never rewritten; every run checks for the file first and skips
 it.
 
@@ -220,7 +227,7 @@ first, searches Wikimedia Commons, and writes `saints/{id}.yaml` and
 
 It lives in this repository rather than beside the app for one reason: the files
 it produces are only correct if they satisfy rules that already exist here as
-code — the curation schema, the "at least 1290×2796, never upscale" geometry,
+code — the curation schema, the "at least 1440×3200, never upscale" geometry,
 and the id derivation. The tool imports those directly and validates before it
 writes, so it cannot produce a pull request that CI will reject. Keeping it
 anywhere else would mean a second copy of those rules, and a second copy drifts.

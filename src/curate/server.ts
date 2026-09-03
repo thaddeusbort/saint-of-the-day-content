@@ -24,6 +24,10 @@ import {
   type Downloader,
 } from './save.js';
 import { CurationError } from '../curation/schema.js';
+import { VARIANTS } from '../config.js';
+
+/** The largest variant: the crop must be at least this, and shares its ratio. */
+const LARGEST = VARIANTS[0];
 
 export interface ServerOptions extends QueueOptions {
   readonly port?: number;
@@ -125,6 +129,9 @@ export function createCurationServer(options: ServerOptions = {}) {
       sendJson(response, 200, {
         today: queue.today,
         curatedCount: queue.curatedCount,
+        // The crop constraint travels with the queue so the page never
+        // restates the frozen sizes. Changing VARIANTS changes the UI too.
+        render: { width: LARGEST.w, height: LARGEST.h },
         items: queue.items.map((item) => ({ ...item, query: defaultQuery(item.name) })),
       });
       return;

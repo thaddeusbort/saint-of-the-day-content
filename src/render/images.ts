@@ -82,9 +82,10 @@ export async function renderVariants(
     }
 
     await pipeline
-      // The three variants are not quite the same aspect ratio (1290x2796 is
-      // 9:19.5, 1080x2400 is 9:20), so the crop box is covered rather than
-      // stretched. Any residual trim comes off the centre.
+      // Every variant is exactly 20:9, as is the crop box, so `cover` is a
+      // pure downscale here and trims nothing. It stays `cover` rather than
+      // `fill` so that a crop which is somehow off-ratio is cropped to fit
+      // rather than stretched.
       .resize(w, h, { fit: 'cover', position: 'centre' })
       // Strip EXIF and ICC: metadata varies between source files and would
       // otherwise leak non-determinism into the blob.

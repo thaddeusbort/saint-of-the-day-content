@@ -22,7 +22,7 @@ const valid = {
   credit: 'Photograph, c. 1880',
   license: 'Public domain',
   source: 'https://commons.wikimedia.org/wiki/File:Don_Bosco.jpg',
-  crop: { x: 0, y: 0, width: 1400, height: 3033 },
+  crop: { x: 0, y: 0, width: 1440, height: 3200 },
 };
 
 describe('the curation schema', () => {
@@ -30,7 +30,7 @@ describe('the curation schema', () => {
     const entry = parseSaintEntry('john-bosco-priest', 'saints/john-bosco-priest.yaml', valid);
     expect(entry.id).toBe('john-bosco-priest');
     expect(entry.name).toBe('St. John Bosco');
-    expect(entry.crop.width).toBe(1400);
+    expect(entry.crop.width).toBe(1440);
   });
 
   it('treats years as the one optional field', () => {
@@ -91,7 +91,7 @@ describe('PR validation', () => {
     try {
       await addCuratedSaint(root, 'small-crop', { crop: { x: 0, y: 0, width: 900, height: 1950 } });
       const report = await validateCuration(root);
-      expect(report.problems.join('\n')).toMatch(/smaller than the largest variant 1290x2796/);
+      expect(report.problems.join('\n')).toMatch(/smaller than the largest variant 1440x3200/);
     } finally {
       await rm(root, { recursive: true, force: true });
     }
@@ -101,7 +101,7 @@ describe('PR validation', () => {
     const root = await makeCheckout();
     try {
       await addCuratedSaint(root, 'off-edge', {
-        crop: { x: 900, y: 0, width: 1400, height: 3033 },
+        crop: { x: 900, y: 0, width: 1440, height: 3200 },
       });
       const report = await validateCuration(root);
       expect(report.problems.join('\n')).toMatch(/falls outside originals\/off-edge\.jpg/);

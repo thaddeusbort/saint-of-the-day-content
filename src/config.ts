@@ -29,10 +29,23 @@ export const WINDOW_DAYS_BEHIND = 7;
  */
 export const WINDOW_DAYS_AHEAD = 400;
 
-/** Rendered variant sizes, in descending order of width. FROZEN. */
+/**
+ * Rendered variant sizes, in descending order of width. FROZEN.
+ *
+ * All three are exactly 20:9 (width / 9 * 20 = height), which is the tallest
+ * common Android aspect. Sharing one ratio means the crop box matches every
+ * variant exactly: the smaller two are pure downscales of the largest, with no
+ * further cropping, so what the curator previews is what the device gets.
+ *
+ * The app picks the variant nearest the screen by |dw| + |dh|, not the
+ * smallest that covers it, so a device between two sizes can be served a
+ * slightly smaller image and upscale it. 1260x2800 sits where it minimises
+ * that worst case across the plausible width range (~1.08x, against ~1.17x
+ * with only 1080 and 1440).
+ */
 export const VARIANTS = [
-  { w: 1290, h: 2796 },
-  { w: 1179, h: 2556 },
+  { w: 1440, h: 3200 },
+  { w: 1260, h: 2800 },
   { w: 1080, h: 2400 },
 ] as const;
 

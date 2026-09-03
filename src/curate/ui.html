@@ -324,6 +324,9 @@
         crop: null,
         scale: 1,
         results: [],
+        // Replaced by the server's frozen largest variant on boot; never
+        // restated here, so changing VARIANTS changes this page too.
+        render: { width: 0, height: 0 },
       };
       const $ = (sel, root = document) => root.querySelector(sel);
       const el = (tag, props = {}, ...kids) => {
@@ -464,7 +467,8 @@
           const tooSmall = res.files.filter((f) => !f.largeEnough).length;
           if (tooSmall)
             notes.push(
-              `${tooSmall} shown but unusable: smaller than 1290x2796, which would need upscaling.`,
+              `${tooSmall} shown but unusable: smaller than ${state.render.width}x${state.render.height}, ` +
+                'which would need upscaling.',
             );
           box.className = 'msg';
           box.textContent = notes.join(' ');
@@ -517,7 +521,9 @@
         if (!f) return;
 
         // Start with the largest centred crop the source allows.
-        const ratio = 1290 / 2796;
+        const minW = state.render.width;
+        const minH = state.render.height;
+        const ratio = minW / minH;
         let h = Math.min(f.height, Math.floor(f.width / ratio));
         let w = Math.round(h * ratio);
         if (w > f.width) {
@@ -560,10 +566,10 @@
         const resize = () => {
           const pct = Number(size.value) / 100;
           const maxH = Math.min(f.height, Math.floor(f.width / ratio));
-          let nh = Math.max(2796, Math.round(maxH * pct));
+          let nh = Math.max(minH, Math.round(maxH * pct));
           let nw = Math.round(nh * ratio);
-          if (nw < 1290) {
-            nw = 1290;
+          if (nw < minW) {
+            nw = minW;
             nh = Math.round(nw / ratio);
           }
           state.crop.width = nw;
@@ -671,7 +677,8 @@
               className: 'sub',
               style: 'font-size:12px;margin-top:3px',
               textContent:
-                'Drag to reposition, slide to resize. Fixed at 1290:2796. The dashed lines mark where the clock and notifications sit.',
+                `Drag to reposition, slide to resize. Fixed at ${minW}:${minH}, the largest variant. ` +
+                'The dashed lines mark where the clock and notifications sit.',
             }),
             wrap,
             el('div', { className: 'rowline', style: 'margin-top:10px' }, 'Size', size, readout),
@@ -730,6 +737,7 @@
       const boot = await api('/api/queue');
       state.items = boot.items;
       state.curatedCount = boot.curatedCount;
+      state.render = boot.render;
       renderQueue();
       const first = visible()[0];
       if (first) select(first);

@@ -14,7 +14,7 @@ npm run curate      # http://127.0.0.1:4173
 ```
 
 This walks the outstanding queue soonest first, searches Wikimedia Commons,
-gives you a crop box fixed at the render's 1290:2796 with guide lines where the
+gives you a crop box fixed at the render's 1440:3200 with guide lines where the
 clock and notifications sit, and writes both files for you. It validates with
 the same schema and geometry checks CI runs, so if it saves, CI will pass.
 
@@ -91,9 +91,10 @@ check instead of silently dropping your text.
 `.jpg`, `.jpeg`, `.png` and `.webp` are accepted. Commit the original once and
 never modify it.
 
-The crop box is rendered at three sizes — 1290×2796, 1179×2556 and 1080×2400 —
-and rendering never upscales, so **the crop box must be at least 1290×2796**.
-Aim for roughly 9:19.5; any residual difference is taken off the centre.
+The crop box is rendered at three sizes — 1440×3200, 1260×2800 and 1080×2400,
+all exactly 20:9 — and rendering never upscales, so **the crop box must be at
+least 1440×3200**. The two smaller sizes are pure downscales of that crop, so
+nothing is trimmed after you have framed it.
 
 Pick the crop with the lock screen in mind: the clock sits over the top third,
 and notifications over the bottom. A face somewhere in the upper-middle reads

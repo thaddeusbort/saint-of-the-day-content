@@ -250,7 +250,7 @@ describe('the queue', () => {
 });
 
 describe('saving', () => {
-  const crop = { x: 100, y: 200, width: 1400, height: 3033 };
+  const crop = { x: 100, y: 200, width: 1440, height: 3200 };
 
   async function jpegDownloader(width = 2000, height = 4000): Promise<Downloader> {
     const bytes = await sharp({
@@ -349,7 +349,7 @@ describe('saving', () => {
             years: '',
             blurb: 'b',
             fileTitle: 'File:Example.jpg',
-            crop: { x: 1500, y: 0, width: 1400, height: 3033 },
+            crop: { x: 1500, y: 0, width: 1440, height: 3200 },
           },
           { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
         ),
