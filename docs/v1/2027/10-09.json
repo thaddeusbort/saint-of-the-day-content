@@ -1,22 +1,25 @@
 {
   "schema": 1,
-  "date": "2026-08-26",
+  "date": "2027-10-09",
   "season": "ordinary",
   "color": "green",
   "rank": "weekday",
-  "celebration": "Wednesday of the twenty-first week of Ordinary Time",
+  "celebration": "Saturday of the twenty-seventh week of Ordinary Time",
   "all_celebrations": [
-    "Wednesday of the twenty-first week of Ordinary Time"
+    "Saturday of the twenty-seventh week of Ordinary Time",
+    "Saint Denis, Bishop, and Companions, Martyrs",
+    "Saint John Leonardi, Priest",
+    "Saint John Henry Newman, Priest and Doctor of the Church"
   ],
   "subject": {
-    "id": "ordinary-time-21-wednesday",
-    "kind": "day",
-    "name": "Wednesday of the twenty-first week of Ordinary Time",
+    "id": "denis-of-paris-bishop-and-companions-martyrs",
+    "kind": "saint",
+    "name": "Saint Denis, Bishop, and Companions, Martyrs",
     "subtitle": "",
     "blurb": "",
-    "notification": "",
+    "notification": "Saint Denis, Bishop, and Companions, Martyrs, pray for us!",
     "is_fallback": true,
-    "source": "temporal"
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

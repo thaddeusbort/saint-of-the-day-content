@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "date": "2027-10-08",
+  "season": "ordinary",
+  "color": "green",
+  "rank": "weekday",
+  "celebration": "Friday of the twenty-seventh week of Ordinary Time",
+  "all_celebrations": [
+    "Friday of the twenty-seventh week of Ordinary Time"
+  ],
+  "subject": {
+    "id": "ordinary-time-27-friday",
+    "kind": "day",
+    "name": "Friday of the twenty-seventh week of Ordinary Time",
+    "subtitle": "",
+    "blurb": "",
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
+  },
+  "image": {
+    "credit": "Generated liturgical colour plate",
+    "license": "CC0-1.0",
+    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
+    "is_placeholder": true,
+    "variants": [
+      {
+        "w": 1440,
+        "h": 3200,
+        "url": "img/fallback-green-1440x3200.jpg"
+      },
+      {
+        "w": 1260,
+        "h": 2800,
+        "url": "img/fallback-green-1260x2800.jpg"
+      },
+      {
+        "w": 1080,
+        "h": 2400,
+        "url": "img/fallback-green-1080x2400.jpg"
+      }
+    ]
+  }
+}
