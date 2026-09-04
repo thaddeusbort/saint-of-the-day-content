@@ -30,7 +30,7 @@ const EXTENSION_BY_MIME: Readonly<Record<string, string>> = {
 export interface SaveRequest {
   readonly id: string;
   readonly name: string;
-  readonly years: string;
+  readonly subtitle: string;
   readonly blurb: string;
   /** The day's notification line. Stored only when it differs from the default. */
   readonly notification: string;
@@ -120,7 +120,7 @@ export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Pr
   // leaves no half-curated saint behind.
   const document = {
     name: request.name,
-    ...(request.years.trim() === '' ? {} : { years: request.years.trim() }),
+    ...(request.subtitle.trim() === '' ? {} : { subtitle: request.subtitle.trim() }),
     blurb: request.blurb,
     // Only recorded when the curator changed it, so improving the derived
     // wording later still reaches every entry that accepted it.

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Stephen, the First Martyr"
   ],
-  "notification": "Saint Stephen, the First Martyr, pray for us!",
-  "saint": {
+  "subject": {
     "id": "stephen-the-first-martyr",
+    "kind": "saint",
     "name": "Saint Stephen, the First Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Stephen, the First Martyr, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

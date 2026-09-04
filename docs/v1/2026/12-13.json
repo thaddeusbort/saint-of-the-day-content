@@ -8,12 +8,13 @@
   "all_celebrations": [
     "third Sunday of Advent"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "advent-3-sunday",
+    "kind": "day",
     "name": "third Sunday of Advent",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

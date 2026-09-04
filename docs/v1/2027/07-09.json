@@ -9,12 +9,13 @@
     "Friday of the fourteenth week of Ordinary Time",
     "Saint Augustine Zhao Rong, Priest, and Companions, Martyrs"
   ],
-  "notification": "Saint Augustine Zhao Rong, Priest, and Companions, Martyrs, pray for us!",
-  "saint": {
+  "subject": {
     "id": "augustine-zhao-rong-priest-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saint Augustine Zhao Rong, Priest, and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Augustine Zhao Rong, Priest, and Companions, Martyrs, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

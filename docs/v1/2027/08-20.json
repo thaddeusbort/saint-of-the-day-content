@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Bernard, Abbot and Doctor of the Church"
   ],
-  "notification": "Saint Bernard, Abbot and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "bernard-of-clairvaux-abbot",
+    "kind": "saint",
     "name": "Saint Bernard, Abbot and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Bernard, Abbot and Doctor of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

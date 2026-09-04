@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint John Chrysostom, Bishop and Doctor of the Church"
   ],
-  "notification": "Saint John Chrysostom, Bishop and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "john-chrysostom-bishop",
+    "kind": "saint",
     "name": "Saint John Chrysostom, Bishop and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint John Chrysostom, Bishop and Doctor of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

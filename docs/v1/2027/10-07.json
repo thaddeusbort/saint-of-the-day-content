@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Our Lady of the Rosary"
   ],
-  "notification": "Our Lady of the Rosary, pray for us!",
-  "saint": {
+  "subject": {
     "id": "our-lady-of-the-rosary",
+    "kind": "feast",
     "name": "Our Lady of the Rosary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Our Lady of the Rosary, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

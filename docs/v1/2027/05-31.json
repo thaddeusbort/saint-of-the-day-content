@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Visitation of the Blessed Virgin Mary"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "visitation-of-mary",
+    "kind": "feast",
     "name": "The Visitation of the Blessed Virgin Mary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

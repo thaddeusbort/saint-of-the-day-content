@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Thursday of the first week of Ordinary Time"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "ordinary-time-1-thursday",
+    "kind": "day",
     "name": "Thursday of the first week of Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

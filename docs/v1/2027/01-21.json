@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Agnes, Virgin and Martyr"
   ],
-  "notification": "Saint Agnes, Virgin and Martyr, pray for us!",
-  "saint": {
+  "subject": {
     "id": "agnes-of-rome-virgin",
+    "kind": "saint",
     "name": "Saint Agnes, Virgin and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Agnes, Virgin and Martyr, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

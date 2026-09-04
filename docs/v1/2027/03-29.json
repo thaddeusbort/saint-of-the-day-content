@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Monday within the Octave of Easter"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "easter-monday",
+    "kind": "day",
     "name": "Monday within the Octave of Easter",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

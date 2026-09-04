@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Barnabas, Apostle"
   ],
-  "notification": "Saint Barnabas, Apostle, pray for us!",
-  "saint": {
+  "subject": {
     "id": "barnabas-apostle",
+    "kind": "saint",
     "name": "Saint Barnabas, Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Barnabas, Apostle, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

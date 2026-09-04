@@ -10,12 +10,13 @@
     "Saint George, Martyr",
     "Saint Adalbert, Bishop and Martyr"
   ],
-  "notification": "Saint George, Martyr, pray for us!",
-  "saint": {
+  "subject": {
     "id": "george-of-lydda-martyr",
+    "kind": "saint",
     "name": "Saint George, Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint George, Martyr, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

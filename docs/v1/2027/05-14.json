@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Matthias, Apostle"
   ],
-  "notification": "Saint Matthias, Apostle, pray for us!",
-  "saint": {
+  "subject": {
     "id": "matthias-apostle",
+    "kind": "saint",
     "name": "Saint Matthias, Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Matthias, Apostle, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

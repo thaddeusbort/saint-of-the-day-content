@@ -9,12 +9,13 @@
     "Saturday of the eleventh week of Ordinary Time",
     "Saint Romuald, Abbot"
   ],
-  "notification": "Saint Romuald, Abbot, pray for us!",
-  "saint": {
+  "subject": {
     "id": "romuald-of-ravenna-abbot",
+    "kind": "saint",
     "name": "Saint Romuald, Abbot",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Romuald, Abbot, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

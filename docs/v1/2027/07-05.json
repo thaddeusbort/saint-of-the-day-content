@@ -9,12 +9,13 @@
     "Monday of the fourteenth week of Ordinary Time",
     "Saint Anthony Zaccaria, Priest"
   ],
-  "notification": "Saint Anthony Zaccaria, Priest, pray for us!",
-  "saint": {
+  "subject": {
     "id": "anthony-zaccaria-priest",
+    "kind": "saint",
     "name": "Saint Anthony Zaccaria, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Anthony Zaccaria, Priest, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

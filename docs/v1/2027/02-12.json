@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Friday after Ash Wednesday"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "friday-after-ash-wednesday",
+    "kind": "day",
     "name": "Friday after Ash Wednesday",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

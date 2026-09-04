@@ -15,6 +15,7 @@ const subject = (over: Partial<Subject> = {}): Subject => ({
   isFallback: false,
   isSanctoral: true,
   source: 'proper',
+  kind: 'saint',
   admitsSaint: true,
   ...over,
 });
@@ -32,8 +33,8 @@ describe('the derived line', () => {
     );
   });
 
-  it('addresses Our Lady under a title', () => {
-    expect(defaultNotification(subject(), 'Our Lady of Sorrows')).toBe(
+  it('addresses Our Lady under a title, though she is modelled as a feast', () => {
+    expect(defaultNotification(subject({ kind: 'feast' }), 'Our Lady of Sorrows')).toBe(
       'Our Lady of Sorrows, pray for us!',
     );
   });
@@ -41,15 +42,26 @@ describe('the derived line', () => {
   it('says nothing on a temporal day', () => {
     // "The Baptism of the Lord, pray for us!" is wrong, and no line is better
     // than a wrong one.
-    expect(defaultNotification(subject({ isSanctoral: false }), 'Easter Sunday')).toBe('');
+    expect(defaultNotification(subject({ isSanctoral: false, kind: 'day' }), 'Easter Sunday')).toBe(
+      '',
+    );
+  });
+
+  it('addresses a saint whatever the name looks like', () => {
+    // kind comes from romcal's canonization level, so a name with no
+    // honorific still derives.
+    expect(defaultNotification(subject(), 'Cornelius and Cyprian')).toBe(
+      'Cornelius and Cyprian, pray for us!',
+    );
   });
 
   it('says nothing for a feast that commemorates an event', () => {
-    // Sanctoral, because the martyrology carries it — but not a person to
-    // address. This is the case the honorific test exists for.
-    expect(defaultNotification(subject(), 'The Nativity of the Blessed Virgin Mary')).toBe('');
-    expect(defaultNotification(subject(), 'The Most Holy Name of Mary')).toBe('');
-    expect(defaultNotification(subject(), 'The Exaltation of the Holy Cross')).toBe('');
+    // In the martyrology, but not a person: romcal leaves the canonization
+    // level unset, so kind is `feast` and there is no one to address.
+    const feast = subject({ kind: 'feast' });
+    expect(defaultNotification(feast, 'The Nativity of the Blessed Virgin Mary')).toBe('');
+    expect(defaultNotification(feast, 'The Exaltation of the Holy Cross')).toBe('');
+    expect(defaultNotification(feast, 'All Saints')).toBe('');
   });
 
   it('says nothing for an empty name', () => {
@@ -73,7 +85,7 @@ describe('resolving against a curated override', () => {
   });
 
   it('lets a curator supply a line where nothing is derivable', () => {
-    const temporal = subject({ isSanctoral: false });
+    const temporal = subject({ isSanctoral: false, kind: 'day' });
     expect(resolveNotification(temporal, 'The Nativity of the Lord', 'Merry Christmas!')).toBe(
       'Merry Christmas!',
     );

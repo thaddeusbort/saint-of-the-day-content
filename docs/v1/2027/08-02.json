@@ -10,12 +10,13 @@
     "Saint Eusebius of Vercelli, Bishop",
     "Saint Peter Julian Eymard, Priest"
   ],
-  "notification": "Saint Eusebius of Vercelli, Bishop, pray for us!",
-  "saint": {
+  "subject": {
     "id": "eusebius-of-vercelli-bishop",
+    "kind": "saint",
     "name": "Saint Eusebius of Vercelli, Bishop",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Eusebius of Vercelli, Bishop, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

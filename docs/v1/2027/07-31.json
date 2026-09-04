@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Ignatius of Loyola, Priest"
   ],
-  "notification": "Saint Ignatius of Loyola, Priest, pray for us!",
-  "saint": {
+  "subject": {
     "id": "ignatius-of-loyola-priest",
+    "kind": "saint",
     "name": "Saint Ignatius of Loyola, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Ignatius of Loyola, Priest, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

@@ -220,7 +220,7 @@ export function createCurationServer(options: ServerOptions = {}) {
         {
           id: asString(body, 'id'),
           name: asString(body, 'name'),
-          years: typeof body['years'] === 'string' ? body['years'] : '',
+          subtitle: typeof body['subtitle'] === 'string' ? body['subtitle'] : '',
           blurb: asString(body, 'blurb'),
           notification: typeof body['notification'] === 'string' ? body['notification'] : '',
           sourceId: typeof body['sourceId'] === 'string' ? body['sourceId'] : DEFAULT_SOURCE_ID,

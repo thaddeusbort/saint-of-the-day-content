@@ -9,12 +9,13 @@
     "Tuesday of the fourteenth week of Ordinary Time",
     "Saint Maria Goretti, Virgin and Martyr"
   ],
-  "notification": "Saint Maria Goretti, Virgin and Martyr, pray for us!",
-  "saint": {
+  "subject": {
     "id": "maria-goretti-virgin",
+    "kind": "saint",
     "name": "Saint Maria Goretti, Virgin and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Maria Goretti, Virgin and Martyr, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

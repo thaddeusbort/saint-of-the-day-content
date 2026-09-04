@@ -13,27 +13,25 @@
 import type { Subject } from './subject.js';
 
 /**
- * Names that can be addressed directly.
+ * Marian titles.
  *
- * Being in the martyrology is not enough: "The Nativity of the Blessed Virgin
- * Mary" commemorates an event, and "The Nativity of the Blessed Virgin Mary,
- * pray for us!" is simply wrong. A name that opens with an honorific is a
- * person — or Our Lady under a title, where the invocation is right — and
- * anything else is left for a curator.
+ * romcal models "Our Lady of Sorrows" as a commemoration rather than a person,
+ * so it is a `feast` — but it is still addressed the same way, and this is the
+ * one place a name has to be read rather than a field.
  */
-// The prefix must be followed by whitespace, not a word boundary: `\b` after
-// a literal full stop never matches, which silently excluded "St. Gregory" —
-// the commonest form a curator writes.
-const ADDRESSABLE = /^(Saints?|St\.|Blessed|Bl\.|Our Lady)(\s|$)/i;
+const OUR_LADY = /^Our Lady\b/i;
 
-/** How a saint is addressed when nothing else is written. */
+/** How a subject is addressed when nothing else is written. */
 export function defaultNotification(subject: Subject, displayName: string): string {
-  // Only a person is addressed this way. "The Baptism of the Lord, pray for
-  // us!" is wrong, and a bad line is worse than none.
-  if (!subject.isSanctoral) return '';
   const name = displayName.trim();
-  if (name === '' || !ADDRESSABLE.test(name)) return '';
-  return `${name}, pray for us!`;
+  if (name === '') return '';
+  // A person is addressed directly. `kind` comes from romcal's canonization
+  // level, so this no longer depends on how the name happens to be worded.
+  if (subject.kind === 'saint') return `${name}, pray for us!`;
+  if (subject.kind === 'feast' && OUR_LADY.test(name)) return `${name}, pray for us!`;
+  // An event or a temporal day has no one to address. "The Baptism of the
+  // Lord, pray for us!" is wrong, and a bad line is worse than none.
+  return '';
 }
 
 /**

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Bonaventure, Bishop and Doctor of the Church"
   ],
-  "notification": "Saint Bonaventure, Bishop and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "bonaventure-of-bagnoregio-bishop",
+    "kind": "saint",
     "name": "Saint Bonaventure, Bishop and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Bonaventure, Bishop and Doctor of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

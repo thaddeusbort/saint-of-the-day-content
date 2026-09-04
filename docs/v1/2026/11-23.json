@@ -10,12 +10,13 @@
     "Saint Clement I, Pope and Martyr",
     "Saint Columban, Abbot"
   ],
-  "notification": "Saint Clement I, Pope and Martyr, pray for us!",
-  "saint": {
+  "subject": {
     "id": "clement-i-pope",
+    "kind": "saint",
     "name": "Saint Clement I, Pope and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Clement I, Pope and Martyr, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

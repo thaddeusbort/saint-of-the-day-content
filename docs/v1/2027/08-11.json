@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Clare, Virgin"
   ],
-  "notification": "Saint Clare, Virgin, pray for us!",
-  "saint": {
+  "subject": {
     "id": "clare-of-assisi-virgin",
+    "kind": "saint",
     "name": "Saint Clare, Virgin",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Clare, Virgin, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

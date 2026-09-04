@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Conversion of Saint Paul the Apostle"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "conversion-of-saint-paul-the-apostle",
+    "kind": "feast",
     "name": "The Conversion of Saint Paul the Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

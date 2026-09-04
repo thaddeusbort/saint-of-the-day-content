@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Nativity of the Blessed Virgin Mary"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "nativity-of-the-blessed-virgin-mary",
+    "kind": "feast",
     "name": "The Nativity of the Blessed Virgin Mary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

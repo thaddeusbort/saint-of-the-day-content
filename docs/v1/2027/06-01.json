@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Justin, Martyr"
   ],
-  "notification": "Saint Justin, Martyr, pray for us!",
-  "saint": {
+  "subject": {
     "id": "justin-martyr",
+    "kind": "saint",
     "name": "Saint Justin, Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Justin, Martyr, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

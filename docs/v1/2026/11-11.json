@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Martin of Tours, Bishop"
   ],
-  "notification": "Saint Martin of Tours, Bishop, pray for us!",
-  "saint": {
+  "subject": {
     "id": "martin-of-tours-bishop",
+    "kind": "saint",
     "name": "Saint Martin of Tours, Bishop",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Martin of Tours, Bishop, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

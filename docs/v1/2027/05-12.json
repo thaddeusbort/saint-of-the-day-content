@@ -10,12 +10,13 @@
     "Saints Nereus and Achilleus, Martyrs",
     "Saint Pancras, Martyr"
   ],
-  "notification": "Saints Nereus and Achilleus, Martyrs, pray for us!",
-  "saint": {
+  "subject": {
     "id": "nereus-of-terracina-and-achilleus-of-terracina-martyrs",
+    "kind": "saint",
     "name": "Saints Nereus and Achilleus, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saints Nereus and Achilleus, Martyrs, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "sixth Sunday of Easter"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "easter-time-6-sunday",
+    "kind": "day",
     "name": "sixth Sunday of Easter",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

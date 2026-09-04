@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Pius X, Pope"
   ],
-  "notification": "Saint Pius X, Pope, pray for us!",
-  "saint": {
+  "subject": {
     "id": "pius-x-pope",
+    "kind": "saint",
     "name": "Saint Pius X, Pope",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Pius X, Pope, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

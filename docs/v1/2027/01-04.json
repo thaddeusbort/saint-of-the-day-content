@@ -8,12 +8,13 @@
   "all_celebrations": [
     "January 4"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "christmas-time-january-4",
+    "kind": "day",
     "name": "January 4",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

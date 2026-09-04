@@ -9,12 +9,13 @@
     "Friday of the second week of Ordinary Time",
     "Saint Vincent, Deacon and Martyr"
   ],
-  "notification": "Saint Vincent, Deacon and Martyr, pray for us!",
-  "saint": {
+  "subject": {
     "id": "vincent-of-saragossa-deacon",
+    "kind": "saint",
     "name": "Saint Vincent, Deacon and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Vincent, Deacon and Martyr, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

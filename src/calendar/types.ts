@@ -21,10 +21,19 @@ export interface Celebration {
   /** True when the celebration is an optional memorial the day does not require. */
   readonly isOptional: boolean;
   /**
-   * True when this celebration commemorates one or more people in the
-   * martyrology — i.e. it is a saint's day rather than a temporal day.
+   * True when the celebration commemorates anything in the martyrology — a
+   * person, but also an event or a title.
    */
   readonly isSanctoral: boolean;
+  /**
+   * True when what it commemorates is a person.
+   *
+   * romcal marks people with a canonization level and leaves it unset for
+   * events and titles, so "Saint John Bosco" is a person while "The Nativity
+   * of the Blessed Virgin Mary" and "Our Lady of Sorrows" are not. That
+   * distinction is structural, not a guess from the name.
+   */
+  readonly isPerson: boolean;
 }
 
 /** Everything the pipeline needs to know about one calendar date. */

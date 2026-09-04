@@ -8,12 +8,13 @@
   "all_celebrations": [
     "sixth Day within the Octave of the Nativity of the Lord"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "christmas-octave-day-6",
+    "kind": "day",
     "name": "sixth Day within the Octave of the Nativity of the Lord",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

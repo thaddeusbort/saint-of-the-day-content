@@ -9,12 +9,13 @@
     "Monday of the fourth week of Lent",
     "Saint John of God, Religious"
   ],
-  "notification": "Saint John of God, Religious, pray for us!",
-  "saint": {
+  "subject": {
     "id": "john-of-god-duarte-cidade-religious",
+    "kind": "saint",
     "name": "Saint John of God, Religious",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint John of God, Religious, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

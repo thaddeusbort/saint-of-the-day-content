@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Francis of Assisi"
   ],
-  "notification": "Saint Francis of Assisi, pray for us!",
-  "saint": {
+  "subject": {
     "id": "francis-of-assisi",
+    "kind": "saint",
     "name": "Saint Francis of Assisi",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Francis of Assisi, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

@@ -9,12 +9,13 @@
     "Friday of the seventeenth week of Ordinary Time",
     "Saint Peter Chrysologus, Bishop and Doctor of the Church"
   ],
-  "notification": "Saint Peter Chrysologus, Bishop and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "peter-chrysologus-bishop",
+    "kind": "saint",
     "name": "Saint Peter Chrysologus, Bishop and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Peter Chrysologus, Bishop and Doctor of the Church, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

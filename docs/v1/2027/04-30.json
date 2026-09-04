@@ -9,12 +9,13 @@
     "Friday of the fifth week of Easter",
     "Saint Pius V, Pope"
   ],
-  "notification": "Saint Pius V, Pope, pray for us!",
-  "saint": {
+  "subject": {
     "id": "pius-v-pope",
+    "kind": "saint",
     "name": "Saint Pius V, Pope",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Pius V, Pope, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "twenty-seventh Sunday in Ordinary Time"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "ordinary-time-27-sunday",
+    "kind": "day",
     "name": "twenty-seventh Sunday in Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

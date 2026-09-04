@@ -97,13 +97,15 @@ One file per day at `v1/{yyyy}/{MM-dd}.json`:
   "rank": "memorial",
   "celebration": "Saint John Bosco, Priest",
   "all_celebrations": ["Saint John Bosco, Priest"],
-  "notification": "St. John Bosco, pray for us!",
-  "saint": {
+  "subject": {
     "id": "john-bosco-priest",
+    "kind": "saint",
     "name": "St. John Bosco",
-    "years": "1815–1888",
+    "subtitle": "1815–1888",
     "blurb": "Turin priest who built schools and workshops for boys …",
-    "is_fallback": false
+    "notification": "St. John Bosco, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Photograph, c. 1880",
@@ -124,10 +126,10 @@ These are facts about shipped code, not preferences:
 | Rule                                                          | Why                                                                                                                          |
 | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | Coverage must be contiguous, and reach well past 7 days ahead | The app's prefetch catches `IOException` and abandons the rest of the window. A single 404 mid-window silently truncates it. |
-| `saint` and `image` must always be present                    | They are the only fields with no default in the app's model. A day missing either fails to parse.                            |
+| `subject` and `image` must always be present                  | They are the only fields with no default in the app's model. A day missing either fails to parse.                            |
 | Variant `url`s are relative to `v1/`                          | The app joins them onto `{BASE_URL}/v1/`.                                                                                    |
 | Adding fields is safe; renaming or removing is not            | The app ignores unknown keys. Removal breaks installed versions — that is what `schema` and the `v1/` path exist for.        |
-| Everything else may be empty                                  | `celebration`, `color`, `rank`, `blurb` and `years` all default to `""` in the app.                                          |
+| Everything else may be empty                                  | `celebration`, `color`, `rank`, `blurb` and `subtitle` all default to `""` in the app.                                       |
 | Serve a trailing margin, not just today forward               | The app reads the _device's_ local date. UTC+14 asks for tomorrow by the job's clock; UTC-12 asks for yesterday.             |
 
 `is_fallback: true` means one thing and nothing else: **the liturgical day has
@@ -149,13 +151,28 @@ celebration of a saint. The pipeline takes, in order:
 3. Otherwise the liturgical day itself: a Sunday, a ferial weekday, or a
    solemnity of the Lord — `is_fallback: true`.
 
-`notification` is a short line to address the day with. It is derived for a
-saint whose name can be addressed — one beginning _Saint_, _St._, _Blessed_ or
-_Our Lady_ — and left empty otherwise, because "The Baptism of the Lord, pray
-for us!" is wrong and no line beats a wrong one. A curator overrides it with
-`notification:` in the saint's YAML, which is how a temporal day gets one.
+`subject.kind` says what the day is about, which is not always a saint:
 
-`saint.source` says which of the three it was — `proper`, `optional`, or
+| `kind`  | Meaning                              | Examples                                                                                   |
+| ------- | ------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `saint` | a person, or people                  | John Bosco; Peter and Paul                                                                 |
+| `feast` | in the martyrology, but not a person | the Nativity of the BVM, the Exaltation of the Holy Cross, All Saints, Our Lady of Sorrows |
+| `day`   | the liturgical day itself            | Christmas, Easter, a Sunday, a feria                                                       |
+
+It comes from romcal's canonization level, which is set for people and unset
+for events and titles — structural rather than read off the name.
+
+`subject.notification` is a short line to address the subject with. It is
+derived for a `saint`, and for Our Lady under a title, and left empty
+otherwise: "The Baptism of the Lord, pray for us!" is wrong, and no line beats
+a wrong one. `notification:` in the subject's YAML overrides it, and is how a
+`day` gets one at all.
+
+`subject.subtitle` is the line under the name — a saint's dates, or whatever
+suits a subject that has none. It is not always a year range, which is why it
+is not called `years`.
+
+`subject.source` says which of the three it was — `proper`, `optional`, or
 `temporal` — so a reader can tell a memorial the day requires from one the
 pipeline reached for. `is_fallback` stays exactly `source !== "proper"`.
 

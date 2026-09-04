@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Most Sacred Heart of Jesus"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "most-sacred-heart-of-jesus",
+    "kind": "day",
     "name": "The Most Sacred Heart of Jesus",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

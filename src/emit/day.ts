@@ -48,12 +48,13 @@ export function buildDay(day: LiturgicalDay, curated: CuratedSaint | undefined):
     rank: day.rank,
     celebration: day.celebrations[0]?.name ?? '',
     all_celebrations: day.celebrations.map((celebration) => celebration.name),
-    notification: resolveNotification(subject, displayName, curated?.entry.notification),
-    saint: {
+    subject: {
       id: subject.id,
+      kind: subject.kind,
       name: displayName,
-      years: curated?.entry.years ?? '',
+      subtitle: curated?.entry.subtitle ?? '',
       blurb: curated?.entry.blurb ?? '',
+      notification: resolveNotification(subject, displayName, curated?.entry.notification),
       is_fallback: subject.isFallback,
       source: subject.source,
     },

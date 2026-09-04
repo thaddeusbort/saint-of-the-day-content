@@ -10,12 +10,13 @@
     "Saint Hedwig, Religious",
     "Saint Margaret Mary Alacoque, Virgin"
   ],
-  "notification": "Saint Hedwig, Religious, pray for us!",
-  "saint": {
+  "subject": {
     "id": "hedwig-of-silesia-religious",
+    "kind": "saint",
     "name": "Saint Hedwig, Religious",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Hedwig, Religious, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

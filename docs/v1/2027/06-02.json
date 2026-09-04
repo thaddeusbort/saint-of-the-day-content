@@ -9,12 +9,13 @@
     "Wednesday of the ninth week of Ordinary Time",
     "Saints Marcellinus and Peter, Martyrs"
   ],
-  "notification": "Saints Marcellinus and Peter, Martyrs, pray for us!",
-  "saint": {
+  "subject": {
     "id": "marcellinus-of-rome-and-peter-the-exorcist-martyrs",
+    "kind": "saint",
     "name": "Saints Marcellinus and Peter, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saints Marcellinus and Peter, Martyrs, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

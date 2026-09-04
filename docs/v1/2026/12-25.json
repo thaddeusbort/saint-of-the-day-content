@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Nativity of the Lord (Christmas)"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "nativity-of-the-lord",
+    "kind": "day",
     "name": "The Nativity of the Lord (Christmas)",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Andrew, Apostle"
   ],
-  "notification": "Saint Andrew, Apostle, pray for us!",
-  "saint": {
+  "subject": {
     "id": "andrew-apostle",
+    "kind": "saint",
     "name": "Saint Andrew, Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Andrew, Apostle, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

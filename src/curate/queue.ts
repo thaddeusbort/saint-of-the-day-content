@@ -21,7 +21,7 @@ import { pathsFor } from '../paths.js';
 /** The entry already on disk for a curated subject. */
 export interface CuratedEntry {
   readonly name: string;
-  readonly years: string;
+  readonly subtitle: string;
   readonly blurb: string;
   readonly credit: string;
   readonly license: string;
@@ -132,7 +132,7 @@ export async function buildQueue(options: QueueOptions = {}): Promise<Queue> {
           : {
               entry: {
                 name: curated.entry.name,
-                years: curated.entry.years,
+                subtitle: curated.entry.subtitle,
                 blurb: curated.entry.blurb,
                 credit: curated.entry.credit,
                 license: curated.entry.license,

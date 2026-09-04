@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Thomas Aquinas, Priest and Doctor of the Church"
   ],
-  "notification": "Saint Thomas Aquinas, Priest and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "thomas-aquinas-priest",
+    "kind": "saint",
     "name": "Saint Thomas Aquinas, Priest and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Thomas Aquinas, Priest and Doctor of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

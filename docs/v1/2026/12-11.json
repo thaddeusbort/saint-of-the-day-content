@@ -9,12 +9,13 @@
     "Friday of the second week of Advent",
     "Saint Damasus I, Pope"
   ],
-  "notification": "Saint Damasus I, Pope, pray for us!",
-  "saint": {
+  "subject": {
     "id": "damasus-i-pope",
+    "kind": "saint",
     "name": "Saint Damasus I, Pope",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Damasus I, Pope, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

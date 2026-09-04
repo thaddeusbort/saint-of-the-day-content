@@ -8,12 +8,13 @@
   "all_celebrations": [
     "December 18"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "advent-december-18",
+    "kind": "day",
     "name": "December 18",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

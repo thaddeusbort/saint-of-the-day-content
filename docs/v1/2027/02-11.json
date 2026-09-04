@@ -9,12 +9,13 @@
     "Thursday after Ash Wednesday",
     "Our Lady of Lourdes"
   ],
-  "notification": "Our Lady of Lourdes, pray for us!",
-  "saint": {
+  "subject": {
     "id": "our-lady-of-lourdes",
+    "kind": "feast",
     "name": "Our Lady of Lourdes",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Our Lady of Lourdes, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

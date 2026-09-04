@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint John of the Cross, Priest and Doctor of the Church"
   ],
-  "notification": "Saint John of the Cross, Priest and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "john-of-the-cross-priest",
+    "kind": "saint",
     "name": "Saint John of the Cross, Priest and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint John of the Cross, Priest and Doctor of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

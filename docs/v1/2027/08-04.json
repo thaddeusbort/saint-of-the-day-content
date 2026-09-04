@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint John Mary Vianney, Priest"
   ],
-  "notification": "Saint John Mary Vianney, Priest, pray for us!",
-  "saint": {
+  "subject": {
     "id": "john-mary-vianney-priest",
+    "kind": "saint",
     "name": "Saint John Mary Vianney, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint John Mary Vianney, Priest, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

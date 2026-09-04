@@ -14,11 +14,27 @@ export interface ImageVariant {
   readonly url: string;
 }
 
-export interface SaintRecord {
+export interface SubjectRecord {
   readonly id: string;
+  /**
+   * What the subject is: `saint` for a person, `feast` for something
+   * commemorated but not a person, `day` for the liturgical day itself.
+   */
+  readonly kind: string;
   readonly name: string;
-  readonly years: string;
+  /**
+   * A line under the name. A saint's dates where there are any, and whatever
+   * suits the subject otherwise — this is not always a year range, which is
+   * why it is not called `years`.
+   */
+  readonly subtitle: string;
   readonly blurb: string;
+  /**
+   * A short line to address the subject with, e.g. "St. John Bosco, pray for
+   * us!". Empty where nothing has been written and nothing sensible can be
+   * derived.
+   */
+  readonly notification: string;
   /**
    * True when the liturgical day has no proper celebration of a saint, so the
    * pipeline chose one. Nothing else.
@@ -57,13 +73,11 @@ export interface DayRecord {
   readonly celebration: string;
   readonly all_celebrations: readonly string[];
   /**
-   * A short line to address the day with, e.g. "St. John Bosco, pray for us!".
+   * Who or what the day is about.
    *
-   * Top level rather than under `saint`, because on a solemnity of the Lord it
-   * is not about a saint at all. Empty where nothing has been written and
-   * nothing sensible can be derived.
+   * Not always a saint — on Christmas it is the Nativity, on an ordinary
+   * Tuesday it is the weekday itself — which is what `kind` is for.
    */
-  readonly notification: string;
-  readonly saint: SaintRecord;
+  readonly subject: SubjectRecord;
   readonly image: ImageRecord;
 }

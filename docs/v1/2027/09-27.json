@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Vincent de Paul, Priest"
   ],
-  "notification": "Saint Vincent de Paul, Priest, pray for us!",
-  "saint": {
+  "subject": {
     "id": "vincent-de-paul-priest",
+    "kind": "saint",
     "name": "Saint Vincent de Paul, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Vincent de Paul, Priest, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saturday of the fourth week of Lent"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "lent-4-saturday",
+    "kind": "day",
     "name": "Saturday of the fourth week of Lent",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

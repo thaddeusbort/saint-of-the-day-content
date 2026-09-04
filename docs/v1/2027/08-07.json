@@ -10,12 +10,13 @@
     "Saint Sixtus II, Pope, and Companions, Martyrs",
     "Saint Cajetan, Priest"
   ],
-  "notification": "Saint Sixtus II, Pope, and Companions, Martyrs, pray for us!",
-  "saint": {
+  "subject": {
     "id": "sixtus-ii-pope-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saint Sixtus II, Pope, and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Sixtus II, Pope, and Companions, Martyrs, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

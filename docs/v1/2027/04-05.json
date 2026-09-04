@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Annunciation of the Lord"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "annunciation-of-the-lord",
+    "kind": "feast",
     "name": "The Annunciation of the Lord",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

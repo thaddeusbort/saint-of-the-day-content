@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Paul Miki and Companions, Martyrs"
   ],
-  "notification": "Saint Paul Miki and Companions, Martyrs, pray for us!",
-  "saint": {
+  "subject": {
     "id": "paul-miki-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saint Paul Miki and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Paul Miki and Companions, Martyrs, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

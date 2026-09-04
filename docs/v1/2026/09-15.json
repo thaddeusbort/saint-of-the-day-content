@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Our Lady of Sorrows"
   ],
-  "notification": "Our Lady of Sorrows, pray for us!",
-  "saint": {
+  "subject": {
     "id": "our-lady-of-sorrows",
+    "kind": "feast",
     "name": "Our Lady of Sorrows",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Our Lady of Sorrows, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

@@ -9,12 +9,13 @@
     "Saturday of the twenty-second week of Ordinary Time",
     "Saint Teresa of Calcutta, Virgin"
   ],
-  "notification": "Saint Teresa of Calcutta, Virgin, pray for us!",
-  "saint": {
+  "subject": {
     "id": "teresa-of-calcutta-virgin",
+    "kind": "saint",
     "name": "Saint Teresa of Calcutta, Virgin",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Teresa of Calcutta, Virgin, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saturday of the thirtieth week of Ordinary Time"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "ordinary-time-30-saturday",
+    "kind": "day",
     "name": "Saturday of the thirtieth week of Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

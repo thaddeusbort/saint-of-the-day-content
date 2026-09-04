@@ -26,6 +26,20 @@ import type { LiturgicalDay } from '../calendar/types.js';
  */
 export type SubjectSource = 'proper' | 'optional' | 'temporal';
 
+/**
+ * What the subject is, as distinct from how it was chosen.
+ *
+ * `saint` a person or people — John Bosco, Peter and Paul
+ * `feast` commemorated in the martyrology but not a person — the Nativity of
+ *         the Blessed Virgin Mary, the Exaltation of the Holy Cross, All
+ *         Saints, Our Lady of Sorrows
+ * `day`   the liturgical day itself — Christmas, Easter, a Sunday, a feria
+ *
+ * Taken from romcal's canonization level rather than from the name, so it does
+ * not depend on how a celebration happens to be worded.
+ */
+export type SubjectKind = 'saint' | 'feast' | 'day';
+
 export interface Subject {
   /** Content id, used for `saints/{id}.yaml` and `img/{id}-{w}x{h}.jpg`. */
   readonly id: string;
@@ -34,6 +48,7 @@ export interface Subject {
   /** True when the subject is a person in the martyrology, not a temporal day. */
   readonly isSanctoral: boolean;
   readonly source: SubjectSource;
+  readonly kind: SubjectKind;
   /**
    * True when the liturgical day would admit a saint it does not itself
    * celebrate. False for the Triduum, the solemnities, the privileged Sundays
@@ -58,6 +73,7 @@ export function resolveSubject(day: LiturgicalDay): Subject {
       isFallback: false,
       isSanctoral: true,
       source: 'proper',
+      kind: principal.isPerson ? 'saint' : 'feast',
       admitsSaint,
     };
   }
@@ -73,6 +89,7 @@ export function resolveSubject(day: LiturgicalDay): Subject {
       isFallback: true,
       isSanctoral: true,
       source: 'optional',
+      kind: optional.isPerson ? 'saint' : 'feast',
       admitsSaint,
     };
   }
@@ -86,6 +103,7 @@ export function resolveSubject(day: LiturgicalDay): Subject {
     isFallback: true,
     isSanctoral: false,
     source: 'temporal',
+    kind: 'day',
     admitsSaint,
   };
 }

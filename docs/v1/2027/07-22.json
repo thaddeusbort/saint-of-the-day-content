@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Mary Magdalene"
   ],
-  "notification": "Saint Mary Magdalene, pray for us!",
-  "saint": {
+  "subject": {
     "id": "mary-magdalene",
+    "kind": "saint",
     "name": "Saint Mary Magdalene",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Mary Magdalene, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

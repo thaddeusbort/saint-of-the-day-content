@@ -9,12 +9,13 @@
     "Thursday of the twentieth week of Ordinary Time",
     "Saint John Eudes, Priest"
   ],
-  "notification": "Saint John Eudes, Priest, pray for us!",
-  "saint": {
+  "subject": {
     "id": "john-eudes-priest",
+    "kind": "saint",
     "name": "Saint John Eudes, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint John Eudes, Priest, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

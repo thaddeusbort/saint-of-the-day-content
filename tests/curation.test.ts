@@ -17,7 +17,7 @@ import { addCuratedSaint, makeCheckout } from './helpers.js';
 
 const valid = {
   name: 'St. John Bosco',
-  years: '1815–1888',
+  subtitle: '1815–1888',
   blurb: 'Turin priest who built schools and workshops for boys.',
   credit: 'Photograph, c. 1880',
   license: 'Public domain',
@@ -33,9 +33,9 @@ describe('the curation schema', () => {
     expect(entry.crop.width).toBe(1440);
   });
 
-  it('treats years as the one optional field', () => {
-    const entry = parseSaintEntry('x', 'saints/x.yaml', { ...valid, years: undefined });
-    expect(entry.years).toBe('');
+  it('treats subtitle as the one optional field', () => {
+    const entry = parseSaintEntry('x', 'saints/x.yaml', { ...valid, subtitle: undefined });
+    expect(entry.subtitle).toBe('');
   });
 
   it.each(['name', 'blurb', 'credit', 'license', 'source'])('rejects an empty %s', (field) => {

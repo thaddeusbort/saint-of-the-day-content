@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Tuesday of the first week of Lent"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "lent-1-tuesday",
+    "kind": "day",
     "name": "Tuesday of the first week of Lent",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

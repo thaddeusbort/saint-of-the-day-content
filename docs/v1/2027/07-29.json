@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saints Martha, Mary and Lazarus"
   ],
-  "notification": "Saints Martha, Mary and Lazarus, pray for us!",
-  "saint": {
+  "subject": {
     "id": "martha-of-bethany-mary-of-bethany-and-lazarus-of-bethany",
+    "kind": "saint",
     "name": "Saints Martha, Mary and Lazarus",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saints Martha, Mary and Lazarus, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

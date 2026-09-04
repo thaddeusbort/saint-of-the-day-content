@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Third Sunday in Ordinary Time, or Sunday of the Word of God"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "sunday-of-the-word-of-god",
+    "kind": "day",
     "name": "Third Sunday in Ordinary Time, or Sunday of the Word of God",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

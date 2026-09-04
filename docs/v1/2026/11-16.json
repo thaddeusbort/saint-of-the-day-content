@@ -10,12 +10,13 @@
     "Saint Margaret of Scotland",
     "Saint Gertrude, Virgin"
   ],
-  "notification": "Saint Margaret of Scotland, pray for us!",
-  "saint": {
+  "subject": {
     "id": "margaret-of-scotland",
+    "kind": "saint",
     "name": "Saint Margaret of Scotland",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Margaret of Scotland, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Charles Borromeo, Bishop"
   ],
-  "notification": "Saint Charles Borromeo, Bishop, pray for us!",
-  "saint": {
+  "subject": {
     "id": "charles-borromeo-bishop",
+    "kind": "saint",
     "name": "Saint Charles Borromeo, Bishop",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Charles Borromeo, Bishop, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

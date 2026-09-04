@@ -9,12 +9,13 @@
     "Wednesday of the sixteenth week of Ordinary Time",
     "Saint Lawrence of Brindisi, Priest and Doctor of the Church"
   ],
-  "notification": "Saint Lawrence of Brindisi, Priest and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "lawrence-of-brindisi-priest",
+    "kind": "saint",
     "name": "Saint Lawrence of Brindisi, Priest and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Lawrence of Brindisi, Priest and Doctor of the Church, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

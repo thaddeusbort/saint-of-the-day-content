@@ -387,7 +387,7 @@ describe('saving', () => {
         {
           id: 'john-bosco-priest',
           name: 'St. John Bosco',
-          years: '1815–1888',
+          subtitle: '1815–1888',
           blurb: 'Turin priest who built schools and workshops for boys.',
           notification: '',
           sourceId: 'commons',
@@ -420,7 +420,7 @@ describe('saving', () => {
     try {
       await expect(
         saveCuratedSaint(
-          { id: 'nope', name: 'X', years: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
+          { id: 'nope', name: 'X', subtitle: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
           {
             fetcher: fetcherFor([
               page({}, { License: 'cc-by-nc-2.0', LicenseShortName: 'CC BY-NC 2.0' }),
@@ -447,7 +447,7 @@ describe('saving', () => {
           {
             id: 'small',
             name: 'X',
-            years: '',
+            subtitle: '',
             blurb: 'b',
             notification: '',
             sourceId: 'commons',
@@ -471,7 +471,7 @@ describe('saving', () => {
           {
             id: 'edge',
             name: 'X',
-            years: '',
+            subtitle: '',
             blurb: 'b',
             notification: '',
             sourceId: 'commons',
@@ -495,7 +495,7 @@ describe('saving', () => {
           {
             id: 'noblurb',
             name: 'X',
-            years: '',
+            subtitle: '',
             blurb: '   ',
             notification: '',
             sourceId: 'commons',
@@ -516,7 +516,7 @@ describe('saving', () => {
     try {
       await expect(
         saveCuratedSaint(
-          { id: 'missing', name: 'X', years: '', blurb: 'b', fileTitle: 'File:Nope.jpg', crop },
+          { id: 'missing', name: 'X', subtitle: '', blurb: 'b', fileTitle: 'File:Nope.jpg', crop },
           { fetcher: fetcherFor([]), downloader: await jpegDownloader(), root },
         ),
       ).rejects.toThrow(SaveError);
@@ -534,7 +534,7 @@ describe('saving', () => {
           {
             id: 'liar',
             name: 'X',
-            years: '',
+            subtitle: '',
             blurb: 'b',
             notification: '',
             sourceId: 'commons',
@@ -571,7 +571,7 @@ describe('saving', () => {
         {
           id: 'john-bosco-priest',
           name: 'St. John Bosco',
-          years: '',
+          subtitle: '',
           blurb: 'A blurb.',
           notification: '',
           sourceId: 'commons',
@@ -597,7 +597,7 @@ describe('saving', () => {
         {
           id: 'fresh',
           name: 'X',
-          years: '',
+          subtitle: '',
           blurb: 'b',
           notification: '',
           sourceId: 'commons',
@@ -621,7 +621,7 @@ describe('saving', () => {
         {
           id: 'small-source',
           name: 'X',
-          years: '',
+          subtitle: '',
           blurb: 'b',
           notification: '',
           sourceId: 'commons',
@@ -652,7 +652,7 @@ describe('saving', () => {
         {
           id: 'ordinary',
           name: 'X',
-          years: '',
+          subtitle: '',
           blurb: 'b',
           notification: '',
           sourceId: 'commons',
@@ -691,7 +691,7 @@ describe('saving', () => {
             {
               id: 'liar',
               name: 'X',
-              years: '',
+              subtitle: '',
               blurb: 'b',
               notification: '',
               sourceId: 'commons',
@@ -713,7 +713,7 @@ describe('saving', () => {
       try {
         await expect(
           saveCuratedSaint(
-            { id: 'nc', name: 'X', years: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
+            { id: 'nc', name: 'X', subtitle: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
             {
               fetcher: fetcherFor([
                 page({}, { License: 'cc-by-nc-2.0', LicenseShortName: 'CC BY-NC 2.0' }),
@@ -737,7 +737,7 @@ describe('saving', () => {
             {
               id: 'noblurb',
               name: 'X',
-              years: '',
+              subtitle: '',
               blurb: '  ',
               notification: '',
               sourceId: 'commons',
@@ -761,7 +761,7 @@ describe('saving', () => {
             {
               id: 'way-too-small',
               name: 'X',
-              years: '',
+              subtitle: '',
               blurb: 'b',
               notification: '',
               sourceId: 'commons',
@@ -786,7 +786,7 @@ describe('saving', () => {
             {
               id: 'tiny',
               name: 'X',
-              years: '',
+              subtitle: '',
               blurb: 'b',
               notification: '',
               sourceId: 'commons',
@@ -814,7 +814,7 @@ describe('saving', () => {
             {
               id: 'blocked',
               name: 'X',
-              years: '',
+              subtitle: '',
               blurb: 'b',
               notification: '',
               sourceId: 'commons',

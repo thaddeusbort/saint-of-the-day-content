@@ -8,12 +8,13 @@
   "all_celebrations": [
     "twenty-first Sunday in Ordinary Time"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "ordinary-time-21-sunday",
+    "kind": "day",
     "name": "twenty-first Sunday in Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

@@ -9,12 +9,13 @@
     "Friday of the nineteenth week of Ordinary Time",
     "Saints Pontian, Pope, and Hippolytus, Priest, Martyrs"
   ],
-  "notification": "Saints Pontian, Pope, and Hippolytus, Priest, Martyrs, pray for us!",
-  "saint": {
+  "subject": {
     "id": "pontian-i-pope-and-hippolytus-of-rome-priest",
+    "kind": "saint",
     "name": "Saints Pontian, Pope, and Hippolytus, Priest, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saints Pontian, Pope, and Hippolytus, Priest, Martyrs, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

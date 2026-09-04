@@ -9,12 +9,13 @@
     "Saturday of the fourth week of Easter",
     "Saint Fidelis of Sigmaringen, Priest and Martyr"
   ],
-  "notification": "Saint Fidelis of Sigmaringen, Priest and Martyr, pray for us!",
-  "saint": {
+  "subject": {
     "id": "fidelis-of-sigmaringen-priest",
+    "kind": "saint",
     "name": "Saint Fidelis of Sigmaringen, Priest and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Fidelis of Sigmaringen, Priest and Martyr, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Holy Guardian Angels"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "holy-guardian-angels",
+    "kind": "feast",
     "name": "The Holy Guardian Angels",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

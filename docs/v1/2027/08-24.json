@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Bartholomew, Apostle"
   ],
-  "notification": "Saint Bartholomew, Apostle, pray for us!",
-  "saint": {
+  "subject": {
     "id": "bartholomew-apostle",
+    "kind": "saint",
     "name": "Saint Bartholomew, Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Bartholomew, Apostle, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

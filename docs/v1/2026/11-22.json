@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Our Lord Jesus Christ, King of the Universe"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "our-lord-jesus-christ-king-of-the-universe",
+    "kind": "day",
     "name": "Our Lord Jesus Christ, King of the Universe",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

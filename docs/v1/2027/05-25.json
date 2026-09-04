@@ -11,12 +11,13 @@
     "Saint Gregory VII, Pope",
     "Saint Mary Magdalene de’ Pazzi, Virgin"
   ],
-  "notification": "Saint Bede the Venerable, Priest and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "bede-the-venerable-priest",
+    "kind": "saint",
     "name": "Saint Bede the Venerable, Priest and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Bede the Venerable, Priest and Doctor of the Church, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

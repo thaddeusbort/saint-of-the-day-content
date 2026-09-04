@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saints Joachim and Anne, Parents of the Blessed Virgin Mary"
   ],
-  "notification": "Saints Joachim and Anne, Parents of the Blessed Virgin Mary, pray for us!",
-  "saint": {
+  "subject": {
     "id": "joachim-and-anne-parents-of-mary",
+    "kind": "saint",
     "name": "Saints Joachim and Anne, Parents of the Blessed Virgin Mary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saints Joachim and Anne, Parents of the Blessed Virgin Mary, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

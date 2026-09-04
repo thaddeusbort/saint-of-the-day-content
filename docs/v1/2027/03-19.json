@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Joseph, Spouse of the Blessed Virgin Mary"
   ],
-  "notification": "Saint Joseph, Spouse of the Blessed Virgin Mary, pray for us!",
-  "saint": {
+  "subject": {
     "id": "joseph-spouse-of-mary",
+    "kind": "saint",
     "name": "Saint Joseph, Spouse of the Blessed Virgin Mary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Joseph, Spouse of the Blessed Virgin Mary, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

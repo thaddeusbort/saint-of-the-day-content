@@ -9,12 +9,13 @@
     "Thursday after the Epiphany of the Lord",
     "Saint Raymond of Penyafort, Priest"
   ],
-  "notification": "Saint Raymond of Penyafort, Priest, pray for us!",
-  "saint": {
+  "subject": {
     "id": "raymond-of-penyafort-priest",
+    "kind": "saint",
     "name": "Saint Raymond of Penyafort, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Raymond of Penyafort, Priest, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

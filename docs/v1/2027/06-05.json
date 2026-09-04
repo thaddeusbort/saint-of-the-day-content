@@ -9,12 +9,13 @@
     "The Immaculate Heart of the Blessed Virgin Mary",
     "Saint Boniface, Bishop and Martyr"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "immaculate-heart-of-mary",
+    "kind": "feast",
     "name": "The Immaculate Heart of the Blessed Virgin Mary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

@@ -9,12 +9,13 @@
     "Thursday of the fifth week of Lent",
     "Saint Cyril of Jerusalem, Bishop and Doctor of the Church"
   ],
-  "notification": "Saint Cyril of Jerusalem, Bishop and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "cyril-of-jerusalem-bishop",
+    "kind": "saint",
     "name": "Saint Cyril of Jerusalem, Bishop and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Cyril of Jerusalem, Bishop and Doctor of the Church, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

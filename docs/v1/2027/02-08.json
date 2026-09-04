@@ -10,12 +10,13 @@
     "Saint Jerome Emiliani",
     "Saint Josephine Bakhita, Virgin"
   ],
-  "notification": "Saint Jerome Emiliani, pray for us!",
-  "saint": {
+  "subject": {
     "id": "jerome-emiliani",
+    "kind": "saint",
     "name": "Saint Jerome Emiliani",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Jerome Emiliani, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

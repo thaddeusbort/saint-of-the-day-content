@@ -8,12 +8,13 @@
   "all_celebrations": [
     "December 22"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "advent-december-22",
+    "kind": "day",
     "name": "December 22",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

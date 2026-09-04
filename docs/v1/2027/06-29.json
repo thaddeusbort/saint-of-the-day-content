@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saints Peter and Paul, Apostles"
   ],
-  "notification": "Saints Peter and Paul, Apostles, pray for us!",
-  "saint": {
+  "subject": {
     "id": "peter-and-paul-apostles",
+    "kind": "saint",
     "name": "Saints Peter and Paul, Apostles",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saints Peter and Paul, Apostles, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

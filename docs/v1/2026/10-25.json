@@ -8,12 +8,13 @@
   "all_celebrations": [
     "thirtieth Sunday in Ordinary Time"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "ordinary-time-30-sunday",
+    "kind": "day",
     "name": "thirtieth Sunday in Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

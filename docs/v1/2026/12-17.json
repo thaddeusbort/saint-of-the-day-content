@@ -8,12 +8,13 @@
   "all_celebrations": [
     "December 17"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "advent-december-17",
+    "kind": "day",
     "name": "December 17",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Francis Xavier, Priest"
   ],
-  "notification": "Saint Francis Xavier, Priest, pray for us!",
-  "saint": {
+  "subject": {
     "id": "francis-xavier-priest",
+    "kind": "saint",
     "name": "Saint Francis Xavier, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Francis Xavier, Priest, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

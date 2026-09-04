@@ -9,12 +9,13 @@
     "Saturday of the twenty-third week of Ordinary Time",
     "The Most Holy Name of Mary"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "most-holy-name-of-mary",
+    "kind": "feast",
     "name": "The Most Holy Name of Mary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "optional"
   },

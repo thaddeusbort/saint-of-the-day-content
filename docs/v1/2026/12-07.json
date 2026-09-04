@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Ambrose, Bishop and Doctor of the Church"
   ],
-  "notification": "Saint Ambrose, Bishop and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "ambrose-of-milan-bishop",
+    "kind": "saint",
     "name": "Saint Ambrose, Bishop and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Ambrose, Bishop and Doctor of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Josaphat, Bishop and Martyr"
   ],
-  "notification": "Saint Josaphat, Bishop and Martyr, pray for us!",
-  "saint": {
+  "subject": {
     "id": "josaphat-kuntsevych-bishop",
+    "kind": "saint",
     "name": "Saint Josaphat, Bishop and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Josaphat, Bishop and Martyr, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

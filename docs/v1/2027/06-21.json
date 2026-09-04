@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Aloysius Gonzaga, Religious"
   ],
-  "notification": "Saint Aloysius Gonzaga, Religious, pray for us!",
-  "saint": {
+  "subject": {
     "id": "aloysius-gonzaga-religious",
+    "kind": "saint",
     "name": "Saint Aloysius Gonzaga, Religious",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Aloysius Gonzaga, Religious, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

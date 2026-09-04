@@ -127,7 +127,7 @@ crop:
 | Field           | Required | Notes                                                                                                        |
 | --------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
 | `name`          | yes      | Display name, as the app should show it.                                                                     |
-| `years`         | no       | Life span. Omit it if the dates are not reliably known; it defaults to `""`.                                 |
+| `subtitle`      | no       | The line under the name — a saint's dates, or whatever suits a subject with none. Defaults to `""`.          |
 | `blurb`         | yes      | One or two sentences. See below.                                                                             |
 | `credit`        | yes      | Attribution line for the image, as the source states it.                                                     |
 | `license`       | yes      | The licence the image is actually under.                                                                     |

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "third Sunday of Lent"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "lent-3-sunday",
+    "kind": "day",
     "name": "third Sunday of Lent",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

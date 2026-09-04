@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Friday of the thirty-fourth week of Ordinary Time"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "ordinary-time-34-friday",
+    "kind": "day",
     "name": "Friday of the thirty-fourth week of Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

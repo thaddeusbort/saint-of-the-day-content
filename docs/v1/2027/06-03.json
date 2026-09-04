@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saints Charles Lwanga and Companions, Martyrs"
   ],
-  "notification": "Saints Charles Lwanga and Companions, Martyrs, pray for us!",
-  "saint": {
+  "subject": {
     "id": "charles-lwanga-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saints Charles Lwanga and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saints Charles Lwanga and Companions, Martyrs, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

@@ -9,12 +9,13 @@
     "Saturday of the eighth week of Ordinary Time",
     "Saint Paul VI, Pope"
   ],
-  "notification": "Saint Paul VI, Pope, pray for us!",
-  "saint": {
+  "subject": {
     "id": "paul-vi-pope",
+    "kind": "saint",
     "name": "Saint Paul VI, Pope",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Paul VI, Pope, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

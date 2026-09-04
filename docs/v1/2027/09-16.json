@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs"
   ],
-  "notification": "Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs, pray for us!",
-  "saint": {
+  "subject": {
     "id": "cornelius-i-pope-and-cyprian-of-carthage-bishop-martyrs",
+    "kind": "saint",
     "name": "Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

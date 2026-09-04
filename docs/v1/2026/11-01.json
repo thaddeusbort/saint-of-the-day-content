@@ -8,12 +8,13 @@
   "all_celebrations": [
     "All Saints"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "all-saints",
+    "kind": "feast",
     "name": "All Saints",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

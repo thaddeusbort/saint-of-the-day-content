@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Irenaeus, Bishop, Martyr and Doctor of the Church"
   ],
-  "notification": "Saint Irenaeus, Bishop, Martyr and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "irenaeus-of-lyon-bishop",
+    "kind": "saint",
     "name": "Saint Irenaeus, Bishop, Martyr and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Irenaeus, Bishop, Martyr and Doctor of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

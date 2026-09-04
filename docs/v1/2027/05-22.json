@@ -9,12 +9,13 @@
     "Saturday of the seventh week of Ordinary Time",
     "Saint Rita of Cascia, Religious"
   ],
-  "notification": "Saint Rita of Cascia, Religious, pray for us!",
-  "saint": {
+  "subject": {
     "id": "rita-of-cascia-religious",
+    "kind": "saint",
     "name": "Saint Rita of Cascia, Religious",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Rita of Cascia, Religious, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

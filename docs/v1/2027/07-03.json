@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Thomas, Apostle"
   ],
-  "notification": "Saint Thomas, Apostle, pray for us!",
-  "saint": {
+  "subject": {
     "id": "thomas-apostle",
+    "kind": "saint",
     "name": "Saint Thomas, Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Thomas, Apostle, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

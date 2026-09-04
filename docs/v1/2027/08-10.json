@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Lawrence, Deacon and Martyr"
   ],
-  "notification": "Saint Lawrence, Deacon and Martyr, pray for us!",
-  "saint": {
+  "subject": {
     "id": "lawrence-of-rome-deacon",
+    "kind": "saint",
     "name": "Saint Lawrence, Deacon and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Lawrence, Deacon and Martyr, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

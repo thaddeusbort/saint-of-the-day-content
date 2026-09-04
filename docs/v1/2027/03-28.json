@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Easter Sunday of the Resurrection of the Lord"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "easter-sunday",
+    "kind": "day",
     "name": "Easter Sunday of the Resurrection of the Lord",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

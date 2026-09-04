@@ -8,12 +8,13 @@
   "all_celebrations": [
     "December 24"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "advent-december-24",
+    "kind": "day",
     "name": "December 24",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

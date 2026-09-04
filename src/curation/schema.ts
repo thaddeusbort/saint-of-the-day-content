@@ -19,8 +19,11 @@ export interface SaintEntry {
   readonly id: string;
   /** Display name, e.g. "St. John Bosco". */
   readonly name: string;
-  /** Life span, e.g. "1815–1888". May be empty for saints without dates. */
-  readonly years: string;
+  /**
+   * A line under the name — a saint's dates, or whatever suits a subject that
+   * has none. Not always a year range, which is why it is not called `years`.
+   */
+  readonly subtitle: string;
   readonly blurb: string;
   readonly credit: string;
   readonly license: string;
@@ -80,10 +83,11 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
     strings[key] = value.trim();
   }
 
-  // `years` is the one optional string: not every saint has reliable dates.
-  const years = document['years'];
-  if (years !== undefined && typeof years !== 'string') {
-    throw new CurationError(file, '`years` must be a string when present');
+  // `subtitle` is the one optional string: not every subject has dates, or
+  // anything else worth putting under the name.
+  const subtitle = document['subtitle'];
+  if (subtitle !== undefined && typeof subtitle !== 'string') {
+    throw new CurationError(file, '`subtitle` must be a string when present');
   }
 
   const source = strings['source'] as string;
@@ -126,7 +130,7 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
   const unknownKeys = Object.keys(document).filter(
     (key) =>
       !REQUIRED_STRINGS.includes(key as (typeof REQUIRED_STRINGS)[number]) &&
-      key !== 'years' &&
+      key !== 'subtitle' &&
       key !== 'crop' &&
       key !== 'notification' &&
       key !== 'allow_upscale',
@@ -138,7 +142,7 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
   return {
     id,
     name: strings['name'] as string,
-    years: (years ?? '').trim(),
+    subtitle: (subtitle ?? '').trim(),
     blurb: strings['blurb'] as string,
     credit: strings['credit'] as string,
     license: strings['license'] as string,

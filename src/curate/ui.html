@@ -810,7 +810,7 @@
               'Saving again overwrites this entry and drops its rendered images, so a new crop takes effect on the next run of the generator.',
           }),
           el('div', { style: 'margin-top:8px' }, el('strong', { textContent: entry.name })),
-          entry.years ? el('div', { className: 'sub', textContent: entry.years }) : '',
+          entry.subtitle ? el('div', { className: 'sub', textContent: entry.subtitle }) : '',
           el('div', { style: 'margin-top:6px', textContent: entry.blurb }),
           el(
             'div',
@@ -879,9 +879,9 @@
           upscaleLabel,
         );
         const nameI = el('input', { value: item.entry?.name ?? item.name });
-        const yearsI = el('input', {
-          value: item.entry?.years ?? '',
-          placeholder: '1815–1888 (optional)',
+        const subtitleI = el('input', {
+          value: item.entry?.subtitle ?? '',
+          placeholder: '1815–1888, or whatever suits (optional)',
         });
         const blurbI = el('textarea', {
           value: item.entry?.blurb ?? '',
@@ -994,7 +994,7 @@
               body: JSON.stringify({
                 id: item.id,
                 name: nameI.value,
-                years: yearsI.value,
+                subtitle: subtitleI.value,
                 blurb: blurbI.value,
                 sourceId: state.sourceId,
                 fileTitle: f.ref,
@@ -1061,7 +1061,7 @@
               'div',
               { className: 'grid2' },
               el('div', {}, el('label', { textContent: 'name' }), nameI),
-              el('div', {}, el('label', { textContent: 'years (optional)' }), yearsI),
+              el('div', {}, el('label', { textContent: 'subtitle (optional)' }), subtitleI),
             ),
             el('label', { textContent: 'notification — the line shown with the image' }),
             notifyI,

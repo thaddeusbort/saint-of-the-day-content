@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Augustine, Bishop and Doctor of the Church"
   ],
-  "notification": "Saint Augustine, Bishop and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "augustine-of-hippo-bishop",
+    "kind": "saint",
     "name": "Saint Augustine, Bishop and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Augustine, Bishop and Doctor of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

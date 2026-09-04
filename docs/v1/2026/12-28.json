@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Holy Innocents, Martyrs"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "holy-innocents-martyrs",
+    "kind": "feast",
     "name": "The Holy Innocents, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "second Sunday of Advent"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "advent-2-sunday",
+    "kind": "day",
     "name": "second Sunday of Advent",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

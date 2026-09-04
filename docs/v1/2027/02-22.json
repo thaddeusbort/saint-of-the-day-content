@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Chair of Saint Peter the Apostle"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "chair-of-saint-peter-the-apostle",
+    "kind": "feast",
     "name": "The Chair of Saint Peter the Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Holy Saturday/Easter Vigil"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "holy-saturday",
+    "kind": "day",
     "name": "Holy Saturday/Easter Vigil",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

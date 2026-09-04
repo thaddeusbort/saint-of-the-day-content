@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Monica"
   ],
-  "notification": "Saint Monica, pray for us!",
-  "saint": {
+  "subject": {
     "id": "monica-of-hippo",
+    "kind": "saint",
     "name": "Saint Monica",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Monica, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

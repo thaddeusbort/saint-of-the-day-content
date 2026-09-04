@@ -8,12 +8,13 @@
   "all_celebrations": [
     "twenty-third Sunday in Ordinary Time"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "ordinary-time-23-sunday",
+    "kind": "day",
     "name": "twenty-third Sunday in Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

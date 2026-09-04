@@ -9,12 +9,13 @@
     "Thursday of the eighteenth week of Ordinary Time",
     "The Dedication of the Basilica of Saint Mary Major"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "dedication-of-the-basilica-of-saint-mary-major",
+    "kind": "feast",
     "name": "The Dedication of the Basilica of Saint Mary Major",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "optional"
   },

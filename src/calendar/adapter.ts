@@ -149,7 +149,7 @@ type RomcalEntry = {
   isOptional: boolean;
   seasons: readonly string[];
   colors: readonly string[];
-  martyrology?: readonly unknown[];
+  martyrology?: readonly { canonizationLevel?: string | null }[];
 };
 
 function toLiturgicalDay(date: string, entries: readonly RomcalEntry[]): LiturgicalDay {
@@ -192,6 +192,9 @@ function toCelebration(entry: RomcalEntry): Celebration {
     rank: mapEnum(RANKS, entry.rank, 'rank'),
     isOptional: entry.isOptional === true,
     isSanctoral: (entry.martyrology?.length ?? 0) > 0,
+    isPerson: (entry.martyrology ?? []).some(
+      (item) => typeof item?.canonizationLevel === 'string' && item.canonizationLevel !== '',
+    ),
   };
 }
 

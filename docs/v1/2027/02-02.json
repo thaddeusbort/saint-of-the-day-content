@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Presentation of the Lord"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "presentation-of-the-lord",
+    "kind": "feast",
     "name": "The Presentation of the Lord",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

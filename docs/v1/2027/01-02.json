@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saints Basil the Great and Gregory Nazianzen, Bishops and Doctors of the Church"
   ],
-  "notification": "Saints Basil the Great and Gregory Nazianzen, Bishops and Doctors of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "basil-the-great-and-gregory-nazianzen-bishops",
+    "kind": "saint",
     "name": "Saints Basil the Great and Gregory Nazianzen, Bishops and Doctors of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saints Basil the Great and Gregory Nazianzen, Bishops and Doctors of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

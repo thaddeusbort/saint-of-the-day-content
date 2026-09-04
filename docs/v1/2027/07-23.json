@@ -9,12 +9,13 @@
     "Friday of the sixteenth week of Ordinary Time",
     "Saint Bridget, Religious"
   ],
-  "notification": "Saint Bridget, Religious, pray for us!",
-  "saint": {
+  "subject": {
     "id": "bridget-of-sweden-religious",
+    "kind": "saint",
     "name": "Saint Bridget, Religious",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Bridget, Religious, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

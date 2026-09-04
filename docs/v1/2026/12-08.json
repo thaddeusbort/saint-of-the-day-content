@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Immaculate Conception of the Blessed Virgin Mary"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "immaculate-conception-of-the-blessed-virgin-mary",
+    "kind": "feast",
     "name": "The Immaculate Conception of the Blessed Virgin Mary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

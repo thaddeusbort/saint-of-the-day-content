@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Matthew, Apostle and Evangelist"
   ],
-  "notification": "Saint Matthew, Apostle and Evangelist, pray for us!",
-  "saint": {
+  "subject": {
     "id": "matthew-apostle",
+    "kind": "saint",
     "name": "Saint Matthew, Apostle and Evangelist",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Matthew, Apostle and Evangelist, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

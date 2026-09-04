@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Commemoration of All the Faithful Departed (All Soul’s Day)"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "commemoration-of-all-the-faithful-departed",
+    "kind": "feast",
     "name": "The Commemoration of All the Faithful Departed (All Soul’s Day)",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

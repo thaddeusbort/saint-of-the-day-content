@@ -9,12 +9,13 @@
     "Monday of the twenty-first week of Ordinary Time",
     "Saint Rose of Lima, Virgin"
   ],
-  "notification": "Saint Rose of Lima, Virgin, pray for us!",
-  "saint": {
+  "subject": {
     "id": "rose-of-lima-virgin",
+    "kind": "saint",
     "name": "Saint Rose of Lima, Virgin",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Rose of Lima, Virgin, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

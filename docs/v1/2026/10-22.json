@@ -9,12 +9,13 @@
     "Thursday of the twenty-ninth week of Ordinary Time",
     "Saint John Paul II, Pope"
   ],
-  "notification": "Saint John Paul II, Pope, pray for us!",
-  "saint": {
+  "subject": {
     "id": "john-paul-ii-pope",
+    "kind": "saint",
     "name": "Saint John Paul II, Pope",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint John Paul II, Pope, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

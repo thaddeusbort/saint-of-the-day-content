@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Catherine of Siena, Virgin and Doctor of the Church"
   ],
-  "notification": "Saint Catherine of Siena, Virgin and Doctor of the Church, pray for us!",
-  "saint": {
+  "subject": {
     "id": "catherine-of-siena-virgin",
+    "kind": "saint",
     "name": "Saint Catherine of Siena, Virgin and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Catherine of Siena, Virgin and Doctor of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

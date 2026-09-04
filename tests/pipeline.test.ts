@@ -78,10 +78,11 @@ describe('a run with no curated saints', () => {
       const record = await readDay(root, date);
       expect(record.schema).toBe(1);
       expect(record.date).toBe(date);
-      expect(record.saint).toBeTruthy();
-      expect(record.saint.id).not.toBe('');
-      expect(record.saint.name).not.toBe('');
-      expect(typeof record.saint.is_fallback).toBe('boolean');
+      expect(record.subject).toBeTruthy();
+      expect(['saint', 'feast', 'day']).toContain(record.subject.kind);
+      expect(record.subject.id).not.toBe('');
+      expect(record.subject.name).not.toBe('');
+      expect(typeof record.subject.is_fallback).toBe('boolean');
       expect(record.image).toBeTruthy();
       expect(record.image.variants.length).toBe(VARIANTS.length);
       expect(record.celebration).not.toBe('');
@@ -99,16 +100,16 @@ describe('a run with no curated saints', () => {
     // 3 September 2026: Saint Gregory the Great, addressable, so a line comes
     // for free.
     const saint = await readDay(root, '2026-09-03');
-    expect(saint.notification).toMatch(/, pray for us!$/);
-    expect(saint.notification).toContain('Gregory');
+    expect(saint.subject.notification).toMatch(/, pray for us!$/);
+    expect(saint.subject.notification).toContain('Gregory');
 
     // A Sunday in Ordinary Time has no one to address; a curator supplies it.
     const sunday = await readDay(root, '2026-09-06');
-    expect(sunday.notification).toBe('');
+    expect(sunday.subject.notification).toBe('');
 
     // Christmas likewise: "The Nativity of the Lord, pray for us!" is wrong.
     const christmas = await readDay(root, '2026-12-25');
-    expect(christmas.notification).toBe('');
+    expect(christmas.subject.notification).toBe('');
   });
 
   it('emits a complete placeholder record for a day with no curated saint', async () => {
@@ -117,13 +118,13 @@ describe('a run with no curated saints', () => {
     // Doctor of the Church, Memorial, white.
     expect(record.rank).toBe('memorial');
     expect(record.color).toBe('white');
-    expect(record.saint.is_fallback).toBe(false);
+    expect(record.subject.is_fallback).toBe(false);
     expect(record.image.is_placeholder).toBe(true);
     expect(record.image.variants[0]?.url).toBe('img/fallback-white-1440x3200.jpg');
     expect(record.image.license).not.toBe('');
     // Everything the app defaults to "" is allowed to be empty here.
-    expect(record.saint.blurb).toBe('');
-    expect(record.saint.years).toBe('');
+    expect(record.subject.blurb).toBe('');
+    expect(record.subject.subtitle).toBe('');
   });
 
   it('marks is_fallback only when the day has no proper celebration of a saint', async () => {
@@ -131,20 +132,20 @@ describe('a run with no curated saints', () => {
     // day's own celebration, so not a fallback.
     const proper = await readDay(root, '2026-09-08');
     expect(proper.rank).toBe('feast');
-    expect(proper.saint.is_fallback).toBe(false);
+    expect(proper.subject.is_fallback).toBe(false);
 
     // 5 September: a ferial Saturday carrying the optional memorial of Saint
     // Teresa of Calcutta. A saint is available, but the day does not require
     // her, so the pipeline chose her.
     const optional = await readDay(root, '2026-09-05');
     expect(optional.rank).toBe('weekday');
-    expect(optional.saint.is_fallback).toBe(true);
-    expect(optional.saint.name).toContain('Teresa');
+    expect(optional.subject.is_fallback).toBe(true);
+    expect(optional.subject.name).toContain('Teresa');
 
     // 6 September: a Sunday in Ordinary Time. Nothing sanctoral at all.
     const sunday = await readDay(root, '2026-09-06');
     expect(sunday.rank).toBe('sunday');
-    expect(sunday.saint.is_fallback).toBe(true);
+    expect(sunday.subject.is_fallback).toBe(true);
   });
 
   it('renders each colour plate once and only once', async () => {
@@ -228,20 +229,20 @@ describe('a curated saint', () => {
       expect(before.image.is_placeholder).toBe(true);
 
       // The subject id for 3 September 2026 (Saint Gregory the Great).
-      await addCuratedSaint(root, before.saint.id);
+      await addCuratedSaint(root, before.subject.id);
       const curatedRun = await generate({ root, today: TODAY });
 
       const after = await readDay(root, '2026-09-03');
       expect(after.image.is_placeholder).toBe(false);
-      expect(after.saint.name).toBe('St. Test of Somewhere');
-      expect(after.saint.blurb).toBe('A curated blurb.');
-      expect(after.saint.years).toBe('1815–1888');
-      expect(after.saint.is_fallback).toBe(false);
+      expect(after.subject.name).toBe('St. Test of Somewhere');
+      expect(after.subject.blurb).toBe('A curated blurb.');
+      expect(after.subject.subtitle).toBe('1815–1888');
+      expect(after.subject.is_fallback).toBe(false);
       expect(after.image.credit).toBe('Photograph, c. 1880');
       expect(after.image.source).toBe('https://commons.wikimedia.org/wiki/File:Example.jpg');
 
       for (const variant of after.image.variants) {
-        expect(variant.url).toBe(`img/${before.saint.id}-${variant.w}x${variant.h}.jpg`);
+        expect(variant.url).toBe(`img/${before.subject.id}-${variant.w}x${variant.h}.jpg`);
         expect(await exists(path.join(root, 'docs', 'v1', variant.url))).toBe(true);
       }
       expect(curatedRun.imagesRendered).toBe(VARIANTS.length);

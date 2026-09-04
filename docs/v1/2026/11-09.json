@@ -8,12 +8,13 @@
   "all_celebrations": [
     "The Dedication of the Lateran Basilica"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "dedication-of-the-lateran-basilica",
+    "kind": "feast",
     "name": "The Dedication of the Lateran Basilica",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": false,
     "source": "proper"
   },

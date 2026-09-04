@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saint Philip Neri, Priest"
   ],
-  "notification": "Saint Philip Neri, Priest, pray for us!",
-  "saint": {
+  "subject": {
     "id": "philip-neri-priest",
+    "kind": "saint",
     "name": "Saint Philip Neri, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Philip Neri, Priest, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

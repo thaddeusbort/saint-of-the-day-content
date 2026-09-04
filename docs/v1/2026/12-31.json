@@ -9,12 +9,13 @@
     "seventh Day within the Octave of the Nativity of the Lord",
     "Saint Sylvester I, Pope"
   ],
-  "notification": "Saint Sylvester I, Pope, pray for us!",
-  "saint": {
+  "subject": {
     "id": "sylvester-i-pope",
+    "kind": "saint",
     "name": "Saint Sylvester I, Pope",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saint Sylvester I, Pope, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },

@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Saints Simon and Jude, Apostles"
   ],
-  "notification": "Saints Simon and Jude, Apostles, pray for us!",
-  "saint": {
+  "subject": {
     "id": "simon-and-jude-apostles",
+    "kind": "saint",
     "name": "Saints Simon and Jude, Apostles",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "Saints Simon and Jude, Apostles, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },

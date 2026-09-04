@@ -8,12 +8,13 @@
   "all_celebrations": [
     "Monday of the eighth week of Ordinary Time"
   ],
-  "notification": "",
-  "saint": {
+  "subject": {
     "id": "ordinary-time-8-monday",
+    "kind": "day",
     "name": "Monday of the eighth week of Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
+    "notification": "",
     "is_fallback": true,
     "source": "temporal"
   },

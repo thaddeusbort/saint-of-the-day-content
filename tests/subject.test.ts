@@ -45,6 +45,43 @@ describe('where the subject comes from', () => {
   });
 });
 
+describe('what kind of subject it is', () => {
+  // romcal marks people with a canonization level and leaves it unset for
+  // events and titles, so this is structural rather than read off the name.
+  it('calls a person a saint', async () => {
+    expect((await subjectFor('2026-09-03')).kind).toBe('saint'); // Gregory the Great
+    expect((await subjectFor('2026-01-31')).kind).toBe('saint'); // John Bosco
+    expect((await subjectFor('2026-06-29')).kind).toBe('saint'); // Peter and Paul, two people
+  });
+
+  it('calls a commemoration that is not a person a feast', async () => {
+    // USCCB 2026 calendar: 8 September, the Nativity of the Blessed Virgin
+    // Mary; 14 September, the Exaltation of the Holy Cross. Both are in the
+    // martyrology, neither is someone to address.
+    expect((await subjectFor('2026-09-08')).kind).toBe('feast');
+    expect((await subjectFor('2026-09-14')).kind).toBe('feast');
+    expect((await subjectFor('2026-08-15')).kind).toBe('feast'); // the Assumption
+    expect((await subjectFor('2026-09-15')).kind).toBe('feast'); // Our Lady of Sorrows
+  });
+
+  it('calls the liturgical day itself a day', async () => {
+    expect((await subjectFor('2026-12-25')).kind).toBe('day'); // Christmas
+    expect((await subjectFor('2026-04-05')).kind).toBe('day'); // Easter
+    expect((await subjectFor('2026-09-06')).kind).toBe('day'); // a Sunday
+    expect((await subjectFor('2026-01-12')).kind).toBe('day'); // a ferial weekday
+  });
+
+  it('is one of the three, every day of a year', async () => {
+    for (const date of dateRange('2027-01-01', '2027-12-31')) {
+      const s = await subjectFor(date);
+      expect(['saint', 'feast', 'day']).toContain(s.kind);
+      // A temporal subject is always a day, and only a sanctoral one can be
+      // a saint or a feast.
+      expect(s.kind === 'day').toBe(!s.isSanctoral);
+    }
+  });
+});
+
 describe('which days admit a saint of their own', () => {
   it('closes the Triduum, the solemnities and the privileged Sundays', async () => {
     for (const date of [
