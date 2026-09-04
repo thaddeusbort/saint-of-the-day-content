@@ -12,13 +12,15 @@ import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { parse as parseYaml } from 'yaml';
 import {
-  ARTWORK_CLAUSE,
-  ARTWORK_QIDS,
+  EXCLUDE_CLAUSE,
+  EXCLUDED_TERMS,
   fileByTitle,
   isFreeLicense,
   search,
+  sizeClause,
   type Fetcher,
 } from '../src/curate/commons.js';
+import { VARIANTS } from '../src/config.js';
 import { buildQueue, defaultQuery } from '../src/curate/queue.js';
 import { saveCuratedSaint, SaveError, type Downloader } from '../src/curate/save.js';
 import { parseSaintEntry } from '../src/curation/schema.js';
@@ -184,7 +186,7 @@ describe('the request the Commons API actually receives', () => {
   });
 });
 
-describe('the artwork filter', () => {
+describe('narrowing the query', () => {
   async function queryFor(options: Parameters<typeof search>[2]): Promise<string> {
     let seen = '';
     const fetcher: Fetcher = async (url) => {
@@ -195,29 +197,51 @@ describe('the artwork filter', () => {
     return new URL(seen).searchParams.get('gsrsearch') ?? '';
   }
 
-  it('is off unless asked for', async () => {
-    const q = await queryFor({});
-    expect(q).toBe('filetype:bitmap John Bosco');
-    expect(q).not.toContain('haswbstatement');
+  it('asks only for bitmaps by default', async () => {
+    expect(await queryFor({})).toBe('filetype:bitmap John Bosco');
   });
 
-  it('narrows to the artwork types when asked', async () => {
-    const q = await queryFor({ artworkOnly: true });
-    // Structured data "instance of": painting, drawing, print, sculpture.
-    expect(q).toContain('haswbstatement:P31=Q3305213');
-    expect(q).toContain('haswbstatement:P31=Q93184');
-    expect(q).toContain('haswbstatement:P31=Q11060274');
-    expect(q).toContain('haswbstatement:P31=Q860861');
-    // The clause is an OR group, so one match is enough, and the search term
-    // still applies alongside it.
-    expect(q).toMatch(/\(haswbstatement.*OR.*\)/);
+  it('pushes the size minimum into the query', async () => {
+    const q = await queryFor({ minWidth: 1440, minHeight: 3200 });
+    // Strict `>`, so one below the minimum keeps an exactly-1440x3200 file.
+    expect(q).toContain('filew:>1439');
+    expect(q).toContain('fileh:>3199');
     expect(q).toContain('John Bosco');
-    expect(q.startsWith('filetype:bitmap ')).toBe(true);
   });
 
-  it('builds the clause from the QID list, so the two cannot drift', () => {
-    for (const qid of ARTWORK_QIDS) expect(ARTWORK_CLAUSE).toContain(`P31=${qid}`);
-    expect(ARTWORK_CLAUSE.split(' OR ')).toHaveLength(ARTWORK_QIDS.length);
+  it('matches the frozen render size, so the two cannot drift', () => {
+    expect(sizeClause(VARIANTS[0].w, VARIANTS[0].h)).toBe('filew:>1439 fileh:>3199');
+  });
+
+  it('negates the excluded terms', async () => {
+    const q = await queryFor({ excludeStructures: true });
+    expect(q).toContain('-church');
+    expect(q).toContain('-chapel');
+    expect(q).toContain('-"coat of arms"');
+    for (const term of EXCLUDED_TERMS) expect(EXCLUDE_CLAUSE).toContain(`-${term}`);
+  });
+
+  it('combines the narrowings and still ends with the term', async () => {
+    const q = await queryFor({ minWidth: 1440, minHeight: 3200, excludeStructures: true });
+    expect(q.startsWith('filetype:bitmap ')).toBe(true);
+    expect(q.endsWith(' John Bosco')).toBe(true);
+    expect(q).toContain('filew:>1439');
+    expect(q).toContain('-church');
+  });
+
+  it('passes a curator’s own syntax through untouched', async () => {
+    // The box is a CirrusSearch box: whatever is typed reaches the API.
+    const q = await queryFor({});
+    expect(q.endsWith('John Bosco')).toBe(true);
+    let seen = '';
+    const fetcher: Fetcher = async (url) => {
+      seen = url;
+      return { ok: true, status: 200, json: async () => ({ query: { pages: [] } }) };
+    };
+    await search(fetcher, 'Gregory -church incategory:Paintings', {});
+    expect(new URL(seen).searchParams.get('gsrsearch')).toBe(
+      'filetype:bitmap Gregory -church incategory:Paintings',
+    );
   });
 });
 

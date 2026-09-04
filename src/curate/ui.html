@@ -392,7 +392,7 @@
         // competing with a grid of alternatives.
         step: 'search',
         hideSmall: true,
-        artworkOnly: false,
+        excludeStructures: false,
         nextOffset: null,
         lastQuery: '',
         rejectedForLicense: 0,
@@ -562,18 +562,21 @@
 
           // Filtering too-small results is client-side over what was fetched;
           // the artwork filter narrows the query itself, so it needs a refetch.
+          // Both narrow the query itself, so both need a refetch. The
+          // too-small check still runs over whatever comes back, so an
+          // unticked box shows the rest rather than trusting the query.
           const hide = el('input', { type: 'checkbox', checked: state.hideSmall, id: 'hideSmall' });
           hide.onchange = () => {
             state.hideSmall = hide.checked;
-            renderResults();
+            runSearch(input.value);
           };
-          const art = el('input', {
+          const nostruct = el('input', {
             type: 'checkbox',
-            checked: state.artworkOnly,
-            id: 'artworkOnly',
+            checked: state.excludeStructures,
+            id: 'excludeStructures',
           });
-          art.onchange = () => {
-            state.artworkOnly = art.checked;
+          nostruct.onchange = () => {
+            state.excludeStructures = nostruct.checked;
             runSearch(input.value);
           };
 
@@ -597,7 +600,7 @@
                   'label',
                   {
                     className: 'opt',
-                    title: `Hide results too small for a ${state.render.width}x${state.render.height} crop, which would have to be upscaled`,
+                    title: `Ask Commons for files at least ${state.render.width}x${state.render.height}, and hide any smaller ones that still come back — anything below that would have to be upscaled`,
                   },
                   hide,
                   'Filter out small images',
@@ -607,10 +610,10 @@
                   {
                     className: 'opt',
                     title:
-                      'Narrow the search to files Commons tags as a painting, drawing, print or sculpture. Structured data is not universal there, so this will also miss untagged artwork.',
+                      'Exclude files whose title, description or categories mention a church, chapel, street, school, monument and so on — photographs of things named after the saint rather than images of the saint. Blunt: it also drops paintings whose description names the church holding them.',
                   },
-                  art,
-                  'Artwork only',
+                  nostruct,
+                  'Exclude buildings',
                 ),
               ),
               el('div', { id: 'results' }),
@@ -642,7 +645,8 @@
           const offset = append && state.nextOffset != null ? state.nextOffset : 0;
           const res = await api(
             `/api/search?q=${encodeURIComponent(term)}&offset=${offset}` +
-              (state.artworkOnly ? '&artwork=1' : ''),
+              (state.hideSmall ? '&big=1' : '') +
+              (state.excludeStructures ? '&nostructures=1' : ''),
           );
           // Commons can return the same file on two pages; keep the first.
           const seen = new Set(state.results.map((f) => f.title));
@@ -664,9 +668,11 @@
         const usable = state.results.length - tooSmall;
         if (!state.results.length)
           notes.push(
-            state.artworkOnly
-              ? 'No usable results — untick “Artwork only” to include files Commons has not tagged.'
-              : 'No usable results.',
+            state.excludeStructures
+              ? 'No usable results — untick “Exclude buildings”, which also drops images whose description mentions one.'
+              : state.hideSmall
+                ? `No results at ${state.render.width}x${state.render.height} or larger — untick the size filter to see what else there is.`
+                : 'No usable results.',
           );
         else notes.push(`${usable} usable result(s).`);
         if (state.rejectedForLicense)

@@ -144,9 +144,13 @@ export function createCurationServer(options: ServerOptions = {}) {
         return;
       }
       const offset = Number(url.searchParams.get('offset') ?? '0');
+      // The size minimum is pushed into the query so paging returns usable
+      // results; `largeEnough` is still recomputed from what comes back.
+      const bigOnly = url.searchParams.get('big') === '1';
       const result = await search(fetcher, term, {
         offset: Number.isFinite(offset) ? offset : 0,
-        artworkOnly: url.searchParams.get('artwork') === '1',
+        ...(bigOnly ? { minWidth: LARGEST.w, minHeight: LARGEST.h } : {}),
+        excludeStructures: url.searchParams.get('nostructures') === '1',
       });
       sendJson(response, 200, result);
       return;

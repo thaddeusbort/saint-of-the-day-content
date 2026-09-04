@@ -26,27 +26,54 @@ const USER_AGENT =
 const LARGEST = VARIANTS[0];
 
 /**
- * Narrows a search to files tagged as artwork in Commons' structured data.
+ * Narrows a search to files big enough to crop.
  *
- * `haswbstatement:P31=<QID>` matches a file whose "instance of" statement is
- * that type: painting, drawing, print, sculpture. Devotional images are mostly
- * one of those, and the filter cuts out the photographs of shrines, plaques
- * and book covers that otherwise crowd a saint's name.
+ * `filew:` and `fileh:` are CirrusSearch file-property keywords and take a
+ * range, so the same minimum the renderer enforces can be pushed into the
+ * query. That matters for paging: without it a page of 24 results can be
+ * almost entirely unusable, and "load more" walks through junk.
  *
- * It narrows rather than ranks, and structured data is not universal on
- * Commons — an untagged painting is missed entirely. That is why it is opt-in,
- * and why it lives here as one editable clause.
+ * It narrows rather than replaces the check on the way in — `largeEnough` is
+ * still computed from the dimensions Commons reports, so correctness never
+ * depends on the query being right.
  *
- * https://www.mediawiki.org/wiki/Help:Extension:WikibaseCirrusSearch
+ * https://www.mediawiki.org/wiki/Help:CirrusSearch
  */
-export const ARTWORK_QIDS = [
-  'Q3305213', // painting
-  'Q93184', // drawing
-  'Q11060274', // print
-  'Q860861', // sculpture
+export function sizeClause(minWidth: number, minHeight: number): string {
+  // Strict `>`, so subtract one to keep an exactly-minimum image.
+  return `filew:>${minWidth - 1} fileh:>${minHeight - 1}`;
+}
+
+/**
+ * Words that mark a photograph of a thing named after a saint rather than an
+ * image of the saint: churches, chapels, streets, schools, monuments.
+ *
+ * A leading `-` is CirrusSearch's negation and applies to the file's title,
+ * description and categories. This is blunt on purpose and cuts real images
+ * too — a painting whose description mentions the church holding it is
+ * excluded — so it is off by default and lives here as one editable list.
+ */
+export const EXCLUDED_TERMS = [
+  'church',
+  'chapel',
+  'cathedral',
+  'basilica',
+  'parish',
+  'interior',
+  'exterior',
+  'facade',
+  'monument',
+  'plaque',
+  'street',
+  'school',
+  'hospital',
+  'map',
+  'flag',
+  'stamp',
+  '"coat of arms"',
 ] as const;
 
-export const ARTWORK_CLAUSE = `(${ARTWORK_QIDS.map((q) => `haswbstatement:P31=${q}`).join(' OR ')})`;
+export const EXCLUDE_CLAUSE = EXCLUDED_TERMS.map((term) => `-${term}`).join(' ');
 
 /** Machine-readable licence codes accepted without question. */
 const FREE_LICENSE_PREFIXES = ['pd', 'cc0', 'cc-by', 'cc-pd'] as const;
@@ -216,8 +243,11 @@ export interface SearchResult {
 export interface SearchOptions {
   readonly limit?: number;
   readonly offset?: number;
-  /** Narrow to files tagged as artwork. See {@link ARTWORK_CLAUSE}. */
-  readonly artworkOnly?: boolean;
+  /** Narrow to files at least this large. See {@link sizeClause}. */
+  readonly minWidth?: number;
+  readonly minHeight?: number;
+  /** Exclude buildings and objects named after the saint. */
+  readonly excludeStructures?: boolean;
 }
 
 export async function search(
@@ -227,9 +257,17 @@ export async function search(
 ): Promise<SearchResult> {
   const limit = options.limit ?? 24;
   const offset = options.offset ?? 0;
+  const clauses = ['filetype:bitmap'];
+  if (options.minWidth !== undefined && options.minHeight !== undefined) {
+    clauses.push(sizeClause(options.minWidth, options.minHeight));
+  }
+  if (options.excludeStructures === true) clauses.push(EXCLUDE_CLAUSE);
+  // The term goes in last and untouched, so a curator can add their own
+  // CirrusSearch syntax — another `-word`, an `incategory:` — from the box.
+  clauses.push(term);
   const payload = await query(fetcher, {
     generator: 'search',
-    gsrsearch: `filetype:bitmap ${options.artworkOnly === true ? `${ARTWORK_CLAUSE} ` : ''}${term}`,
+    gsrsearch: clauses.join(' '),
     gsrnamespace: '6',
     gsrlimit: String(limit),
     ...(offset > 0 ? { gsroffset: String(offset) } : {}),

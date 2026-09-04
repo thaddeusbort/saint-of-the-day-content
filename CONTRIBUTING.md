@@ -38,12 +38,19 @@ Ordinary Time" is rarely worth the effort. **Curated** shows what has already
 been done, and **All** is everything.
 
 Two checkboxes sit beside the search box. **Filter out small images** is on by
-default and hides results too small to crop without upscaling. **Artwork only**
-is off by default and narrows the search to files Commons tags as a painting,
-drawing, print or sculpture — useful when a saint's name returns mostly
-photographs of shrines and plaques, but it relies on structured data that not
-every file has, so it will miss untagged artwork too. **Load more results**
-fetches another page from Commons. Choosing
+default; it asks Commons for files at least as large as the largest variant and
+still checks whatever comes back, so paging does not walk through unusable
+results. **Exclude buildings** is off by default and negates words like
+_church_, _chapel_, _street_ and _monument_ — the photographs of things named
+after a saint rather than images of the saint. It is blunt, and will also drop
+a painting whose description happens to name the church holding it.
+
+The search box is a CirrusSearch box: whatever you type reaches Commons
+untouched, so you can add your own terms — `-window`, `incategory:Paintings`,
+`insource:Goya` — alongside the name. See
+[Help:CirrusSearch](https://www.mediawiki.org/wiki/Help:CirrusSearch).
+
+**Load more results** fetches another page from Commons. Choosing
 an image hides the search and moves you to the crop; **← Back to results**
 returns without re-running the search.
 
