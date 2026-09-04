@@ -37,8 +37,13 @@ data rather than on you, and curating "Tuesday of the twenty-second week of
 Ordinary Time" is rarely worth the effort. **Curated** shows what has already
 been done, and **All** is everything.
 
-Search results are filtered to images large enough to use; untick the box to see
-the rest, and **Load more results** fetches another page from Commons. Choosing
+Two checkboxes sit beside the search box. **Filter out small images** is on by
+default and hides results too small to crop without upscaling. **Artwork only**
+is off by default and narrows the search to files Commons tags as a painting,
+drawing, print or sculpture — useful when a saint's name returns mostly
+photographs of shrines and plaques, but it relies on structured data that not
+every file has, so it will miss untagged artwork too. **Load more results**
+fetches another page from Commons. Choosing
 an image hides the search and moves you to the crop; **← Back to results**
 returns without re-running the search.
 

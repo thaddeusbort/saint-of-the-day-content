@@ -177,8 +177,42 @@
       }
       .searchbar {
         display: flex;
+        align-items: center;
+        flex-wrap: wrap;
         gap: 8px;
         margin-top: 10px;
+      }
+      /* The search row is a control strip, not a form: keep it shallow so the
+         results start higher up the page. */
+      .searchbar input[type='text'] {
+        flex: 1 1 220px;
+        padding: 3px 8px;
+      }
+      .searchbar button {
+        padding: 3px 8px;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+      }
+      .searchbar svg {
+        width: 15px;
+        height: 15px;
+        display: block;
+      }
+      .opt {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+        font-size: 12px;
+        color: var(--muted);
+        white-space: nowrap;
+        cursor: help;
+      }
+      .opt input {
+        width: auto;
+        margin: 0;
+        cursor: pointer;
       }
       #results {
         display: grid;
@@ -358,6 +392,7 @@
         // competing with a grid of alternatives.
         step: 'search',
         hideSmall: true,
+        artworkOnly: false,
         nextOffset: null,
         lastQuery: '',
         rejectedForLicense: 0,
@@ -368,7 +403,12 @@
       const $ = (sel, root = document) => root.querySelector(sel);
       const el = (tag, props = {}, ...kids) => {
         const node = document.createElement(tag);
-        Object.assign(node, props);
+        for (const [key, value] of Object.entries(props)) {
+          // Object.assign sets properties; hyphenated names like aria-label
+          // are attributes only, and would land as ignored expandos.
+          if (key.includes('-')) node.setAttribute(key, value);
+          else node[key] = value;
+        }
         for (const kid of kids.flat()) if (kid !== '' && kid != null) node.append(kid);
         return node;
       };
@@ -506,17 +546,35 @@
         if (item.curated && item.entry) main.append(curatedCard(item.entry));
 
         if (state.step === 'search') {
-          const input = el('input', { id: 'q', value: state.lastQuery || item.query });
-          const go = el('button', { textContent: 'Search Commons' });
+          const input = el('input', {
+            id: 'q',
+            type: 'text',
+            value: state.lastQuery || item.query,
+          });
+          const go = el('button', { title: 'Search Commons', 'aria-label': 'Search Commons' });
+          go.innerHTML =
+            '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"' +
+            ' stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg>';
           go.onclick = () => runSearch(input.value);
           input.onkeydown = (e) => {
             if (e.key === 'Enter') go.click();
           };
 
+          // Filtering too-small results is client-side over what was fetched;
+          // the artwork filter narrows the query itself, so it needs a refetch.
           const hide = el('input', { type: 'checkbox', checked: state.hideSmall, id: 'hideSmall' });
           hide.onchange = () => {
             state.hideSmall = hide.checked;
             renderResults();
+          };
+          const art = el('input', {
+            type: 'checkbox',
+            checked: state.artworkOnly,
+            id: 'artworkOnly',
+          });
+          art.onchange = () => {
+            state.artworkOnly = art.checked;
+            runSearch(input.value);
           };
 
           main.append(
@@ -530,12 +588,30 @@
                 textContent:
                   'Only Commons is searched, and only files whose licence reads as free. Attribution is taken from the file, not typed.',
               }),
-              el('div', { className: 'searchbar' }, input, go),
               el(
-                'label',
-                { className: 'rowline', style: 'margin:10px 0 0;font-size:12px' },
-                hide,
-                `Hide images too small for a ${state.render.width}x${state.render.height} crop`,
+                'div',
+                { className: 'searchbar' },
+                input,
+                go,
+                el(
+                  'label',
+                  {
+                    className: 'opt',
+                    title: `Hide results too small for a ${state.render.width}x${state.render.height} crop, which would have to be upscaled`,
+                  },
+                  hide,
+                  'Filter out small images',
+                ),
+                el(
+                  'label',
+                  {
+                    className: 'opt',
+                    title:
+                      'Narrow the search to files Commons tags as a painting, drawing, print or sculpture. Structured data is not universal there, so this will also miss untagged artwork.',
+                  },
+                  art,
+                  'Artwork only',
+                ),
               ),
               el('div', { id: 'results' }),
               el('div', { id: 'searchMsg' }),
@@ -564,7 +640,10 @@
         state.lastQuery = term;
         try {
           const offset = append && state.nextOffset != null ? state.nextOffset : 0;
-          const res = await api(`/api/search?q=${encodeURIComponent(term)}&offset=${offset}`);
+          const res = await api(
+            `/api/search?q=${encodeURIComponent(term)}&offset=${offset}` +
+              (state.artworkOnly ? '&artwork=1' : ''),
+          );
           // Commons can return the same file on two pages; keep the first.
           const seen = new Set(state.results.map((f) => f.title));
           state.results = state.results.concat(res.files.filter((f) => !seen.has(f.title)));
@@ -583,7 +662,12 @@
         const notes = [];
         const tooSmall = state.results.filter((f) => !f.largeEnough).length;
         const usable = state.results.length - tooSmall;
-        if (!state.results.length) notes.push('No usable results.');
+        if (!state.results.length)
+          notes.push(
+            state.artworkOnly
+              ? 'No usable results — untick “Artwork only” to include files Commons has not tagged.'
+              : 'No usable results.',
+          );
         else notes.push(`${usable} usable result(s).`);
         if (state.rejectedForLicense)
           notes.push(`${state.rejectedForLicense} hidden: licence not free or unreadable.`);

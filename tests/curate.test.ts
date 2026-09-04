@@ -11,7 +11,14 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { parse as parseYaml } from 'yaml';
-import { isFreeLicense, search, fileByTitle, type Fetcher } from '../src/curate/commons.js';
+import {
+  ARTWORK_CLAUSE,
+  ARTWORK_QIDS,
+  fileByTitle,
+  isFreeLicense,
+  search,
+  type Fetcher,
+} from '../src/curate/commons.js';
 import { buildQueue, defaultQuery } from '../src/curate/queue.js';
 import { saveCuratedSaint, SaveError, type Downloader } from '../src/curate/save.js';
 import { parseSaintEntry } from '../src/curation/schema.js';
@@ -136,7 +143,7 @@ describe('the request the Commons API actually receives', () => {
   }
 
   it('sends a well-formed search query', async () => {
-    const url = await captureUrl((fetcher) => search(fetcher, 'John Bosco', 12));
+    const url = await captureUrl((fetcher) => search(fetcher, 'John Bosco', { limit: 12 }));
     expect(url.origin + url.pathname).toBe('https://commons.wikimedia.org/w/api.php');
     expect(url.searchParams.get('action')).toBe('query');
     expect(url.searchParams.get('format')).toBe('json');
@@ -174,6 +181,43 @@ describe('the request the Commons API actually receives', () => {
   it('surfaces a non-OK response rather than returning nothing', async () => {
     const fetcher: Fetcher = async () => ({ ok: false, status: 429, json: async () => ({}) });
     await expect(search(fetcher, 'x')).rejects.toThrow(/429/);
+  });
+});
+
+describe('the artwork filter', () => {
+  async function queryFor(options: Parameters<typeof search>[2]): Promise<string> {
+    let seen = '';
+    const fetcher: Fetcher = async (url) => {
+      seen = url;
+      return { ok: true, status: 200, json: async () => ({ query: { pages: [] } }) };
+    };
+    await search(fetcher, 'John Bosco', options);
+    return new URL(seen).searchParams.get('gsrsearch') ?? '';
+  }
+
+  it('is off unless asked for', async () => {
+    const q = await queryFor({});
+    expect(q).toBe('filetype:bitmap John Bosco');
+    expect(q).not.toContain('haswbstatement');
+  });
+
+  it('narrows to the artwork types when asked', async () => {
+    const q = await queryFor({ artworkOnly: true });
+    // Structured data "instance of": painting, drawing, print, sculpture.
+    expect(q).toContain('haswbstatement:P31=Q3305213');
+    expect(q).toContain('haswbstatement:P31=Q93184');
+    expect(q).toContain('haswbstatement:P31=Q11060274');
+    expect(q).toContain('haswbstatement:P31=Q860861');
+    // The clause is an OR group, so one match is enough, and the search term
+    // still applies alongside it.
+    expect(q).toMatch(/\(haswbstatement.*OR.*\)/);
+    expect(q).toContain('John Bosco');
+    expect(q.startsWith('filetype:bitmap ')).toBe(true);
+  });
+
+  it('builds the clause from the QID list, so the two cannot drift', () => {
+    for (const qid of ARTWORK_QIDS) expect(ARTWORK_CLAUSE).toContain(`P31=${qid}`);
+    expect(ARTWORK_CLAUSE.split(' OR ')).toHaveLength(ARTWORK_QIDS.length);
   });
 });
 
@@ -272,7 +316,7 @@ describe('search paging', () => {
         json: async () => ({ continue: { gsroffset: 48 }, query: { pages: [page()] } }),
       };
     };
-    const res = await search(fetcher, 'John Bosco', 24, 24);
+    const res = await search(fetcher, 'John Bosco', { limit: 24, offset: 24 });
     expect(new URL(seen).searchParams.get('gsroffset')).toBe('24');
     expect(res.nextOffset).toBe(48);
   });
@@ -289,13 +333,13 @@ describe('search paging', () => {
 
   it('stops paging when the results run out', async () => {
     // A short page with no continuation means there is nothing more to fetch.
-    const res = await search(fetcherFor([page()]), 'x', 24);
+    const res = await search(fetcherFor([page()]), 'x', { limit: 24 });
     expect(res.nextOffset).toBeNull();
   });
 
   it('falls back to counting a full page when no continuation is given', async () => {
     const full = Array.from({ length: 3 }, (_, i) => page({ url: `https://u/${i}.jpg` }));
-    const res = await search(fetcherFor(full), 'x', 3);
+    const res = await search(fetcherFor(full), 'x', { limit: 3 });
     expect(res.nextOffset).toBe(3);
   });
 });

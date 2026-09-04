@@ -25,6 +25,29 @@ const USER_AGENT =
 
 const LARGEST = VARIANTS[0];
 
+/**
+ * Narrows a search to files tagged as artwork in Commons' structured data.
+ *
+ * `haswbstatement:P31=<QID>` matches a file whose "instance of" statement is
+ * that type: painting, drawing, print, sculpture. Devotional images are mostly
+ * one of those, and the filter cuts out the photographs of shrines, plaques
+ * and book covers that otherwise crowd a saint's name.
+ *
+ * It narrows rather than ranks, and structured data is not universal on
+ * Commons — an untagged painting is missed entirely. That is why it is opt-in,
+ * and why it lives here as one editable clause.
+ *
+ * https://www.mediawiki.org/wiki/Help:Extension:WikibaseCirrusSearch
+ */
+export const ARTWORK_QIDS = [
+  'Q3305213', // painting
+  'Q93184', // drawing
+  'Q11060274', // print
+  'Q860861', // sculpture
+] as const;
+
+export const ARTWORK_CLAUSE = `(${ARTWORK_QIDS.map((q) => `haswbstatement:P31=${q}`).join(' OR ')})`;
+
 /** Machine-readable licence codes accepted without question. */
 const FREE_LICENSE_PREFIXES = ['pd', 'cc0', 'cc-by', 'cc-pd'] as const;
 
@@ -190,15 +213,23 @@ export interface SearchResult {
  * are too small are kept but flagged, so the constraint is visible rather than
  * mysterious.
  */
+export interface SearchOptions {
+  readonly limit?: number;
+  readonly offset?: number;
+  /** Narrow to files tagged as artwork. See {@link ARTWORK_CLAUSE}. */
+  readonly artworkOnly?: boolean;
+}
+
 export async function search(
   fetcher: Fetcher,
   term: string,
-  limit = 24,
-  offset = 0,
+  options: SearchOptions = {},
 ): Promise<SearchResult> {
+  const limit = options.limit ?? 24;
+  const offset = options.offset ?? 0;
   const payload = await query(fetcher, {
     generator: 'search',
-    gsrsearch: `filetype:bitmap ${term}`,
+    gsrsearch: `filetype:bitmap ${options.artworkOnly === true ? `${ARTWORK_CLAUSE} ` : ''}${term}`,
     gsrnamespace: '6',
     gsrlimit: String(limit),
     ...(offset > 0 ? { gsroffset: String(offset) } : {}),

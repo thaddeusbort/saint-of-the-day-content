@@ -144,7 +144,10 @@ export function createCurationServer(options: ServerOptions = {}) {
         return;
       }
       const offset = Number(url.searchParams.get('offset') ?? '0');
-      const result = await search(fetcher, term, 24, Number.isFinite(offset) ? offset : 0);
+      const result = await search(fetcher, term, {
+        offset: Number.isFinite(offset) ? offset : 0,
+        artworkOnly: url.searchParams.get('artwork') === '1',
+      });
       sendJson(response, 200, result);
       return;
     }
