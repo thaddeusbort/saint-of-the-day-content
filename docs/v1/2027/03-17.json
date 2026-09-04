@@ -9,12 +9,15 @@
     "Wednesday of the fifth week of Lent",
     "Saint Patrick, Bishop"
   ],
-  "saint": {
+  "subject": {
     "id": "patrick-of-ireland-bishop",
+    "kind": "saint",
     "name": "Saint Patrick, Bishop",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Patrick, Bishop, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saints Philip and James, Apostles"
   ],
-  "saint": {
+  "subject": {
     "id": "philip-and-james-apostles",
+    "kind": "saint",
     "name": "Saints Philip and James, Apostles",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saints Philip and James, Apostles, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

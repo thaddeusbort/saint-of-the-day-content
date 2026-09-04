@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Francis of Assisi"
   ],
-  "saint": {
+  "subject": {
     "id": "francis-of-assisi",
+    "kind": "saint",
     "name": "Saint Francis of Assisi",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Francis of Assisi, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

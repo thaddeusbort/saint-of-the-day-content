@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Ascension of the Lord"
   ],
-  "saint": {
+  "subject": {
     "id": "ascension-of-the-lord",
+    "kind": "day",
     "name": "The Ascension of the Lord",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

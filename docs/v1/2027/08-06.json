@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Transfiguration of the Lord"
   ],
-  "saint": {
+  "subject": {
     "id": "transfiguration-of-the-lord",
+    "kind": "feast",
     "name": "The Transfiguration of the Lord",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -10,12 +10,15 @@
     "Saint Blaise, Bishop and Martyr",
     "Saint Ansgar, Bishop"
   ],
-  "saint": {
+  "subject": {
     "id": "blaise-of-sebaste-bishop",
+    "kind": "saint",
     "name": "Saint Blaise, Bishop and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Blaise, Bishop and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

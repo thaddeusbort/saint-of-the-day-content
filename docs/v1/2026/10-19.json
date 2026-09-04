@@ -10,12 +10,15 @@
     "Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs",
     "Saint Paul of the Cross, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "john-de-brebeuf-isaac-jogues-priests-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

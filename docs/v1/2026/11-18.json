@@ -9,12 +9,15 @@
     "Wednesday of the thirty-third week of Ordinary Time",
     "The Dedication of the Basilicas of Saints Peter and Paul, Apostles"
   ],
-  "saint": {
+  "subject": {
     "id": "dedication-of-the-basilicas-of-saints-peter-and-paul-apostles",
+    "kind": "feast",
     "name": "The Dedication of the Basilicas of Saints Peter and Paul, Apostles",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

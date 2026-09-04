@@ -9,12 +9,15 @@
     "Thursday of the eighteenth week of Ordinary Time",
     "The Dedication of the Basilica of Saint Mary Major"
   ],
-  "saint": {
+  "subject": {
     "id": "dedication-of-the-basilica-of-saint-mary-major",
+    "kind": "feast",
     "name": "The Dedication of the Basilica of Saint Mary Major",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -9,12 +9,15 @@
     "Wednesday of the third week of Ordinary Time",
     "Saint Angela Merici, Virgin"
   ],
-  "saint": {
+  "subject": {
     "id": "angela-merici-virgin",
+    "kind": "saint",
     "name": "Saint Angela Merici, Virgin",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Angela Merici, Virgin, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

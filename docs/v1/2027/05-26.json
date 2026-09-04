@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Philip Neri, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "philip-neri-priest",
+    "kind": "saint",
     "name": "Saint Philip Neri, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Philip Neri, Priest, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Passion of Saint John the Baptist"
   ],
-  "saint": {
+  "subject": {
     "id": "passion-of-saint-john-the-baptist",
+    "kind": "feast",
     "name": "The Passion of Saint John the Baptist",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

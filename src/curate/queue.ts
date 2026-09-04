@@ -13,6 +13,7 @@ import { LiturgicalCalendar } from '../calendar/adapter.js';
 import { WINDOW_DAYS_AHEAD } from '../config.js';
 import { loadCuration } from '../curation/loader.js';
 import { addDays, dateRange, todayUtc } from '../dates.js';
+import { defaultNotification } from '../emit/notification.js';
 import { resolveSubject } from '../emit/subject.js';
 import path from 'node:path';
 import { pathsFor } from '../paths.js';
@@ -20,12 +21,13 @@ import { pathsFor } from '../paths.js';
 /** The entry already on disk for a curated subject. */
 export interface CuratedEntry {
   readonly name: string;
-  readonly years: string;
+  readonly subtitle: string;
   readonly blurb: string;
   readonly credit: string;
   readonly license: string;
   readonly source: string;
   readonly crop: { x: number; y: number; width: number; height: number };
+  readonly notification: string;
   /** Basename of the committed original, for display. */
   readonly original: string;
 }
@@ -38,6 +40,15 @@ export interface QueueItem {
   readonly isSanctoral: boolean;
   /** False when the day's own celebration is this saint. */
   readonly isFallback: boolean;
+  /** `proper`, `optional`, or `temporal` when no saint was available. */
+  readonly source: string;
+  /**
+   * False for the Triduum, solemnities, privileged Sundays and feasts of the
+   * Lord. Those days will never take a martyrology saint, so a `temporal`
+   * subject on one is the final answer and worth an image of its own; a
+   * `temporal` subject on a day that admits a saint is only waiting for one.
+   */
+  readonly admitsSaint: boolean;
   /** The soonest upcoming date this subject appears on. */
   readonly firstDate: string;
   /** Every date in the window this subject appears on. */
@@ -47,6 +58,8 @@ export interface QueueItem {
   readonly allCelebrations: readonly string[];
   readonly rank: string;
   readonly color: string;
+  /** The line the day would carry with nothing written for it. */
+  readonly defaultNotification: string;
   /** True when `saints/{id}.yaml` already exists. */
   readonly curated: boolean;
   /** The entry on disk, present only when `curated`. */
@@ -104,24 +117,28 @@ export async function buildQueue(options: QueueOptions = {}): Promise<Queue> {
         name: subject.name,
         isSanctoral: subject.isSanctoral,
         isFallback: subject.isFallback,
+        source: subject.source,
+        admitsSaint: subject.admitsSaint,
         firstDate: date,
         dates,
         celebration: day.celebrations[0]?.name ?? '',
         allCelebrations: day.celebrations.map((celebration) => celebration.name),
         rank: day.rank,
         color: day.color,
+        defaultNotification: defaultNotification(subject, curated?.entry.name ?? subject.name),
         curated: curated !== undefined,
         ...(curated === undefined
           ? {}
           : {
               entry: {
                 name: curated.entry.name,
-                years: curated.entry.years,
+                subtitle: curated.entry.subtitle,
                 blurb: curated.entry.blurb,
                 credit: curated.entry.credit,
                 license: curated.entry.license,
                 source: curated.entry.source,
                 crop: curated.entry.crop,
+                notification: curated.entry.notification,
                 original: path.basename(curated.originalPath),
               },
             }),

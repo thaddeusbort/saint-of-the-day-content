@@ -13,6 +13,7 @@
  */
 
 import { VARIANTS } from '../config.js';
+import { sourceUpscaleFactor } from '../crop.js';
 
 const API = 'https://commons.wikimedia.org/w/api.php';
 
@@ -24,6 +25,56 @@ const USER_AGENT =
   'saint-of-the-day-content curation tool (https://github.com/thaddeusbort/saint-of-the-day-content)';
 
 const LARGEST = VARIANTS[0];
+
+/**
+ * Narrows a search to files big enough to crop.
+ *
+ * `filew:` and `fileh:` are CirrusSearch file-property keywords and take a
+ * range, so the same minimum the renderer enforces can be pushed into the
+ * query. That matters for paging: without it a page of 24 results can be
+ * almost entirely unusable, and "load more" walks through junk.
+ *
+ * It narrows rather than replaces the check on the way in — `largeEnough` is
+ * still computed from the dimensions Commons reports, so correctness never
+ * depends on the query being right.
+ *
+ * https://www.mediawiki.org/wiki/Help:CirrusSearch
+ */
+export function sizeClause(minWidth: number, minHeight: number): string {
+  // Strict `>`, so subtract one to keep an exactly-minimum image.
+  return `filew:>${minWidth - 1} fileh:>${minHeight - 1}`;
+}
+
+/**
+ * Words that mark a photograph of a thing named after a saint rather than an
+ * image of the saint: churches, chapels, streets, schools, monuments.
+ *
+ * A leading `-` is CirrusSearch's negation and applies to the file's title,
+ * description and categories. This is blunt on purpose and cuts real images
+ * too — a painting whose description mentions the church holding it is
+ * excluded — so it is off by default and lives here as one editable list.
+ */
+export const EXCLUDED_TERMS = [
+  'church',
+  'chapel',
+  'cathedral',
+  'basilica',
+  'parish',
+  'interior',
+  'exterior',
+  'facade',
+  'monument',
+  'plaque',
+  'street',
+  'school',
+  'hospital',
+  'map',
+  'flag',
+  'stamp',
+  '"coat of arms"',
+] as const;
+
+export const EXCLUDE_CLAUSE = EXCLUDED_TERMS.map((term) => `-${term}`).join(' ');
 
 /** Machine-readable licence codes accepted without question. */
 const FREE_LICENSE_PREFIXES = ['pd', 'cc0', 'cc-by', 'cc-pd'] as const;
@@ -48,11 +99,14 @@ export interface CommonsFile {
   readonly licenseCode: string;
   /** True when the licence is one this tool will save. */
   readonly licenseAccepted: boolean;
-  /**
-   * True when a {@link LARGEST}-sized crop fits inside the original. Anything
-   * smaller would have to be upscaled, which the renderer refuses to do.
-   */
+  /** True when a {@link LARGEST}-sized crop fits inside the original. */
   readonly largeEnough: boolean;
+  /**
+   * How much this file would have to be enlarged to reach the largest
+   * variant, at its best crop. 1 when none is needed. Above MAX_UPSCALE the
+   * file is no use at any setting.
+   */
+  readonly upscaleFactor: number;
   /** Any usage restriction Commons flags (trademark, personality rights). */
   readonly restrictions: string;
   /** Commons' own description, shown for reference. Never copied into a blurb. */
@@ -142,6 +196,7 @@ function toFile(page: Record<string, unknown>): CommonsFile | null {
     licenseCode,
     licenseAccepted: isFreeLicense(licenseCode, license),
     largeEnough: width >= LARGEST.w && height >= LARGEST.h,
+    upscaleFactor: sourceUpscaleFactor({ width, height }),
     restrictions: meta(extmetadata, 'Restrictions'),
     description: meta(extmetadata, 'ImageDescription'),
   };
@@ -190,15 +245,34 @@ export interface SearchResult {
  * are too small are kept but flagged, so the constraint is visible rather than
  * mysterious.
  */
+export interface SearchOptions {
+  readonly limit?: number;
+  readonly offset?: number;
+  /** Narrow to files at least this large. See {@link sizeClause}. */
+  readonly minWidth?: number;
+  readonly minHeight?: number;
+  /** Exclude buildings and objects named after the saint. */
+  readonly excludeStructures?: boolean;
+}
+
 export async function search(
   fetcher: Fetcher,
   term: string,
-  limit = 24,
-  offset = 0,
+  options: SearchOptions = {},
 ): Promise<SearchResult> {
+  const limit = options.limit ?? 24;
+  const offset = options.offset ?? 0;
+  const clauses = ['filetype:bitmap'];
+  if (options.minWidth !== undefined && options.minHeight !== undefined) {
+    clauses.push(sizeClause(options.minWidth, options.minHeight));
+  }
+  if (options.excludeStructures === true) clauses.push(EXCLUDE_CLAUSE);
+  // The term goes in last and untouched, so a curator can add their own
+  // CirrusSearch syntax — another `-word`, an `incategory:` — from the box.
+  clauses.push(term);
   const payload = await query(fetcher, {
     generator: 'search',
-    gsrsearch: `filetype:bitmap ${term}`,
+    gsrsearch: clauses.join(' '),
     gsrnamespace: '6',
     gsrlimit: String(limit),
     ...(offset > 0 ? { gsroffset: String(offset) } : {}),

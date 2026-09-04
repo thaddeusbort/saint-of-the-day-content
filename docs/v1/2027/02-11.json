@@ -9,12 +9,15 @@
     "Thursday after Ash Wednesday",
     "Our Lady of Lourdes"
   ],
-  "saint": {
+  "subject": {
     "id": "our-lady-of-lourdes",
+    "kind": "feast",
     "name": "Our Lady of Lourdes",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Our Lady of Lourdes, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saturday after Ash Wednesday"
   ],
-  "saint": {
+  "subject": {
     "id": "saturday-after-ash-wednesday",
+    "kind": "day",
     "name": "Saturday after Ash Wednesday",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

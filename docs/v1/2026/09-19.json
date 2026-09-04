@@ -9,12 +9,15 @@
     "Saturday of the twenty-fourth week of Ordinary Time",
     "Saint Januarius, Bishop and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "januarius-i-of-benevento-bishop",
+    "kind": "saint",
     "name": "Saint Januarius, Bishop and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Januarius, Bishop and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

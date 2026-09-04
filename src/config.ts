@@ -57,6 +57,36 @@ export const JPEG_OPTIONS = {
   mozjpeg: false,
 } as const;
 
+/**
+ * The lowest Table of Liturgical Days rank that still admits a saint the day
+ * does not itself celebrate.
+ *
+ * Ranks 1 to 5 are the Triduum, the solemnities, the privileged Sundays of
+ * Advent, Lent and Easter, Ash Wednesday, Holy Week, the Easter octave and the
+ * feasts of the Lord. Those days admit no other celebration (UNLY nn. 59-61),
+ * so the pipeline must not put another saint on them: Christmas Day is the
+ * Nativity, not an obscure martyr who shares the date.
+ *
+ * Rank 6 and below — Sundays in Ordinary Time, feasts, ferial weekdays — do
+ * admit one, which is where a martyrology saint would go.
+ */
+export const LOWEST_PRIVILEGED_TABLE_RANK = 5;
+
+/**
+ * The most a curated image may be enlarged to reach the largest variant.
+ *
+ * Rendering never upscales by default, and that rule is what keeps published
+ * images sharp. But large files on Commons are overwhelmingly modern
+ * photographs; painting scans are old uploads and small, so the rule quietly
+ * selects against exactly the artwork this project wants. A per-entry
+ * `allow_upscale` is the escape hatch, and this is its ceiling — the exception
+ * is for a good painting that only exists small, not for any thumbnail.
+ *
+ * At 3x an image carries an eighth of the pixels it should. It reads
+ * acceptably at arm's length behind a lock-screen clock, and poorly close up.
+ */
+export const MAX_UPSCALE = 3;
+
 /** Liturgical colours that have a fallback plate. */
 export const FALLBACK_COLORS = ['white', 'red', 'green', 'violet', 'rose'] as const;
 

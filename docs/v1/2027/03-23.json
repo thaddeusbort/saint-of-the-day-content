@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Tuesday of Holy Week"
   ],
-  "saint": {
+  "subject": {
     "id": "holy-tuesday",
+    "kind": "day",
     "name": "Tuesday of Holy Week",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Leo the Great, Pope and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "leo-i-the-great-pope",
+    "kind": "saint",
     "name": "Saint Leo the Great, Pope and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Leo the Great, Pope and Doctor of the Church, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

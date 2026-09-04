@@ -10,12 +10,15 @@
     "Saint Hildegard of Bingen, Abbess and Doctor of the Church",
     "Saint Robert Bellarmine, Bishop and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "hildegard-of-bingen-abbess",
+    "kind": "saint",
     "name": "Saint Hildegard of Bingen, Abbess and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Hildegard of Bingen, Abbess and Doctor of the Church, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saints Charles Lwanga and Companions, Martyrs"
   ],
-  "saint": {
+  "subject": {
     "id": "charles-lwanga-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saints Charles Lwanga and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saints Charles Lwanga and Companions, Martyrs, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

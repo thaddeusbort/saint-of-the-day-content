@@ -9,12 +9,15 @@
     "Wednesday of the twenty-seventh week of Ordinary Time",
     "Saint Bruno, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "bruno-of-cologne-priest",
+    "kind": "saint",
     "name": "Saint Bruno, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Bruno, Priest, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

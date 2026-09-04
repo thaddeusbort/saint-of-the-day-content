@@ -10,12 +10,15 @@
     "Saint Peter Chanel, Priest and Martyr",
     "Saint Louis Grignion de Montfort, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "peter-chanel-priest",
+    "kind": "saint",
     "name": "Saint Peter Chanel, Priest and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Peter Chanel, Priest and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

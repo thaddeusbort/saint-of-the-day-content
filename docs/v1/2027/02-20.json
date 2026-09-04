@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saturday of the first week of Lent"
   ],
-  "saint": {
+  "subject": {
     "id": "lent-1-saturday",
+    "kind": "day",
     "name": "Saturday of the first week of Lent",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

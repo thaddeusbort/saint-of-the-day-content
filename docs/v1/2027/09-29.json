@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saints Michael, Gabriel and Raphael, Archangels"
   ],
-  "saint": {
+  "subject": {
     "id": "michael-gabriel-and-raphael-archangels",
+    "kind": "saint",
     "name": "Saints Michael, Gabriel and Raphael, Archangels",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saints Michael, Gabriel and Raphael, Archangels, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

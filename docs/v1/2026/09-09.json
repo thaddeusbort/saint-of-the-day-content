@@ -9,12 +9,15 @@
     "Wednesday of the twenty-third week of Ordinary Time",
     "Saint Peter Claver, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "peter-claver-priest",
+    "kind": "saint",
     "name": "Saint Peter Claver, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Peter Claver, Priest, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

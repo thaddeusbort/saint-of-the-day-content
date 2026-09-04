@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint John Baptist de la Salle, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "john-baptist-de-la-salle-priest",
+    "kind": "saint",
     "name": "Saint John Baptist de la Salle, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint John Baptist de la Salle, Priest, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

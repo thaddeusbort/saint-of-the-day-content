@@ -9,12 +9,15 @@
     "Wednesday of the fourth week of Easter",
     "Saint Anselm, Bishop and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "anselm-of-canterbury-bishop",
+    "kind": "saint",
     "name": "Saint Anselm, Bishop and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Anselm, Bishop and Doctor of the Church, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

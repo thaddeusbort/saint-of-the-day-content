@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Elizabeth of Hungary, Religious"
   ],
-  "saint": {
+  "subject": {
     "id": "elizabeth-of-hungary-religious",
+    "kind": "saint",
     "name": "Saint Elizabeth of Hungary, Religious",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Elizabeth of Hungary, Religious, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

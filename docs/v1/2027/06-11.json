@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Barnabas, Apostle"
   ],
-  "saint": {
+  "subject": {
     "id": "barnabas-apostle",
+    "kind": "saint",
     "name": "Saint Barnabas, Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Barnabas, Apostle, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

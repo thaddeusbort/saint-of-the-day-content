@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Exaltation of the Holy Cross"
   ],
-  "saint": {
+  "subject": {
     "id": "exaltation-of-the-holy-cross",
+    "kind": "feast",
     "name": "The Exaltation of the Holy Cross",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

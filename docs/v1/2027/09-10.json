@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Friday of the twenty-third week of Ordinary Time"
   ],
-  "saint": {
+  "subject": {
     "id": "ordinary-time-23-friday",
+    "kind": "day",
     "name": "Friday of the twenty-third week of Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

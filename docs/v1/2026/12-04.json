@@ -9,12 +9,15 @@
     "Friday of the first week of Advent",
     "Saint John Damascene, Priest and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "john-damascene-priest",
+    "kind": "saint",
     "name": "Saint John Damascene, Priest and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint John Damascene, Priest and Doctor of the Church, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

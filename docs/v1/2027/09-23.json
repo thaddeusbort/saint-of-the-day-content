@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Pius of Pietrelcina, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "pius-francesco-forgione-priest",
+    "kind": "saint",
     "name": "Saint Pius of Pietrelcina, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Pius of Pietrelcina, Priest, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

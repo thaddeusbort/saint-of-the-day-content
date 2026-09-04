@@ -11,7 +11,16 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { parse as parseYaml } from 'yaml';
-import { isFreeLicense, search, fileByTitle, type Fetcher } from '../src/curate/commons.js';
+import {
+  EXCLUDE_CLAUSE,
+  EXCLUDED_TERMS,
+  fileByTitle,
+  isFreeLicense,
+  search,
+  sizeClause,
+  type Fetcher,
+} from '../src/curate/commons.js';
+import { VARIANTS } from '../src/config.js';
 import { buildQueue, defaultQuery } from '../src/curate/queue.js';
 import { saveCuratedSaint, SaveError, type Downloader } from '../src/curate/save.js';
 import { parseSaintEntry } from '../src/curation/schema.js';
@@ -136,7 +145,7 @@ describe('the request the Commons API actually receives', () => {
   }
 
   it('sends a well-formed search query', async () => {
-    const url = await captureUrl((fetcher) => search(fetcher, 'John Bosco', 12));
+    const url = await captureUrl((fetcher) => search(fetcher, 'John Bosco', { limit: 12 }));
     expect(url.origin + url.pathname).toBe('https://commons.wikimedia.org/w/api.php');
     expect(url.searchParams.get('action')).toBe('query');
     expect(url.searchParams.get('format')).toBe('json');
@@ -174,6 +183,65 @@ describe('the request the Commons API actually receives', () => {
   it('surfaces a non-OK response rather than returning nothing', async () => {
     const fetcher: Fetcher = async () => ({ ok: false, status: 429, json: async () => ({}) });
     await expect(search(fetcher, 'x')).rejects.toThrow(/429/);
+  });
+});
+
+describe('narrowing the query', () => {
+  async function queryFor(options: Parameters<typeof search>[2]): Promise<string> {
+    let seen = '';
+    const fetcher: Fetcher = async (url) => {
+      seen = url;
+      return { ok: true, status: 200, json: async () => ({ query: { pages: [] } }) };
+    };
+    await search(fetcher, 'John Bosco', options);
+    return new URL(seen).searchParams.get('gsrsearch') ?? '';
+  }
+
+  it('asks only for bitmaps by default', async () => {
+    expect(await queryFor({})).toBe('filetype:bitmap John Bosco');
+  });
+
+  it('pushes the size minimum into the query', async () => {
+    const q = await queryFor({ minWidth: 1440, minHeight: 3200 });
+    // Strict `>`, so one below the minimum keeps an exactly-1440x3200 file.
+    expect(q).toContain('filew:>1439');
+    expect(q).toContain('fileh:>3199');
+    expect(q).toContain('John Bosco');
+  });
+
+  it('matches the frozen render size, so the two cannot drift', () => {
+    expect(sizeClause(VARIANTS[0].w, VARIANTS[0].h)).toBe('filew:>1439 fileh:>3199');
+  });
+
+  it('negates the excluded terms', async () => {
+    const q = await queryFor({ excludeStructures: true });
+    expect(q).toContain('-church');
+    expect(q).toContain('-chapel');
+    expect(q).toContain('-"coat of arms"');
+    for (const term of EXCLUDED_TERMS) expect(EXCLUDE_CLAUSE).toContain(`-${term}`);
+  });
+
+  it('combines the narrowings and still ends with the term', async () => {
+    const q = await queryFor({ minWidth: 1440, minHeight: 3200, excludeStructures: true });
+    expect(q.startsWith('filetype:bitmap ')).toBe(true);
+    expect(q.endsWith(' John Bosco')).toBe(true);
+    expect(q).toContain('filew:>1439');
+    expect(q).toContain('-church');
+  });
+
+  it('passes a curator’s own syntax through untouched', async () => {
+    // The box is a CirrusSearch box: whatever is typed reaches the API.
+    const q = await queryFor({});
+    expect(q.endsWith('John Bosco')).toBe(true);
+    let seen = '';
+    const fetcher: Fetcher = async (url) => {
+      seen = url;
+      return { ok: true, status: 200, json: async () => ({ query: { pages: [] } }) };
+    };
+    await search(fetcher, 'Gregory -church incategory:Paintings', {});
+    expect(new URL(seen).searchParams.get('gsrsearch')).toBe(
+      'filetype:bitmap Gregory -church incategory:Paintings',
+    );
   });
 });
 
@@ -272,7 +340,7 @@ describe('search paging', () => {
         json: async () => ({ continue: { gsroffset: 48 }, query: { pages: [page()] } }),
       };
     };
-    const res = await search(fetcher, 'John Bosco', 24, 24);
+    const res = await search(fetcher, 'John Bosco', { limit: 24, offset: 24 });
     expect(new URL(seen).searchParams.get('gsroffset')).toBe('24');
     expect(res.nextOffset).toBe(48);
   });
@@ -289,13 +357,13 @@ describe('search paging', () => {
 
   it('stops paging when the results run out', async () => {
     // A short page with no continuation means there is nothing more to fetch.
-    const res = await search(fetcherFor([page()]), 'x', 24);
+    const res = await search(fetcherFor([page()]), 'x', { limit: 24 });
     expect(res.nextOffset).toBeNull();
   });
 
   it('falls back to counting a full page when no continuation is given', async () => {
     const full = Array.from({ length: 3 }, (_, i) => page({ url: `https://u/${i}.jpg` }));
-    const res = await search(fetcherFor(full), 'x', 3);
+    const res = await search(fetcherFor(full), 'x', { limit: 3 });
     expect(res.nextOffset).toBe(3);
   });
 });
@@ -319,10 +387,13 @@ describe('saving', () => {
         {
           id: 'john-bosco-priest',
           name: 'St. John Bosco',
-          years: '1815–1888',
+          subtitle: '1815–1888',
           blurb: 'Turin priest who built schools and workshops for boys.',
+          notification: '',
+          sourceId: 'commons',
           fileTitle: 'File:Example.jpg',
           crop,
+          allowUpscale: false,
         },
         { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
       );
@@ -349,7 +420,7 @@ describe('saving', () => {
     try {
       await expect(
         saveCuratedSaint(
-          { id: 'nope', name: 'X', years: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
+          { id: 'nope', name: 'X', subtitle: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
           {
             fetcher: fetcherFor([
               page({}, { License: 'cc-by-nc-2.0', LicenseShortName: 'CC BY-NC 2.0' }),
@@ -376,10 +447,13 @@ describe('saving', () => {
           {
             id: 'small',
             name: 'X',
-            years: '',
+            subtitle: '',
             blurb: 'b',
+            notification: '',
+            sourceId: 'commons',
             fileTitle: 'File:Example.jpg',
             crop: { x: 0, y: 0, width: 900, height: 1950 },
+            allowUpscale: false,
           },
           { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
         ),
@@ -397,10 +471,13 @@ describe('saving', () => {
           {
             id: 'edge',
             name: 'X',
-            years: '',
+            subtitle: '',
             blurb: 'b',
+            notification: '',
+            sourceId: 'commons',
             fileTitle: 'File:Example.jpg',
             crop: { x: 1500, y: 0, width: 1440, height: 3200 },
+            allowUpscale: false,
           },
           { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
         ),
@@ -418,10 +495,13 @@ describe('saving', () => {
           {
             id: 'noblurb',
             name: 'X',
-            years: '',
+            subtitle: '',
             blurb: '   ',
+            notification: '',
+            sourceId: 'commons',
             fileTitle: 'File:Example.jpg',
             crop,
+            allowUpscale: false,
           },
           { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
         ),
@@ -436,7 +516,7 @@ describe('saving', () => {
     try {
       await expect(
         saveCuratedSaint(
-          { id: 'missing', name: 'X', years: '', blurb: 'b', fileTitle: 'File:Nope.jpg', crop },
+          { id: 'missing', name: 'X', subtitle: '', blurb: 'b', fileTitle: 'File:Nope.jpg', crop },
           { fetcher: fetcherFor([]), downloader: await jpegDownloader(), root },
         ),
       ).rejects.toThrow(SaveError);
@@ -451,7 +531,17 @@ describe('saving', () => {
       // Commons says 2000x4000; the bytes are 1500x1600.
       await expect(
         saveCuratedSaint(
-          { id: 'liar', name: 'X', years: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
+          {
+            id: 'liar',
+            name: 'X',
+            subtitle: '',
+            blurb: 'b',
+            notification: '',
+            sourceId: 'commons',
+            fileTitle: 'File:Example.jpg',
+            crop,
+            allowUpscale: false,
+          },
           { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(1500, 1600), root },
         ),
       ).rejects.toThrow(/falls outside/);
@@ -481,10 +571,13 @@ describe('saving', () => {
         {
           id: 'john-bosco-priest',
           name: 'St. John Bosco',
-          years: '',
+          subtitle: '',
           blurb: 'A blurb.',
+          notification: '',
+          sourceId: 'commons',
           fileTitle: 'File:Example.jpg',
           crop,
+          allowUpscale: false,
         },
         { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
       );
@@ -504,14 +597,73 @@ describe('saving', () => {
         {
           id: 'fresh',
           name: 'X',
-          years: '',
+          subtitle: '',
           blurb: 'b',
+          notification: '',
+          sourceId: 'commons',
           fileTitle: 'File:Example.jpg',
           crop,
+          allowUpscale: false,
         },
         { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
       );
       expect(result.staleRenders).toBe(0);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  it('saves an enlarged crop when asked, and records the decision', async () => {
+    const root = await makeCheckout();
+    try {
+      // A 720x1600 crop from the 2000x4000 stand-in: exactly 2x.
+      await saveCuratedSaint(
+        {
+          id: 'small-source',
+          name: 'X',
+          subtitle: '',
+          blurb: 'b',
+          notification: '',
+          sourceId: 'commons',
+          fileTitle: 'File:Example.jpg',
+          crop: { x: 0, y: 0, width: 720, height: 1600 },
+          allowUpscale: true,
+        },
+        { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+      );
+
+      const yaml = await readFile(path.join(root, 'saints', 'small-source.yaml'), 'utf8');
+      // Written into the file, so the enlargement is visible in review.
+      expect(yaml).toMatch(/allow_upscale: true/);
+      expect(parseSaintEntry('small-source', 'x', parseYaml(yaml)).allowUpscale).toBe(true);
+
+      // And CI agrees.
+      const report = await validateCuration(root);
+      expect(report.problems).toEqual([]);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  it('does not record the flag on an ordinary save', async () => {
+    const root = await makeCheckout();
+    try {
+      await saveCuratedSaint(
+        {
+          id: 'ordinary',
+          name: 'X',
+          subtitle: '',
+          blurb: 'b',
+          notification: '',
+          sourceId: 'commons',
+          fileTitle: 'File:Example.jpg',
+          crop,
+          allowUpscale: false,
+        },
+        { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+      );
+      const yaml = await readFile(path.join(root, 'saints', 'ordinary.yaml'), 'utf8');
+      expect(yaml).not.toMatch(/allow_upscale/);
     } finally {
       await rm(root, { recursive: true, force: true });
     }
@@ -536,7 +688,17 @@ describe('saving', () => {
       try {
         await expect(
           saveCuratedSaint(
-            { id: 'liar', name: 'X', years: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
+            {
+              id: 'liar',
+              name: 'X',
+              subtitle: '',
+              blurb: 'b',
+              notification: '',
+              sourceId: 'commons',
+              fileTitle: 'File:Example.jpg',
+              crop,
+              allowUpscale: false,
+            },
             { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(1500, 1600), root },
           ),
         ).rejects.toThrow(/falls outside/);
@@ -551,7 +713,7 @@ describe('saving', () => {
       try {
         await expect(
           saveCuratedSaint(
-            { id: 'nc', name: 'X', years: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
+            { id: 'nc', name: 'X', subtitle: '', blurb: 'b', fileTitle: 'File:Example.jpg', crop },
             {
               fetcher: fetcherFor([
                 page({}, { License: 'cc-by-nc-2.0', LicenseShortName: 'CC BY-NC 2.0' }),
@@ -575,14 +737,41 @@ describe('saving', () => {
             {
               id: 'noblurb',
               name: 'X',
-              years: '',
+              subtitle: '',
               blurb: '  ',
+              notification: '',
+              sourceId: 'commons',
               fileTitle: 'File:Example.jpg',
               crop,
             },
             { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
           ),
         ).rejects.toThrow(/blurb/);
+        await expectNothingWritten(root);
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    });
+
+    it('when an enlargement is past the cap even though it was allowed', async () => {
+      const root = await makeCheckout();
+      try {
+        await expect(
+          saveCuratedSaint(
+            {
+              id: 'way-too-small',
+              name: 'X',
+              subtitle: '',
+              blurb: 'b',
+              notification: '',
+              sourceId: 'commons',
+              fileTitle: 'File:Example.jpg',
+              crop: { x: 0, y: 0, width: 400, height: 889 },
+              allowUpscale: true,
+            },
+            { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+          ),
+        ).rejects.toThrow(/beyond the 3x limit/);
         await expectNothingWritten(root);
       } finally {
         await rm(root, { recursive: true, force: true });
@@ -597,8 +786,10 @@ describe('saving', () => {
             {
               id: 'tiny',
               name: 'X',
-              years: '',
+              subtitle: '',
               blurb: 'b',
+              notification: '',
+              sourceId: 'commons',
               fileTitle: 'File:Example.jpg',
               crop: { x: 0, y: 0, width: 900, height: 1950 },
             },
@@ -623,8 +814,10 @@ describe('saving', () => {
             {
               id: 'blocked',
               name: 'X',
-              years: '',
+              subtitle: '',
               blurb: 'b',
+              notification: '',
+              sourceId: 'commons',
               fileTitle: 'File:Example.jpg',
               crop,
             },

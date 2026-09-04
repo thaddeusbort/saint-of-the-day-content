@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Conversion of Saint Paul the Apostle"
   ],
-  "saint": {
+  "subject": {
     "id": "conversion-of-saint-paul-the-apostle",
+    "kind": "feast",
     "name": "The Conversion of Saint Paul the Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

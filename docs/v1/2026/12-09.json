@@ -9,12 +9,15 @@
     "Wednesday of the second week of Advent",
     "Saint Juan Diego Cuauhtlatoatzin"
   ],
-  "saint": {
+  "subject": {
     "id": "juan-diego-cuauhtlatoatzin",
+    "kind": "saint",
     "name": "Saint Juan Diego Cuauhtlatoatzin",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Juan Diego Cuauhtlatoatzin, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

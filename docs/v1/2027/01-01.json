@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Octave Day of the Nativity of the Lord: Solemnity of Mary, the Holy Mother of God"
   ],
-  "saint": {
+  "subject": {
     "id": "mary-mother-of-god",
+    "kind": "day",
     "name": "The Octave Day of the Nativity of the Lord: Solemnity of Mary, the Holy Mother of God",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

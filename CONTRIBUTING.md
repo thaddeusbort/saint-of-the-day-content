@@ -27,12 +27,48 @@ Two things it will not do for you, by design:
 - **It will not write the blurb.** Commons' description is shown for reference
   and is never copied. An empty blurb is rejected.
 
-The queue has four views. **Saints** and **Days** are the outstanding work,
-**All** is both, and **Curated** shows what has already been done — useful for
-checking an entry or re-framing a crop you are no longer happy with.
+The queue has five views. **Saints** is the work that matters: days
+the calendar gives a saint for. **Major** is the privileged days — Christmas,
+Easter, the Sundays of Advent and Lent — which take no saint but their own, so
+the subject is final and an image of it is worth having. **Awaiting** is the
+rest: ordinary days with no saint in the calendar, standing in with the
+liturgical day until there is a martyrology to draw from. Those are waiting on
+data rather than on you, and curating "Tuesday of the twenty-second week of
+Ordinary Time" is rarely worth the effort. **Curated** shows what has already
+been done, and **All** is everything.
 
-Search results are filtered to images large enough to use; untick the box to see
-the rest, and **Load more results** fetches another page from Commons. Choosing
+Two checkboxes sit beside the search box. **Filter out small images** is on by
+default; it asks Commons for files at least as large as the largest variant and
+still checks whatever comes back, so paging does not walk through unusable
+results. **Exclude buildings** is off by default and negates words like
+_church_, _chapel_, _street_ and _monument_ — the photographs of things named
+after a saint rather than images of the saint. It is blunt, and will also drop
+a painting whose description happens to name the church holding it.
+
+The search box is a CirrusSearch box: whatever you type reaches Commons
+untouched, so you can add your own terms — `-window`, `incategory:Paintings`,
+`insource:Goya` — alongside the name. See
+[Help:CirrusSearch](https://www.mediawiki.org/wiki/Help:CirrusSearch).
+
+### Sources
+
+The picker beside the search box chooses where to look. **Wikimedia Commons**
+is the default. **Met Museum** searches the Metropolitan Museum's Open Access
+collection, which often holds a far larger scan of the same painting than
+Commons does — worth trying whenever the Commons copy is too small.
+
+Only sources that publish a machine-readable licence are offered, and only
+files whose licence reads as free: Commons' `extmetadata`, the Met's
+`isPublicDomain`. Attribution is read from the source and re-read again on
+save, never typed.
+
+The Met publishes no image dimensions, so its results say _"size checked when
+you pick it"_ — the file is measured for real when you select it, and the crop
+is checked against the downloaded bytes before anything is written either way.
+Its search returns object ids only, so each result costs a second request and
+pages are smaller.
+
+**Load more results** fetches another page from Commons. Choosing
 an image hides the search and moves you to the crop; **← Back to results**
 returns without re-running the search.
 
@@ -88,15 +124,17 @@ crop:
   height: 3033
 ```
 
-| Field     | Required | Notes                                                                                                        |
-| --------- | -------- | ------------------------------------------------------------------------------------------------------------ |
-| `name`    | yes      | Display name, as the app should show it.                                                                     |
-| `years`   | no       | Life span. Omit it if the dates are not reliably known; it defaults to `""`.                                 |
-| `blurb`   | yes      | One or two sentences. See below.                                                                             |
-| `credit`  | yes      | Attribution line for the image, as the source states it.                                                     |
-| `license` | yes      | The licence the image is actually under.                                                                     |
-| `source`  | yes      | `http(s)` URL of the page you took the image from — the page, not the raw file, so the licensing is visible. |
-| `crop`    | yes      | Region of the original to render, in pixels from its top-left.                                               |
+| Field           | Required | Notes                                                                                                        |
+| --------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+| `name`          | yes      | Display name, as the app should show it.                                                                     |
+| `subtitle`      | no       | The line under the name — a saint's dates, or whatever suits a subject with none. Defaults to `""`.          |
+| `blurb`         | yes      | One or two sentences. See below.                                                                             |
+| `credit`        | yes      | Attribution line for the image, as the source states it.                                                     |
+| `license`       | yes      | The licence the image is actually under.                                                                     |
+| `source`        | yes      | `http(s)` URL of the page you took the image from — the page, not the raw file, so the licensing is visible. |
+| `crop`          | yes      | Region of the original to render, in pixels from its top-left.                                               |
+| `notification`  | no       | The line shown with the image, e.g. `St. Gregory the Great, pray for us!`. Omit to accept the derived one.   |
+| `allow_upscale` | no       | `true` to permit a crop smaller than 1440×3200, enlarged to reach it. Off unless stated.                     |
 
 Unknown fields are rejected rather than ignored, so a typo (`licence`) fails the
 check instead of silently dropping your text.
@@ -107,13 +145,42 @@ check instead of silently dropping your text.
 never modify it.
 
 The crop box is rendered at three sizes — 1440×3200, 1260×2800 and 1080×2400,
-all exactly 20:9 — and rendering never upscales, so **the crop box must be at
-least 1440×3200**. The two smaller sizes are pure downscales of that crop, so
+all exactly 20:9. The two smaller sizes are pure downscales of that crop, so
 nothing is trimmed after you have framed it.
+
+By default **the crop box must be at least 1440×3200**, because enlarging an
+image makes it soft. There is an escape hatch, and it exists for a reason: the
+large files on Commons are overwhelmingly modern photographs, while scans of
+paintings are old uploads and small — so the rule quietly selects against
+exactly the artwork this project wants.
+
+Setting `allow_upscale: true` permits a smaller crop, enlarged to reach the
+render size, up to **3×** and no further. The tool shows the factor before you
+commit and will not save without the box ticked, and **Preview at full size**
+renders exactly what will ship — look at it. At 2.8× an image keeps its
+composition and loses its brushwork: acceptable at arm's length behind a
+lock-screen clock, poor close up. Prefer finding a larger scan first.
 
 Pick the crop with the lock screen in mind: the clock sits over the top third,
 and notifications over the bottom. A face somewhere in the upper-middle reads
 well.
+
+## The notification line
+
+A short address to go with the image. For a saint it is derived — the tool
+prefills `{name}, pray for us!` and writes nothing to the file if you accept
+it, so improving the wording later still reaches every entry that did.
+
+It is derived only for a name that can be addressed: one beginning _Saint_,
+_Saints_, _St._, _Blessed_, _Bl._ or _Our Lady_. Everything else is left empty
+for you, because a wrong line is worse than none — "The Nativity of the Blessed
+Virgin Mary, pray for us!" addresses an event, and "The Baptism of the Lord,
+pray for us!" is worse still. Temporal days want their own wording: _Christ is
+risen!_, _Merry Christmas!_
+
+Override it whenever the derived line reads badly. Compound saints are the
+usual case: _"Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs, pray for
+us!"_ wants shortening by hand.
 
 ## Writing the blurb
 

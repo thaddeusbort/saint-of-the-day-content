@@ -9,12 +9,15 @@
     "Saturday of the eighth week of Ordinary Time",
     "Saint Paul VI, Pope"
   ],
-  "saint": {
+  "subject": {
     "id": "paul-vi-pope",
+    "kind": "saint",
     "name": "Saint Paul VI, Pope",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Paul VI, Pope, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

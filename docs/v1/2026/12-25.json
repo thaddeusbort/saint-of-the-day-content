@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Nativity of the Lord (Christmas)"
   ],
-  "saint": {
+  "subject": {
     "id": "nativity-of-the-lord",
+    "kind": "day",
     "name": "The Nativity of the Lord (Christmas)",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

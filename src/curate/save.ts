@@ -11,11 +11,12 @@ import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { stringify as stringifyYaml } from 'yaml';
 import { VARIANTS } from '../config.js';
+import { judgeCrop } from '../crop.js';
 import { parseSaintEntry, type CropBox, type SaintEntry } from '../curation/schema.js';
 import { imageSize } from '../render/images.js';
 import { pathsFor } from '../paths.js';
-import type { CommonsFile, Fetcher } from './commons.js';
-import { fileByTitle } from './commons.js';
+import type { Candidate, Fetcher } from './sources/index.js';
+import { sizeKnown, sourceById } from './sources/index.js';
 
 const LARGEST = VARIANTS[0];
 
@@ -29,11 +30,17 @@ const EXTENSION_BY_MIME: Readonly<Record<string, string>> = {
 export interface SaveRequest {
   readonly id: string;
   readonly name: string;
-  readonly years: string;
+  readonly subtitle: string;
   readonly blurb: string;
-  /** Commons page title of the chosen file. */
+  /** The day's notification line. Stored only when it differs from the default. */
+  readonly notification: string;
+  /** Which source the file came from. */
+  readonly sourceId: string;
+  /** The chosen file's reference within that source. */
   readonly fileTitle: string;
   readonly crop: CropBox;
+  /** Permit a crop smaller than the largest variant, within MAX_UPSCALE. */
+  readonly allowUpscale: boolean;
 }
 
 export interface SaveResult {
@@ -84,9 +91,14 @@ export interface SaveDeps {
 export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Promise<SaveResult> {
   const paths = pathsFor(deps.root);
 
-  const file = await fileByTitle(deps.fetcher, request.fileTitle);
+  // Re-read from the source rather than trusting the client: the attribution
+  // written into the repository is always what the source itself claims.
+  const source = sourceById(request.sourceId);
+  const file = await source.byRef(deps.fetcher, request.fileTitle);
   if (!file) {
-    throw new SaveError(`Commons has no file titled ${JSON.stringify(request.fileTitle)}`);
+    throw new SaveError(
+      `${source.label} has no file matching ${JSON.stringify(request.fileTitle)}`,
+    );
   }
   if (!file.licenseAccepted) {
     throw new SaveError(
@@ -95,13 +107,9 @@ export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Pr
       }, which this tool will not publish.`,
     );
   }
-  if (!file.largeEnough) {
-    throw new SaveError(
-      `${file.title} is ${file.width}x${file.height}, too small for a ${LARGEST.w}x${LARGEST.h} crop.`,
-    );
-  }
-
-  assertCropFits(request.crop, file);
+  // Some sources publish no dimensions. The crop is checked against the bytes
+  // below either way, so this is an early exit, not the real gate.
+  if (sizeKnown(file)) assertCropFits(request.crop, file, request.allowUpscale);
 
   const extension = EXTENSION_BY_MIME[file.mime];
   if (extension === undefined) {
@@ -112,12 +120,17 @@ export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Pr
   // leaves no half-curated saint behind.
   const document = {
     name: request.name,
-    ...(request.years.trim() === '' ? {} : { years: request.years.trim() }),
+    ...(request.subtitle.trim() === '' ? {} : { subtitle: request.subtitle.trim() }),
     blurb: request.blurb,
-    credit: file.credit === '' ? 'Wikimedia Commons' : file.credit,
+    // Only recorded when the curator changed it, so improving the derived
+    // wording later still reaches every entry that accepted it.
+    ...(request.notification.trim() === '' ? {} : { notification: request.notification.trim() }),
+    credit: file.credit,
     license: file.license,
-    source: file.descriptionUrl,
+    source: file.pageUrl,
     crop: request.crop,
+    // Recorded only when true, so an ordinary entry stays as it was.
+    ...(request.allowUpscale ? { allow_upscale: true } : {}),
   };
   const yamlFile = path.join(paths.saints, `${request.id}.yaml`);
   // Label errors with the repository-relative path: the message goes to the
@@ -130,7 +143,7 @@ export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Pr
   // can disagree with itself. This runs before anything is written, so a
   // mismatch leaves the working tree untouched rather than stranding an
   // original with no entry beside it.
-  assertCropFits(request.crop, await imageSize(bytes));
+  assertCropFits(request.crop, await imageSize(bytes), request.allowUpscale);
 
   const originalPath = path.join(paths.originals, `${request.id}${extension}`);
   await mkdir(paths.originals, { recursive: true });
@@ -171,12 +184,14 @@ async function removeRenders(imgDir: string, id: string): Promise<number> {
   return mine.length;
 }
 
-function assertCropFits(crop: CropBox, image: { width: number; height: number }): void {
-  if (crop.width < LARGEST.w || crop.height < LARGEST.h) {
-    throw new SaveError(
-      `Crop is ${crop.width}x${crop.height}, smaller than the largest variant ${LARGEST.w}x${LARGEST.h}; ` +
-        'the image would have to be upscaled.',
-    );
+function assertCropFits(
+  crop: CropBox,
+  image: { width: number; height: number },
+  allowUpscale: boolean,
+): void {
+  const verdict = judgeCrop(crop, allowUpscale);
+  if (!verdict.ok) {
+    throw new SaveError(`Refusing to save: ${verdict.reason}.`);
   }
   if (crop.x + crop.width > image.width || crop.y + crop.height > image.height) {
     throw new SaveError(
@@ -188,13 +203,16 @@ function assertCropFits(crop: CropBox, image: { width: number; height: number })
 
 /** Renders what the app will actually show, at full variant size. */
 export async function renderPreview(
-  file: CommonsFile,
+  file: Candidate,
   crop: CropBox,
   downloader: Downloader,
 ): Promise<Buffer> {
+  // Deliberately does not judge the crop: the preview exists so a curator can
+  // see the softness an enlargement causes before committing to it.
   const sharp = (await import('sharp')).default;
   const bytes = await downloader(file.url);
-  return sharp(bytes)
+  // Same space as the render and the crop box: see `imageSize`.
+  return sharp(bytes, { autoOrient: true })
     .extract({ left: crop.x, top: crop.y, width: crop.width, height: crop.height })
     .resize(LARGEST.w, LARGEST.h, { fit: 'cover', position: 'centre' })
     .jpeg({ quality: 70 })

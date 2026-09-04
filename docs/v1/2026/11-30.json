@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Andrew, Apostle"
   ],
-  "saint": {
+  "subject": {
     "id": "andrew-apostle",
+    "kind": "saint",
     "name": "Saint Andrew, Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Andrew, Apostle, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

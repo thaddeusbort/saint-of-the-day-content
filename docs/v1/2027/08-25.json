@@ -10,12 +10,15 @@
     "Saint Louis",
     "Saint Joseph of Calasanz, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "louis-ix-of-france",
+    "kind": "saint",
     "name": "Saint Louis",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Louis, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

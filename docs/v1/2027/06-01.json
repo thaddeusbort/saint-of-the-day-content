@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Justin, Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "justin-martyr",
+    "kind": "saint",
     "name": "Saint Justin, Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Justin, Martyr, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

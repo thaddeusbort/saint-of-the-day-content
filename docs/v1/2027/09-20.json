@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saints Andrew Kim Tae-gŏn, Priest, Paul Chŏng Ha-sang and Companions, Martyrs"
   ],
-  "saint": {
+  "subject": {
     "id": "andrew-kim-tae-gon-priest-paul-chong-ha-sang-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saints Andrew Kim Tae-gŏn, Priest, Paul Chŏng Ha-sang and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saints Andrew Kim Tae-gŏn, Priest, Paul Chŏng Ha-sang and Companions, Martyrs, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

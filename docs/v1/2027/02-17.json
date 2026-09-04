@@ -9,12 +9,15 @@
     "Wednesday of the first week of Lent",
     "The Seven Holy Founders of the Servite Order"
   ],
-  "saint": {
+  "subject": {
     "id": "seven-holy-founders-of-the-servite-order",
+    "kind": "feast",
     "name": "The Seven Holy Founders of the Servite Order",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

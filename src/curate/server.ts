@@ -14,7 +14,15 @@ import { createServer, type IncomingMessage, type ServerResponse } from 'node:ht
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { httpFetcher, fileByTitle, search, type Fetcher } from './commons.js';
+import { httpFetcher, type Fetcher } from './commons.js';
+import {
+  candidateFit,
+  DEFAULT_SOURCE_ID,
+  sizeKnown,
+  SOURCES,
+  sourceById,
+} from './sources/index.js';
+import { imageSize } from '../render/images.js';
 import { buildQueue, defaultQuery, type QueueOptions } from './queue.js';
 import {
   httpDownloader,
@@ -24,7 +32,8 @@ import {
   type Downloader,
 } from './save.js';
 import { CurationError } from '../curation/schema.js';
-import { VARIANTS } from '../config.js';
+import { MAX_UPSCALE, VARIANTS } from '../config.js';
+import { minimumSource } from '../crop.js';
 
 /** The largest variant: the crop must be at least this, and shares its ratio. */
 const LARGEST = VARIANTS[0];
@@ -132,6 +141,8 @@ export function createCurationServer(options: ServerOptions = {}) {
         // The crop constraint travels with the queue so the page never
         // restates the frozen sizes. Changing VARIANTS changes the UI too.
         render: { width: LARGEST.w, height: LARGEST.h },
+        maxUpscale: MAX_UPSCALE,
+        sources: SOURCES.map((s) => ({ id: s.id, label: s.label, note: s.note ?? '' })),
         items: queue.items.map((item) => ({ ...item, query: defaultQuery(item.name) })),
       });
       return;
@@ -144,28 +155,53 @@ export function createCurationServer(options: ServerOptions = {}) {
         return;
       }
       const offset = Number(url.searchParams.get('offset') ?? '0');
-      const result = await search(fetcher, term, 24, Number.isFinite(offset) ? offset : 0);
-      sendJson(response, 200, result);
+      // The size minimum is pushed into the query so paging returns usable
+      // results; `largeEnough` is still recomputed from what comes back.
+      // The threshold is what the renderer can actually use: a source small
+      // enough to need more than MAX_UPSCALE is no use at any setting.
+      const bigOnly = url.searchParams.get('big') === '1';
+      const floor = minimumSource();
+      const source = sourceById(url.searchParams.get('source'));
+      const result = await source.search(fetcher, term, {
+        offset: Number.isFinite(offset) ? offset : 0,
+        ...(bigOnly ? { minWidth: floor.width, minHeight: floor.height } : {}),
+        excludeStructures: url.searchParams.get('nostructures') === '1',
+      });
+      sendJson(response, 200, {
+        rejectedForLicense: result.rejectedForLicense,
+        nextOffset: result.nextOffset,
+        // The fit is computed here so the page never restates the geometry.
+        files: result.candidates.map((c) => ({ ...c, ...candidateFit(c) })),
+      });
       return;
     }
 
     if (request.method === 'GET' && url.pathname === '/api/file') {
       const title = url.searchParams.get('title')?.trim() ?? '';
       const width = Number(url.searchParams.get('width') ?? '1000');
-      const file = await fileByTitle(fetcher, title, Number.isFinite(width) ? width : 1000);
+      const source = sourceById(url.searchParams.get('source'));
+      const file = await source.byRef(fetcher, title, Number.isFinite(width) ? width : 1000);
       if (!file) {
-        sendJson(response, 404, { error: `No Commons file titled ${JSON.stringify(title)}` });
+        sendJson(response, 404, { error: `${source.label} has no file ${JSON.stringify(title)}` });
         return;
       }
-      sendJson(response, 200, file);
+      // A source that publishes no dimensions gets measured here, before the
+      // crop box is drawn — the page cannot frame anything against 0x0.
+      const measured = sizeKnown(file)
+        ? file
+        : { ...file, ...(await imageSize(await downloader(file.url))) };
+      sendJson(response, 200, { ...measured, ...candidateFit(measured) });
       return;
     }
 
     if (request.method === 'POST' && url.pathname === '/api/preview') {
       const body = (await readBody(request)) as Record<string, unknown>;
-      const file = await fileByTitle(fetcher, asString(body, 'fileTitle'));
+      const previewSource = sourceById(
+        typeof body['sourceId'] === 'string' ? body['sourceId'] : DEFAULT_SOURCE_ID,
+      );
+      const file = await previewSource.byRef(fetcher, asString(body, 'fileTitle'));
       if (!file) {
-        sendJson(response, 404, { error: 'No such Commons file' });
+        sendJson(response, 404, { error: 'No such file' });
         return;
       }
       const jpeg = await renderPreview(file, asCrop(body), downloader);
@@ -184,10 +220,13 @@ export function createCurationServer(options: ServerOptions = {}) {
         {
           id: asString(body, 'id'),
           name: asString(body, 'name'),
-          years: typeof body['years'] === 'string' ? body['years'] : '',
+          subtitle: typeof body['subtitle'] === 'string' ? body['subtitle'] : '',
           blurb: asString(body, 'blurb'),
+          notification: typeof body['notification'] === 'string' ? body['notification'] : '',
+          sourceId: typeof body['sourceId'] === 'string' ? body['sourceId'] : DEFAULT_SOURCE_ID,
           fileTitle: asString(body, 'fileTitle'),
           crop: asCrop(body),
+          allowUpscale: body['allowUpscale'] === true,
         },
         { fetcher, downloader, ...(options.root === undefined ? {} : { root: options.root }) },
       );

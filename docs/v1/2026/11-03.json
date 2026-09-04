@@ -9,12 +9,15 @@
     "Tuesday of the thirty-first week of Ordinary Time",
     "Saint Martin de Porres, Religious"
   ],
-  "saint": {
+  "subject": {
     "id": "martin-de-porres-religious",
+    "kind": "saint",
     "name": "Saint Martin de Porres, Religious",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Martin de Porres, Religious, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

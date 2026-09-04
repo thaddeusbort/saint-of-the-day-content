@@ -97,12 +97,15 @@ One file per day at `v1/{yyyy}/{MM-dd}.json`:
   "rank": "memorial",
   "celebration": "Saint John Bosco, Priest",
   "all_celebrations": ["Saint John Bosco, Priest"],
-  "saint": {
+  "subject": {
     "id": "john-bosco-priest",
+    "kind": "saint",
     "name": "St. John Bosco",
-    "years": "1815–1888",
+    "subtitle": "1815–1888",
     "blurb": "Turin priest who built schools and workshops for boys …",
-    "is_fallback": false
+    "notification": "St. John Bosco, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Photograph, c. 1880",
@@ -123,10 +126,10 @@ These are facts about shipped code, not preferences:
 | Rule                                                          | Why                                                                                                                          |
 | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | Coverage must be contiguous, and reach well past 7 days ahead | The app's prefetch catches `IOException` and abandons the rest of the window. A single 404 mid-window silently truncates it. |
-| `saint` and `image` must always be present                    | They are the only fields with no default in the app's model. A day missing either fails to parse.                            |
+| `subject` and `image` must always be present                  | They are the only fields with no default in the app's model. A day missing either fails to parse.                            |
 | Variant `url`s are relative to `v1/`                          | The app joins them onto `{BASE_URL}/v1/`.                                                                                    |
 | Adding fields is safe; renaming or removing is not            | The app ignores unknown keys. Removal breaks installed versions — that is what `schema` and the `v1/` path exist for.        |
-| Everything else may be empty                                  | `celebration`, `color`, `rank`, `blurb` and `years` all default to `""` in the app.                                          |
+| Everything else may be empty                                  | `celebration`, `color`, `rank`, `blurb` and `subtitle` all default to `""` in the app.                                       |
 | Serve a trailing margin, not just today forward               | The app reads the _device's_ local date. UTC+14 asks for tomorrow by the job's clock; UTC-12 asks for yesterday.             |
 
 `is_fallback: true` means one thing and nothing else: **the liturgical day has
@@ -147,6 +150,51 @@ celebration of a saint. The pipeline takes, in order:
    `is_fallback: true`.
 3. Otherwise the liturgical day itself: a Sunday, a ferial weekday, or a
    solemnity of the Lord — `is_fallback: true`.
+
+`subject.kind` says what the day is about, which is not always a saint:
+
+| `kind`  | Meaning                              | Examples                                                                                   |
+| ------- | ------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `saint` | a person, or people                  | John Bosco; Peter and Paul                                                                 |
+| `feast` | in the martyrology, but not a person | the Nativity of the BVM, the Exaltation of the Holy Cross, All Saints, Our Lady of Sorrows |
+| `day`   | the liturgical day itself            | Christmas, Easter, a Sunday, a feria                                                       |
+
+It comes from romcal's canonization level, which is set for people and unset
+for events and titles — structural rather than read off the name.
+
+`subject.notification` is a short line to address the subject with. It is
+derived for a `saint`, and for Our Lady under a title, and left empty
+otherwise: "The Baptism of the Lord, pray for us!" is wrong, and no line beats
+a wrong one. `notification:` in the subject's YAML overrides it, and is how a
+`day` gets one at all.
+
+`subject.subtitle` is the line under the name — a saint's dates, or whatever
+suits a subject that has none. It is not always a year range, which is why it
+is not called `years`.
+
+`subject.source` says which of the three it was — `proper`, `optional`, or
+`temporal` — so a reader can tell a memorial the day requires from one the
+pipeline reached for. `is_fallback` stays exactly `source !== "proper"`.
+
+### Days that take no saint but their own
+
+The Triduum, the solemnities, the privileged Sundays of Advent, Lent and
+Easter, Ash Wednesday, Holy Week, the Easter octave and the feasts of the Lord
+admit no other celebration (UNLY nn. 59-61). Christmas Day is the Nativity, not
+an obscure martyr who happens to share the date.
+
+That set is not hand-listed. romcal names each precedence after its place in
+the Table of Liturgical Days — `TRIDUUM_1`, `GENERAL_SOLEMNITY_3`,
+`WEEKDAY_13` — and the adapter reads that rank back out. Ranks 1 to 5 are
+privileged; `LOWEST_PRIVILEGED_TABLE_RANK` in `src/config.ts` is the whole
+policy. In a typical year it closes 37 days, and it stays correct for years
+nobody has computed yet.
+
+Everything from rank 6 down — Sundays in Ordinary Time, feasts, ferial
+weekdays — does admit a saint. Roughly 170 days a year currently fall through
+to `temporal` there: they have no saint in the General Roman Calendar and are
+waiting on a martyrology, which this repository does not yet have. The curation
+tool keeps them in their own queue for that reason.
 
 Subject ids are romcal identifiers with underscores replaced by hyphens
 (`john_bosco_priest` → `john-bosco-priest`), so they are stable from year to
@@ -215,6 +263,11 @@ unrecoverable without a history rewrite. If the sizes genuinely must change,
 that is a new repository and a bump to `v2/`, which the app's path-versioned
 contract already supports.
 
+Enlargement is the one exception, and it is per entry: `allow_upscale: true`
+in a saint's YAML permits a crop below the render size, capped at
+`MAX_UPSCALE` (3×). It is off unless the file says otherwise, so every enlarged
+image is a recorded decision rather than a drift.
+
 The same applies to `npm run plates`: redrawing a plate in `fallbacks/` has no
 effect on anything already rendered into `docs/v1/img/`, by design.
 
@@ -235,15 +288,21 @@ anywhere else would mean a second copy of those rules, and a second copy drifts.
 It adds **no dependency**: `node:http`, `fetch`, `sharp` and `yaml` were already
 here.
 
+It searches **Wikimedia Commons** by default and the **Met Museum's Open
+Access collection** as a second source, chosen from a picker. The Met usually
+holds a much larger scan of a painting than Commons does, which is what makes
+it worth the extra adapter. Sources live behind one interface in
+`src/curate/sources/`, so adding another is a file rather than a refactor.
+
 Three deliberate constraints:
 
-- **Wikimedia Commons only.** CI cannot verify that an image is free to publish,
-  so the tool must not make it easy to save one that is not. Commons returns
-  machine-readable licence and attribution per file, so `credit`, `license` and
-  `source` are derived from the API rather than typed from memory. Files whose
-  licence is not demonstrably free are dropped, and the count of what was
-  dropped is shown. A generic image search would do the opposite, which is why
-  there isn't one.
+- **Only sources that publish a licence.** CI cannot verify that an image is
+  free to publish, so the tool must not make it easy to save one that is not.
+  Commons returns machine-readable licence and attribution per file, and the Met
+  an explicit `isPublicDomain` flag, so `credit`, `license` and `source` are
+  derived from the API rather than typed from memory. Files whose licence is not
+  demonstrably free are dropped, and the count of what was dropped is shown. A
+  generic image search would do the opposite, which is why there isn't one.
 - **Attribution is re-read on save.** The client cannot assert a licence — the
   server fetches the file's metadata again and writes what Commons actually
   says.

@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Most Holy Trinity"
   ],
-  "saint": {
+  "subject": {
     "id": "most-holy-trinity",
+    "kind": "day",
     "name": "The Most Holy Trinity",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

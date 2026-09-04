@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Maximilian Mary Kolbe, Priest and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "maximilian-mary-raymund-kolbe-priest",
+    "kind": "saint",
     "name": "Saint Maximilian Mary Kolbe, Priest and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Maximilian Mary Kolbe, Priest and Martyr, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

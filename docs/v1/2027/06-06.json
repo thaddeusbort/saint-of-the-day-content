@@ -8,12 +8,15 @@
   "all_celebrations": [
     "tenth Sunday in Ordinary Time"
   ],
-  "saint": {
+  "subject": {
     "id": "ordinary-time-10-sunday",
+    "kind": "day",
     "name": "tenth Sunday in Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

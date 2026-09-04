@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Friday of the thirty-second week of Ordinary Time"
   ],
-  "saint": {
+  "subject": {
     "id": "ordinary-time-32-friday",
+    "kind": "day",
     "name": "Friday of the thirty-second week of Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

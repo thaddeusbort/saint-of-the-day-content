@@ -9,12 +9,15 @@
     "Saturday of the twenty-fifth week of Ordinary Time",
     "Saints Cosmas and Damian, Martyrs"
   ],
-  "saint": {
+  "subject": {
     "id": "cosmas-of-cilicia-and-damian-of-cilicia-martyrs",
+    "kind": "saint",
     "name": "Saints Cosmas and Damian, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saints Cosmas and Damian, Martyrs, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

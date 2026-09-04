@@ -9,12 +9,15 @@
     "Tuesday of the seventh week of Ordinary Time",
     "Saint John I, Pope and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "john-i-pope",
+    "kind": "saint",
     "name": "Saint John I, Pope and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint John I, Pope and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

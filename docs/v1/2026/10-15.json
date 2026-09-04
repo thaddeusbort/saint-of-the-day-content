@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Teresa of Jesus, Virgin and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "teresa-of-jesus-of-avila-virgin",
+    "kind": "saint",
     "name": "Saint Teresa of Jesus, Virgin and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Teresa of Jesus, Virgin and Doctor of the Church, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

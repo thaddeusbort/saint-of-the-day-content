@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Monday of the second week of Ordinary Time"
   ],
-  "saint": {
+  "subject": {
     "id": "ordinary-time-2-monday",
+    "kind": "day",
     "name": "Monday of the second week of Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

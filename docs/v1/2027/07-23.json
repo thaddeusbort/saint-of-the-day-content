@@ -9,12 +9,15 @@
     "Friday of the sixteenth week of Ordinary Time",
     "Saint Bridget, Religious"
   ],
-  "saint": {
+  "subject": {
     "id": "bridget-of-sweden-religious",
+    "kind": "saint",
     "name": "Saint Bridget, Religious",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Bridget, Religious, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

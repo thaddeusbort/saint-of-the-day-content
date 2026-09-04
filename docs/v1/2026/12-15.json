@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Tuesday of the third week of Advent"
   ],
-  "saint": {
+  "subject": {
     "id": "advent-3-tuesday",
+    "kind": "day",
     "name": "Tuesday of the third week of Advent",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

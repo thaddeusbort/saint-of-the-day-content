@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Agatha, Virgin and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "agatha-of-sicily-virgin",
+    "kind": "saint",
     "name": "Saint Agatha, Virgin and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Agatha, Virgin and Martyr, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

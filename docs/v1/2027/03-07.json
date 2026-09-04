@@ -8,12 +8,15 @@
   "all_celebrations": [
     "fourth Sunday of Lent"
   ],
-  "saint": {
+  "subject": {
     "id": "lent-4-sunday",
+    "kind": "day",
     "name": "fourth Sunday of Lent",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Holy Innocents, Martyrs"
   ],
-  "saint": {
+  "subject": {
     "id": "holy-innocents-martyrs",
+    "kind": "feast",
     "name": "The Holy Innocents, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

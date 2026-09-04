@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Wednesday of the fourth week of Lent"
   ],
-  "saint": {
+  "subject": {
     "id": "lent-4-wednesday",
+    "kind": "day",
     "name": "Wednesday of the fourth week of Lent",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

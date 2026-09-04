@@ -9,12 +9,15 @@
     "Saturday of the fifth week of Easter",
     "Saint Joseph the Worker"
   ],
-  "saint": {
+  "subject": {
     "id": "joseph-the-worker",
+    "kind": "saint",
     "name": "Saint Joseph the Worker",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Joseph the Worker, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

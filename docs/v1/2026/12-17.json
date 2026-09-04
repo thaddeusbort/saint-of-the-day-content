@@ -8,12 +8,15 @@
   "all_celebrations": [
     "December 17"
   ],
-  "saint": {
+  "subject": {
     "id": "advent-december-17",
+    "kind": "day",
     "name": "December 17",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

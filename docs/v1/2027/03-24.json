@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Wednesday of Holy Week"
   ],
-  "saint": {
+  "subject": {
     "id": "holy-wednesday",
+    "kind": "day",
     "name": "Wednesday of Holy Week",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Matthew, Apostle and Evangelist"
   ],
-  "saint": {
+  "subject": {
     "id": "matthew-apostle",
+    "kind": "saint",
     "name": "Saint Matthew, Apostle and Evangelist",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Matthew, Apostle and Evangelist, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

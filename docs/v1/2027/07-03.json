@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Thomas, Apostle"
   ],
-  "saint": {
+  "subject": {
     "id": "thomas-apostle",
+    "kind": "saint",
     "name": "Saint Thomas, Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Thomas, Apostle, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

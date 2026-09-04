@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Ash Wednesday"
   ],
-  "saint": {
+  "subject": {
     "id": "ash-wednesday",
+    "kind": "day",
     "name": "Ash Wednesday",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

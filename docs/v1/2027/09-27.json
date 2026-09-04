@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Vincent de Paul, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "vincent-de-paul-priest",
+    "kind": "saint",
     "name": "Saint Vincent de Paul, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Vincent de Paul, Priest, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

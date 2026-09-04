@@ -9,12 +9,15 @@
     "fifth Day within the Octave of the Nativity of the Lord",
     "Saint Thomas Becket, Bishop and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "thomas-becket-bishop",
+    "kind": "saint",
     "name": "Saint Thomas Becket, Bishop and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Thomas Becket, Bishop and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

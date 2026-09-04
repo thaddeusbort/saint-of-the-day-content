@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saturday of the tenth week of Ordinary Time"
   ],
-  "saint": {
+  "subject": {
     "id": "ordinary-time-10-saturday",
+    "kind": "day",
     "name": "Saturday of the tenth week of Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

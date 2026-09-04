@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Andrew Dũng-Lạc, Priest, and Companions, Martyrs"
   ],
-  "saint": {
+  "subject": {
     "id": "andrew-dung-lac-priest-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saint Andrew Dũng-Lạc, Priest, and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Andrew Dũng-Lạc, Priest, and Companions, Martyrs, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

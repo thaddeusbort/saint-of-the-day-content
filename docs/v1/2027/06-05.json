@@ -9,12 +9,15 @@
     "The Immaculate Heart of the Blessed Virgin Mary",
     "Saint Boniface, Bishop and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "immaculate-heart-of-mary",
+    "kind": "feast",
     "name": "The Immaculate Heart of the Blessed Virgin Mary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -9,12 +9,15 @@
     "December 23",
     "Saint John of Kanty, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "john-of-kanty-priest",
+    "kind": "saint",
     "name": "Saint John of Kanty, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint John of Kanty, Priest, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

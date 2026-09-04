@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Commemoration of All the Faithful Departed (All Soul’s Day)"
   ],
-  "saint": {
+  "subject": {
     "id": "commemoration-of-all-the-faithful-departed",
+    "kind": "feast",
     "name": "The Commemoration of All the Faithful Departed (All Soul’s Day)",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

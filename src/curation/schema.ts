@@ -19,13 +19,31 @@ export interface SaintEntry {
   readonly id: string;
   /** Display name, e.g. "St. John Bosco". */
   readonly name: string;
-  /** Life span, e.g. "1815–1888". May be empty for saints without dates. */
-  readonly years: string;
+  /**
+   * A line under the name — a saint's dates, or whatever suits a subject that
+   * has none. Not always a year range, which is why it is not called `years`.
+   */
+  readonly subtitle: string;
   readonly blurb: string;
   readonly credit: string;
   readonly license: string;
   readonly source: string;
   readonly crop: CropBox;
+  /**
+   * The day's notification line, e.g. "St. Gregory the Great, pray for us!".
+   *
+   * Empty means "use the derived one", which is the ordinary invocation for a
+   * saint and nothing at all for a temporal day.
+   */
+  readonly notification: string;
+  /**
+   * Permits a crop smaller than the largest variant, enlarged to reach it.
+   *
+   * Off unless the file says otherwise, so every enlarged image is a recorded,
+   * reviewable decision rather than something that crept in. Capped by
+   * MAX_UPSCALE regardless.
+   */
+  readonly allowUpscale: boolean;
 }
 
 const REQUIRED_STRINGS = ['name', 'blurb', 'credit', 'license', 'source'] as const;
@@ -65,10 +83,11 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
     strings[key] = value.trim();
   }
 
-  // `years` is the one optional string: not every saint has reliable dates.
-  const years = document['years'];
-  if (years !== undefined && typeof years !== 'string') {
-    throw new CurationError(file, '`years` must be a string when present');
+  // `subtitle` is the one optional string: not every subject has dates, or
+  // anything else worth putting under the name.
+  const subtitle = document['subtitle'];
+  if (subtitle !== undefined && typeof subtitle !== 'string') {
+    throw new CurationError(file, '`subtitle` must be a string when present');
   }
 
   const source = strings['source'] as string;
@@ -98,11 +117,23 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
     throw new CurationError(file, '`crop.width` and `crop.height` must be greater than zero');
   }
 
+  const notification = document['notification'];
+  if (notification !== undefined && typeof notification !== 'string') {
+    throw new CurationError(file, '`notification` must be a string when present');
+  }
+
+  const allowUpscale = document['allow_upscale'];
+  if (allowUpscale !== undefined && typeof allowUpscale !== 'boolean') {
+    throw new CurationError(file, '`allow_upscale` must be true or false when present');
+  }
+
   const unknownKeys = Object.keys(document).filter(
     (key) =>
       !REQUIRED_STRINGS.includes(key as (typeof REQUIRED_STRINGS)[number]) &&
-      key !== 'years' &&
-      key !== 'crop',
+      key !== 'subtitle' &&
+      key !== 'crop' &&
+      key !== 'notification' &&
+      key !== 'allow_upscale',
   );
   if (unknownKeys.length > 0) {
     throw new CurationError(file, `unknown field(s): ${unknownKeys.sort().join(', ')}`);
@@ -111,7 +142,7 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
   return {
     id,
     name: strings['name'] as string,
-    years: (years ?? '').trim(),
+    subtitle: (subtitle ?? '').trim(),
     blurb: strings['blurb'] as string,
     credit: strings['credit'] as string,
     license: strings['license'] as string,
@@ -122,6 +153,8 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
       width: box['width'] as number,
       height: box['height'] as number,
     },
+    notification: (notification ?? '').trim(),
+    allowUpscale: allowUpscale === true,
   };
 }
 

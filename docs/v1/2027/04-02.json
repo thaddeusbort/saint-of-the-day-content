@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Friday within the Octave of Easter"
   ],
-  "saint": {
+  "subject": {
     "id": "easter-friday",
+    "kind": "day",
     "name": "Friday within the Octave of Easter",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -10,12 +10,15 @@
     "Saint Hedwig, Religious",
     "Saint Margaret Mary Alacoque, Virgin"
   ],
-  "saint": {
+  "subject": {
     "id": "hedwig-of-silesia-religious",
+    "kind": "saint",
     "name": "Saint Hedwig, Religious",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Hedwig, Religious, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

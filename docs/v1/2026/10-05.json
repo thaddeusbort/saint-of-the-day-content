@@ -9,12 +9,15 @@
     "Monday of the twenty-seventh week of Ordinary Time",
     "Saint Faustina Kowalska, Virgin"
   ],
-  "saint": {
+  "subject": {
     "id": "faustina-kowalska-virgin",
+    "kind": "saint",
     "name": "Saint Faustina Kowalska, Virgin",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Faustina Kowalska, Virgin, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

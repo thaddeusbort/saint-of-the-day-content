@@ -9,12 +9,15 @@
     "Friday of the seventh week of Ordinary Time",
     "Saint Christopher Magallanes, Priest, and Companions, Martyrs"
   ],
-  "saint": {
+  "subject": {
     "id": "christopher-magallanes-priest-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saint Christopher Magallanes, Priest, and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Christopher Magallanes, Priest, and Companions, Martyrs, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -9,12 +9,15 @@
     "December 21",
     "Saint Peter Canisius, Priest and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "peter-canisius-priest",
+    "kind": "saint",
     "name": "Saint Peter Canisius, Priest and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Peter Canisius, Priest and Doctor of the Church, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

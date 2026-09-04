@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Pius X, Pope"
   ],
-  "saint": {
+  "subject": {
     "id": "pius-x-pope",
+    "kind": "saint",
     "name": "Saint Pius X, Pope",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Pius X, Pope, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

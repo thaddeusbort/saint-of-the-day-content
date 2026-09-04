@@ -20,6 +20,11 @@
       * {
         box-sizing: border-box;
       }
+      /* An author `display` beats the UA sheet's [hidden] rule, so anything
+         with a display of its own stays visible when hidden is set. */
+      [hidden] {
+        display: none !important;
+      }
       body {
         margin: 0;
         background: var(--bg);
@@ -98,6 +103,7 @@
       }
       #filters {
         display: flex;
+        flex-wrap: wrap;
         gap: 6px;
         margin-top: 10px;
       }
@@ -145,6 +151,10 @@
         border: 1px solid var(--line);
         color: var(--muted);
       }
+      .tag.wait {
+        color: #8a93a3;
+        border-style: dashed;
+      }
       .tag.done {
         color: var(--ok);
         border-color: var(--ok);
@@ -172,8 +182,50 @@
       }
       .searchbar {
         display: flex;
+        align-items: center;
+        flex-wrap: wrap;
         gap: 8px;
         margin-top: 10px;
+      }
+      /* The search row is a control strip, not a form: keep it shallow so the
+         results start higher up the page. */
+      .searchbar select.src {
+        font: inherit;
+        color: inherit;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 3px 6px;
+      }
+      .searchbar input[type='text'] {
+        flex: 1 1 220px;
+        padding: 3px 8px;
+      }
+      .searchbar button {
+        padding: 3px 8px;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+      }
+      .searchbar svg {
+        width: 15px;
+        height: 15px;
+        display: block;
+      }
+      .opt {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+        font-size: 12px;
+        color: var(--muted);
+        white-space: nowrap;
+        cursor: help;
+      }
+      .opt input {
+        width: auto;
+        margin: 0;
+        cursor: pointer;
       }
       #results {
         display: grid;
@@ -212,6 +264,9 @@
       }
       .hit.small .lic {
         color: var(--bad);
+      }
+      .hit .warn {
+        color: var(--accent);
       }
 
       /* ---- cropper ---- */
@@ -289,6 +344,9 @@
       #main {
         padding-bottom: 24px;
       }
+      .warn {
+        color: var(--accent);
+      }
       .rowline {
         display: flex;
         align-items: center;
@@ -309,10 +367,29 @@
         <h1 style="font-size: 15px">Curation queue</h1>
         <div class="sub" id="counts" style="font-size: 12px; margin-top: 3px">loading…</div>
         <div id="filters">
-          <button data-kind="saint" aria-pressed="true">Saints</button>
-          <button data-kind="day" aria-pressed="false">Days</button>
+          <button
+            data-kind="saint"
+            aria-pressed="true"
+            title="Saints the calendar gives, proper or optional"
+          >
+            Saints
+          </button>
+          <button
+            data-kind="major"
+            aria-pressed="false"
+            title="Privileged days, which take no saint but their own — worth an image of their own"
+          >
+            Major
+          </button>
+          <button
+            data-kind="awaiting"
+            aria-pressed="false"
+            title="Ordinary days with no saint yet; waiting on a martyrology, not on you"
+          >
+            Awaiting
+          </button>
+          <button data-kind="curated" aria-pressed="false" title="Already done">Curated</button>
           <button data-kind="all" aria-pressed="false">All</button>
-          <button data-kind="curated" aria-pressed="false">Curated</button>
         </div>
       </header>
       <div id="list"></div>
@@ -334,6 +411,11 @@
         // competing with a grid of alternatives.
         step: 'search',
         hideSmall: true,
+        maxUpscale: 3,
+        sources: [],
+        sourceId: 'commons',
+        allowUpscale: false,
+        excludeStructures: false,
         nextOffset: null,
         lastQuery: '',
         rejectedForLicense: 0,
@@ -344,7 +426,12 @@
       const $ = (sel, root = document) => root.querySelector(sel);
       const el = (tag, props = {}, ...kids) => {
         const node = document.createElement(tag);
-        Object.assign(node, props);
+        for (const [key, value] of Object.entries(props)) {
+          // Object.assign sets properties; hyphenated names like aria-label
+          // are attributes only, and would land as ignored expandos.
+          if (key.includes('-')) node.setAttribute(key, value);
+          else node[key] = value;
+        }
         for (const kid of kids.flat()) if (kid !== '' && kid != null) node.append(kid);
         return node;
       };
@@ -362,7 +449,13 @@
           // Every other view is the outstanding queue: done work drops out.
           if (i.curated) return false;
           if (state.kind === 'all') return true;
-          return state.kind === 'saint' ? i.isSanctoral : !i.isSanctoral;
+          if (state.kind === 'saint') return i.isSanctoral;
+          // A temporal subject on a day that admits no other saint is the
+          // final answer for that day — Christmas is the Nativity — so it is
+          // worth an image. One on a day that does admit a saint is only
+          // standing in until a martyrology can fill it.
+          if (state.kind === 'major') return !i.isSanctoral && !i.admitsSaint;
+          return !i.isSanctoral && i.admitsSaint;
         });
 
       function renderQueue() {
@@ -378,8 +471,8 @@
               el('span', { className: 'd', textContent: item.firstDate + extra }),
               ' ',
               el('span', {
-                className: `tag ${item.isSanctoral ? 'saint' : ''}`,
-                textContent: item.isSanctoral ? 'saint' : 'day',
+                className: `tag ${item.isSanctoral ? 'saint' : item.admitsSaint ? 'wait' : ''}`,
+                textContent: item.isSanctoral ? 'saint' : item.admitsSaint ? 'awaiting' : 'major',
               }),
               item.curated ? ' ' : '',
               item.curated ? el('span', { className: 'tag done', textContent: 'curated' }) : '',
@@ -442,6 +535,22 @@
             { className: 'sub', style: 'margin-top:6px' },
             'Celebration: ' + item.celebration,
           ),
+          !item.isSanctoral && item.admitsSaint
+            ? el('div', {
+                className: 'sub',
+                style: 'margin-top:6px;color:#8a93a3',
+                textContent:
+                  'This day admits a saint but the calendar gives none, so the liturgical day is standing in. It is waiting on a martyrology rather than on a picture — curating it here is optional.',
+              })
+            : '',
+          !item.isSanctoral && !item.admitsSaint
+            ? el('div', {
+                className: 'sub',
+                style: 'margin-top:6px',
+                textContent:
+                  'A privileged day: it takes no saint but its own, so this subject is final and an image of it is worth having.',
+              })
+            : '',
           item.allCelebrations.length > 1
             ? el('div', {
                 className: 'sub',
@@ -460,37 +569,97 @@
         if (item.curated && item.entry) main.append(curatedCard(item.entry));
 
         if (state.step === 'search') {
-          const input = el('input', { id: 'q', value: state.lastQuery || item.query });
-          const go = el('button', { textContent: 'Search Commons' });
+          const picker = el('select', { id: 'source', className: 'src' });
+          for (const src of state.sources) {
+            picker.append(el('option', { value: src.id, textContent: src.label, title: src.note }));
+          }
+          picker.value = state.sourceId;
+          picker.onchange = () => {
+            state.sourceId = picker.value;
+            runSearch(input.value);
+          };
+
+          const input = el('input', {
+            id: 'q',
+            type: 'text',
+            value: state.lastQuery || item.query,
+          });
+          const go = el('button', { title: 'Search Commons', 'aria-label': 'Search Commons' });
+          go.innerHTML =
+            '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"' +
+            ' stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg>';
           go.onclick = () => runSearch(input.value);
           input.onkeydown = (e) => {
             if (e.key === 'Enter') go.click();
           };
 
+          // Filtering too-small results is client-side over what was fetched;
+          // the artwork filter narrows the query itself, so it needs a refetch.
+          // Both narrow the query itself, so both need a refetch. The
+          // too-small check still runs over whatever comes back, so an
+          // unticked box shows the rest rather than trusting the query.
           const hide = el('input', { type: 'checkbox', checked: state.hideSmall, id: 'hideSmall' });
           hide.onchange = () => {
             state.hideSmall = hide.checked;
-            renderResults();
+            runSearch(input.value);
+          };
+          const nostruct = el('input', {
+            type: 'checkbox',
+            checked: state.excludeStructures,
+            id: 'excludeStructures',
+          });
+          nostruct.onchange = () => {
+            state.excludeStructures = nostruct.checked;
+            runSearch(input.value);
           };
 
           main.append(
             el(
               'div',
               { className: 'card' },
-              el('h3', { textContent: 'Wikimedia Commons', style: 'font-size:14px' }),
+              el('h3', { textContent: 'Image sources', style: 'font-size:14px' }),
               el('div', {
                 className: 'sub',
                 style: 'font-size:12px;margin-top:3px',
                 textContent:
-                  'Only Commons is searched, and only files whose licence reads as free. Attribution is taken from the file, not typed.',
+                  'Only sources that publish a machine-readable licence are searched, and only files whose licence reads as free. Attribution is taken from the source, not typed.',
               }),
-              el('div', { className: 'searchbar' }, input, go),
               el(
-                'label',
-                { className: 'rowline', style: 'margin:10px 0 0;font-size:12px' },
-                hide,
-                `Hide images too small for a ${state.render.width}x${state.render.height} crop`,
+                'div',
+                { className: 'searchbar' },
+                picker,
+                input,
+                go,
+                el(
+                  'label',
+                  {
+                    className: 'opt',
+                    title: `Ask Commons for files at least ${state.render.width}x${state.render.height}, and hide any smaller ones that still come back — anything below that would have to be upscaled`,
+                  },
+                  hide,
+                  'Filter out small images',
+                ),
+                el(
+                  'label',
+                  {
+                    className: 'opt',
+                    title:
+                      'Exclude files whose title, description or categories mention a church, chapel, street, school, monument and so on — photographs of things named after the saint rather than images of the saint. Blunt: it also drops paintings whose description names the church holding them.',
+                  },
+                  nostruct,
+                  'Exclude buildings',
+                ),
               ),
+              (() => {
+                const note = state.sources.find((x) => x.id === state.sourceId)?.note;
+                return note
+                  ? el('div', {
+                      className: 'sub',
+                      style: 'font-size:12px;margin-top:8px',
+                      textContent: note,
+                    })
+                  : '';
+              })(),
               el('div', { id: 'results' }),
               el('div', { id: 'searchMsg' }),
               el('div', { id: 'more', style: 'margin-top:10px' }),
@@ -518,10 +687,14 @@
         state.lastQuery = term;
         try {
           const offset = append && state.nextOffset != null ? state.nextOffset : 0;
-          const res = await api(`/api/search?q=${encodeURIComponent(term)}&offset=${offset}`);
+          const res = await api(
+            `/api/search?q=${encodeURIComponent(term)}&offset=${offset}&source=${state.sourceId}` +
+              (state.hideSmall ? '&big=1' : '') +
+              (state.excludeStructures ? '&nostructures=1' : ''),
+          );
           // Commons can return the same file on two pages; keep the first.
-          const seen = new Set(state.results.map((f) => f.title));
-          state.results = state.results.concat(res.files.filter((f) => !seen.has(f.title)));
+          const seen = new Set(state.results.map((f) => f.ref));
+          state.results = state.results.concat(res.files.filter((f) => !seen.has(f.ref)));
           state.rejectedForLicense += res.rejectedForLicense;
           state.nextOffset = res.nextOffset;
           renderResults();
@@ -535,10 +708,18 @@
 
       function searchNotes() {
         const notes = [];
-        const tooSmall = state.results.filter((f) => !f.largeEnough).length;
-        const usable = state.results.length - tooSmall;
-        if (!state.results.length) notes.push('No usable results.');
-        else notes.push(`${usable} usable result(s).`);
+        const sized = state.results.filter((f) => f.width > 0);
+        const tooSmall = sized.filter((f) => !f.largeEnough).length;
+        const usableCount = state.results.length - tooSmall;
+        if (!state.results.length)
+          notes.push(
+            state.excludeStructures
+              ? 'No usable results — untick “Exclude buildings”, which also drops images whose description mentions one.'
+              : state.hideSmall
+                ? `No results at ${state.render.width}x${state.render.height} or larger — untick the size filter to see what else there is.`
+                : 'No usable results.',
+          );
+        else notes.push(`${usableCount} usable result(s).`);
         if (state.rejectedForLicense)
           notes.push(`${state.rejectedForLicense} hidden: licence not free or unreadable.`);
         if (tooSmall)
@@ -551,8 +732,11 @@
         return notes.join(' ');
       }
 
+      /** Anything beyond the cap is no use at any setting. */
+      const usable = (f) => f.upscaleFactor <= state.maxUpscale;
+
       function renderResults() {
-        const shown = state.hideSmall ? state.results.filter((f) => f.largeEnough) : state.results;
+        const shown = state.hideSmall ? state.results.filter(usable) : state.results;
         const more = $('#more');
         if (more) {
           more.replaceChildren();
@@ -570,8 +754,8 @@
         if (msg && msg.className === 'msg') msg.textContent = searchNotes();
         $('#results').replaceChildren(
           ...shown.map((f) => {
-            const card = el('div', { className: 'hit' + (f.largeEnough ? '' : ' small') });
-            card.setAttribute('aria-selected', String(state.file?.title === f.title));
+            const card = el('div', { className: 'hit' + (usable(f) ? '' : ' small') });
+            card.setAttribute('aria-selected', String(state.file?.ref === f.ref));
             card.append(
               el('img', { src: f.thumbUrl, loading: 'lazy', alt: '' }),
               el(
@@ -579,7 +763,16 @@
                 { className: 'meta' },
                 el('div', { className: 'lic', textContent: f.license || 'unknown licence' }),
                 el('div', {
-                  textContent: `${f.width}x${f.height}` + (f.largeEnough ? '' : ' — too small'),
+                  className: f.width === 0 ? '' : f.largeEnough ? '' : usable(f) ? 'warn' : '',
+                  textContent:
+                    f.width === 0
+                      ? 'size checked when you pick it'
+                      : `${f.width}x${f.height}` +
+                        (f.largeEnough
+                          ? ''
+                          : usable(f)
+                            ? ` — needs ${f.upscaleFactor.toFixed(1)}x enlargement`
+                            : ' — too small to use'),
                 }),
                 f.restrictions
                   ? el('div', {
@@ -589,7 +782,7 @@
                   : '',
               ),
             );
-            if (f.largeEnough) card.onclick = () => chooseFile(f);
+            if (usable(f)) card.onclick = () => chooseFile(f);
             return card;
           }),
         );
@@ -597,7 +790,9 @@
 
       async function chooseFile(file) {
         // Re-read at a larger thumbnail so the crop is chosen on something legible.
-        state.file = await api('/api/file?width=1200&title=' + encodeURIComponent(file.title));
+        state.file = await api(
+          `/api/file?width=1200&source=${state.sourceId}&title=` + encodeURIComponent(file.ref),
+        );
         state.step = 'crop';
         renderMain();
       }
@@ -615,7 +810,7 @@
               'Saving again overwrites this entry and drops its rendered images, so a new crop takes effect on the next run of the generator.',
           }),
           el('div', { style: 'margin-top:8px' }, el('strong', { textContent: entry.name })),
-          entry.years ? el('div', { className: 'sub', textContent: entry.years }) : '',
+          entry.subtitle ? el('div', { className: 'sub', textContent: entry.subtitle }) : '',
           el('div', { style: 'margin-top:6px', textContent: entry.blurb }),
           el(
             'div',
@@ -644,9 +839,12 @@
         if (!f) return;
 
         // Start with the largest centred crop the source allows.
-        const minW = state.render.width;
-        const minH = state.render.height;
-        const ratio = minW / minH;
+        const ratio = state.render.width / state.render.height;
+        // The crop may go down to what MAX_UPSCALE allows; anything smaller is
+        // refused on save whatever the checkbox says.
+        const floorH = Math.ceil(state.render.height / state.maxUpscale);
+        const minH = Math.min(state.render.height, Math.min(f.height, Math.floor(f.width / ratio)));
+        const minW = Math.round(minH * ratio);
         let h = Math.min(f.height, Math.floor(f.width / ratio));
         let w = Math.round(h * ratio);
         if (w > f.width) {
@@ -666,10 +864,24 @@
 
         const size = el('input', { type: 'range', min: '30', max: '100', value: '100' });
         const readout = el('span', { className: 'sub' });
+
+        // Only appears when the crop is actually below the render size, so an
+        // ordinary curation never sees it.
+        const upscale = el('input', { type: 'checkbox', checked: state.allowUpscale });
+        upscale.onchange = () => {
+          state.allowUpscale = upscale.checked;
+        };
+        const upscaleLabel = el('span', {});
+        const upscaleRow = el(
+          'label',
+          { className: 'rowline warn', style: 'margin-top:8px;cursor:pointer', hidden: true },
+          upscale,
+          upscaleLabel,
+        );
         const nameI = el('input', { value: item.entry?.name ?? item.name });
-        const yearsI = el('input', {
-          value: item.entry?.years ?? '',
-          placeholder: '1815–1888 (optional)',
+        const subtitleI = el('input', {
+          value: item.entry?.subtitle ?? '',
+          placeholder: '1815–1888, or whatever suits (optional)',
         });
         const blurbI = el('textarea', {
           value: item.entry?.blurb ?? '',
@@ -688,15 +900,23 @@
           box.style.top = state.crop.y * s + 'px';
           box.style.width = state.crop.width * s + 'px';
           box.style.height = state.crop.height * s + 'px';
-          readout.textContent = `${state.crop.width}x${state.crop.height} at (${state.crop.x}, ${state.crop.y}) · source ${f.width}x${f.height}`;
+          const factor = state.render.width / state.crop.width;
+          readout.textContent =
+            `${state.crop.width}x${state.crop.height} at (${state.crop.x}, ${state.crop.y}) · source ${f.width}x${f.height}` +
+            (factor > 1 ? ` · enlarged ${factor.toFixed(2)}x` : '');
+          readout.className = factor > 1 ? 'warn' : 'sub';
+          if (upscaleRow) upscaleRow.hidden = factor <= 1;
+          if (upscaleLabel)
+            upscaleLabel.textContent = `Allow enlarging this image ${factor.toFixed(2)}x — it will be softer than a full-size source`;
         };
         const resize = () => {
           const pct = Number(size.value) / 100;
           const maxH = Math.min(f.height, Math.floor(f.width / ratio));
-          let nh = Math.max(minH, Math.round(maxH * pct));
+          let nh = Math.max(floorH, Math.round(maxH * pct));
           let nw = Math.round(nh * ratio);
-          if (nw < minW) {
-            nw = minW;
+          const floorW = Math.round(floorH * ratio);
+          if (nw < floorW) {
+            nw = floorW;
             nh = Math.round(nw / ratio);
           }
           state.crop.width = nw;
@@ -742,7 +962,12 @@
             const r = await fetch('/api/preview', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ fileTitle: f.title, crop: state.crop }),
+              body: JSON.stringify({
+                sourceId: state.sourceId,
+                fileTitle: f.ref,
+                crop: state.crop,
+                allowUpscale: state.allowUpscale,
+              }),
             });
             if (!r.ok) throw new Error((await r.json()).error);
             previewImg.src = URL.createObjectURL(await r.blob());
@@ -769,10 +994,12 @@
               body: JSON.stringify({
                 id: item.id,
                 name: nameI.value,
-                years: yearsI.value,
+                subtitle: subtitleI.value,
                 blurb: blurbI.value,
-                fileTitle: f.title,
+                sourceId: state.sourceId,
+                fileTitle: f.ref,
                 crop: state.crop,
+                allowUpscale: state.allowUpscale,
               }),
             });
             msg.style.display = 'block';
@@ -822,6 +1049,7 @@
             }),
             wrap,
             el('div', { className: 'rowline', style: 'margin-top:10px' }, 'Size', size, readout),
+            upscaleRow,
             el('div', { style: 'margin-top:10px' }, preview),
             previewImg,
           ),
@@ -833,8 +1061,10 @@
               'div',
               { className: 'grid2' },
               el('div', {}, el('label', { textContent: 'name' }), nameI),
-              el('div', {}, el('label', { textContent: 'years (optional)' }), yearsI),
+              el('div', {}, el('label', { textContent: 'subtitle (optional)' }), subtitleI),
             ),
+            el('label', { textContent: 'notification — the line shown with the image' }),
+            notifyI,
             el('label', {
               textContent: 'blurb — yours to write; licence clearance is yours to judge',
             }),
@@ -849,7 +1079,7 @@
                 el('code', { textContent: f.credit || 'Wikimedia Commons' }),
               ),
               el('div', {}, 'license: ', el('code', { textContent: f.license || '—' })),
-              el('div', {}, 'source: ', el('code', { textContent: f.descriptionUrl })),
+              el('div', {}, 'source: ', el('code', { textContent: f.pageUrl })),
               f.description
                 ? el('div', {
                     style: 'margin-top:6px',
@@ -878,6 +1108,9 @@
       state.items = boot.items;
       state.curatedCount = boot.curatedCount;
       state.render = boot.render;
+      state.maxUpscale = boot.maxUpscale;
+      state.sources = boot.sources ?? [];
+      state.sourceId = state.sources[0]?.id ?? 'commons';
       renderQueue();
       const first = visible()[0];
       if (first) select(first);

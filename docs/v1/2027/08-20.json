@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Bernard, Abbot and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "bernard-of-clairvaux-abbot",
+    "kind": "saint",
     "name": "Saint Bernard, Abbot and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Bernard, Abbot and Doctor of the Church, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

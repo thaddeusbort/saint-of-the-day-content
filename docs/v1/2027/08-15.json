@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Assumption of the Blessed Virgin Mary"
   ],
-  "saint": {
+  "subject": {
     "id": "assumption-of-the-blessed-virgin-mary",
+    "kind": "feast",
     "name": "The Assumption of the Blessed Virgin Mary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -9,12 +9,15 @@
     "Wednesday of the fifteenth week of Ordinary Time",
     "Saint Camillus de Lellis, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "camillus-de-lellis-priest",
+    "kind": "saint",
     "name": "Saint Camillus de Lellis, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Camillus de Lellis, Priest, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

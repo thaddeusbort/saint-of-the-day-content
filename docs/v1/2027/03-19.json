@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Joseph, Spouse of the Blessed Virgin Mary"
   ],
-  "saint": {
+  "subject": {
     "id": "joseph-spouse-of-mary",
+    "kind": "saint",
     "name": "Saint Joseph, Spouse of the Blessed Virgin Mary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Joseph, Spouse of the Blessed Virgin Mary, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -10,12 +10,15 @@
     "Saint Jerome Emiliani",
     "Saint Josephine Bakhita, Virgin"
   ],
-  "saint": {
+  "subject": {
     "id": "jerome-emiliani",
+    "kind": "saint",
     "name": "Saint Jerome Emiliani",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Jerome Emiliani, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

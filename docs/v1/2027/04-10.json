@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saturday of the second week of Easter"
   ],
-  "saint": {
+  "subject": {
     "id": "easter-time-2-saturday",
+    "kind": "day",
     "name": "Saturday of the second week of Easter",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

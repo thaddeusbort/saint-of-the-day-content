@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Palm Sunday of the Passion of the Lord"
   ],
-  "saint": {
+  "subject": {
     "id": "palm-sunday-of-the-passion-of-the-lord",
+    "kind": "day",
     "name": "Palm Sunday of the Passion of the Lord",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

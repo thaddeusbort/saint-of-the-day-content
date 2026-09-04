@@ -9,12 +9,15 @@
     "Monday of the twentieth week of Ordinary Time",
     "Saint Stephen of Hungary"
   ],
-  "saint": {
+  "subject": {
     "id": "stephen-i-of-hungary",
+    "kind": "saint",
     "name": "Saint Stephen of Hungary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Stephen of Hungary, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

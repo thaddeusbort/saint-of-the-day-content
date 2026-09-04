@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Blessed Virgin Mary, Mother of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "mary-mother-of-the-church",
+    "kind": "saint",
     "name": "Blessed Virgin Mary, Mother of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Blessed Virgin Mary, Mother of the Church, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

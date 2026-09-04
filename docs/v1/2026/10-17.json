@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Ignatius of Antioch, Bishop and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "ignatius-of-antioch-bishop",
+    "kind": "saint",
     "name": "Saint Ignatius of Antioch, Bishop and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Ignatius of Antioch, Bishop and Martyr, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

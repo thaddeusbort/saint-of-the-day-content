@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saints Martha, Mary and Lazarus"
   ],
-  "saint": {
+  "subject": {
     "id": "martha-of-bethany-mary-of-bethany-and-lazarus-of-bethany",
+    "kind": "saint",
     "name": "Saints Martha, Mary and Lazarus",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saints Martha, Mary and Lazarus, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

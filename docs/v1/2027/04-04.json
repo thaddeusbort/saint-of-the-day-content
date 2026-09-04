@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Second Sunday of Easter or Sunday of Divine Mercy"
   ],
-  "saint": {
+  "subject": {
     "id": "divine-mercy-sunday",
+    "kind": "day",
     "name": "Second Sunday of Easter or Sunday of Divine Mercy",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

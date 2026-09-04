@@ -10,12 +10,15 @@
     "Saint Paulinus of Nola, Bishop",
     "Saints John Fisher, Bishop, and Thomas More, Martyrs"
   ],
-  "saint": {
+  "subject": {
     "id": "paulinus-of-nola-bishop",
+    "kind": "saint",
     "name": "Saint Paulinus of Nola, Bishop",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Paulinus of Nola, Bishop, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

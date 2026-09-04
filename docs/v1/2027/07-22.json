@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Mary Magdalene"
   ],
-  "saint": {
+  "subject": {
     "id": "mary-magdalene",
+    "kind": "saint",
     "name": "Saint Mary Magdalene",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Mary Magdalene, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

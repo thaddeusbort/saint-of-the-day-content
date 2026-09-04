@@ -9,12 +9,15 @@
     "Thursday of the seventh week of Ordinary Time",
     "Saint Bernardine of Siena, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "bernardine-of-siena-priest",
+    "kind": "saint",
     "name": "Saint Bernardine of Siena, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Bernardine of Siena, Priest, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

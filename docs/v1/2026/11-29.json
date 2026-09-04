@@ -8,12 +8,15 @@
   "all_celebrations": [
     "first Sunday of Advent"
   ],
-  "saint": {
+  "subject": {
     "id": "advent-1-sunday",
+    "kind": "day",
     "name": "first Sunday of Advent",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

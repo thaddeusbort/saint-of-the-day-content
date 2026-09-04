@@ -9,12 +9,15 @@
     "Thursday of Holy Week",
     "Thursday of the Lord’s Supper"
   ],
-  "saint": {
+  "subject": {
     "id": "holy-thursday",
+    "kind": "day",
     "name": "Thursday of Holy Week",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

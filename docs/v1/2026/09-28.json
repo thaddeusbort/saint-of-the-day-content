@@ -10,12 +10,15 @@
     "Saint Wenceslaus, Martyr",
     "Saint Lawrence Ruiz and Companions, Martyrs"
   ],
-  "saint": {
+  "subject": {
     "id": "wenceslaus-i-of-bohemia-martyr",
+    "kind": "saint",
     "name": "Saint Wenceslaus, Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Wenceslaus, Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

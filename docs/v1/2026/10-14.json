@@ -9,12 +9,15 @@
     "Wednesday of the twenty-eighth week of Ordinary Time",
     "Saint Callistus I, Pope and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "callistus-i-pope",
+    "kind": "saint",
     "name": "Saint Callistus I, Pope and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Callistus I, Pope and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

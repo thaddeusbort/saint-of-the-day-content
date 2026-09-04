@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint John of the Cross, Priest and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "john-of-the-cross-priest",
+    "kind": "saint",
     "name": "Saint John of the Cross, Priest and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint John of the Cross, Priest and Doctor of the Church, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

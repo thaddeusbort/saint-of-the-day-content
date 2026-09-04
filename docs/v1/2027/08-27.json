@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Monica"
   ],
-  "saint": {
+  "subject": {
     "id": "monica-of-hippo",
+    "kind": "saint",
     "name": "Saint Monica",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Monica, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

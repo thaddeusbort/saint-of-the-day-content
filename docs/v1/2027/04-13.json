@@ -9,12 +9,15 @@
     "Tuesday of the third week of Easter",
     "Saint Martin I, Pope and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "martin-i-pope",
+    "kind": "saint",
     "name": "Saint Martin I, Pope and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Martin I, Pope and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

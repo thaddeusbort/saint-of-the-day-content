@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Our Lady of the Rosary"
   ],
-  "saint": {
+  "subject": {
     "id": "our-lady-of-the-rosary",
+    "kind": "feast",
     "name": "Our Lady of the Rosary",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Our Lady of the Rosary, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

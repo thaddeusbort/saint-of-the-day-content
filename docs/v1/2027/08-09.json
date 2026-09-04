@@ -9,12 +9,15 @@
     "Monday of the nineteenth week of Ordinary Time",
     "Saint Teresa Benedicta of the Cross Stein, Virgin and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "teresa-benedicta-of-the-cross-stein-virgin",
+    "kind": "saint",
     "name": "Saint Teresa Benedicta of the Cross Stein, Virgin and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Teresa Benedicta of the Cross Stein, Virgin and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

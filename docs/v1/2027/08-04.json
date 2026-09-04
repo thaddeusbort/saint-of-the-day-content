@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint John Mary Vianney, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "john-mary-vianney-priest",
+    "kind": "saint",
     "name": "Saint John Mary Vianney, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint John Mary Vianney, Priest, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

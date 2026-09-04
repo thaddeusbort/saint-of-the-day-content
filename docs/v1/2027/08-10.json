@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Lawrence, Deacon and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "lawrence-of-rome-deacon",
+    "kind": "saint",
     "name": "Saint Lawrence, Deacon and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Lawrence, Deacon and Martyr, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

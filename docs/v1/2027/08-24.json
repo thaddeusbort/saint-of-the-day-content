@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Bartholomew, Apostle"
   ],
-  "saint": {
+  "subject": {
     "id": "bartholomew-apostle",
+    "kind": "saint",
     "name": "Saint Bartholomew, Apostle",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Bartholomew, Apostle, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

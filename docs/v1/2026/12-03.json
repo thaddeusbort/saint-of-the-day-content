@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Francis Xavier, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "francis-xavier-priest",
+    "kind": "saint",
     "name": "Saint Francis Xavier, Priest",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Francis Xavier, Priest, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

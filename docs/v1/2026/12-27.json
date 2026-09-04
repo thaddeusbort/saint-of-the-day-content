@@ -8,12 +8,15 @@
   "all_celebrations": [
     "The Holy Family of Jesus, Mary and Joseph"
   ],
-  "saint": {
+  "subject": {
     "id": "holy-family-of-jesus-mary-and-joseph",
+    "kind": "day",
     "name": "The Holy Family of Jesus, Mary and Joseph",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

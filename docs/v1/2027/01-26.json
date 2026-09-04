@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saints Timothy and Titus, Bishops"
   ],
-  "saint": {
+  "subject": {
     "id": "timothy-of-ephesus-and-titus-of-crete-bishops",
+    "kind": "saint",
     "name": "Saints Timothy and Titus, Bishops",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saints Timothy and Titus, Bishops, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

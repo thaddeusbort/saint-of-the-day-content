@@ -21,14 +21,33 @@ export interface Celebration {
   /** True when the celebration is an optional memorial the day does not require. */
   readonly isOptional: boolean;
   /**
-   * True when this celebration commemorates one or more people in the
-   * martyrology — i.e. it is a saint's day rather than a temporal day.
+   * True when the celebration commemorates anything in the martyrology — a
+   * person, but also an event or a title.
    */
   readonly isSanctoral: boolean;
+  /**
+   * True when what it commemorates is a person.
+   *
+   * romcal marks people with a canonization level and leaves it unset for
+   * events and titles, so "Saint John Bosco" is a person while "The Nativity
+   * of the Blessed Virgin Mary" and "Our Lady of Sorrows" are not. That
+   * distinction is structural, not a guess from the name.
+   */
+  readonly isPerson: boolean;
 }
 
 /** Everything the pipeline needs to know about one calendar date. */
 export interface LiturgicalDay {
+  /**
+   * Position in the Table of Liturgical Days (UNLY nn. 59-61), 1 for the
+   * Paschal Triduum down to 13 for a ferial weekday.
+   *
+   * Rank distinguishes a solemnity from a memorial; this distinguishes a
+   * Sunday of Lent from a Sunday in Ordinary Time, and Holy Week from an
+   * ordinary weekday — the axis that decides whether a day will admit any
+   * celebration but its own.
+   */
+  readonly tableRank: number;
   /** ISO date, `yyyy-MM-dd`. */
   readonly date: string;
   readonly season: Season;

@@ -9,12 +9,15 @@
     "Tuesday of the sixteenth week of Ordinary Time",
     "Saint Apollinaris, Bishop and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "apollinaris-of-ravenna-bishop",
+    "kind": "saint",
     "name": "Saint Apollinaris, Bishop and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Apollinaris, Bishop and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

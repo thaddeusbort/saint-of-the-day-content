@@ -11,12 +11,15 @@
     "Saint John Leonardi, Priest",
     "Saint John Henry Newman, Priest and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "denis-of-paris-bishop-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saint Denis, Bishop, and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Denis, Bishop, and Companions, Martyrs, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

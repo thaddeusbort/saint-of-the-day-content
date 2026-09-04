@@ -34,7 +34,7 @@ export async function addCuratedSaint(
 
   const entry: Record<string, unknown> = {
     name: 'St. Test of Somewhere',
-    years: '1815–1888',
+    subtitle: '1815–1888',
     blurb: 'A curated blurb.',
     credit: 'Photograph, c. 1880',
     license: 'Public domain',

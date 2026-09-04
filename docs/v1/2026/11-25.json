@@ -9,12 +9,15 @@
     "Wednesday of the thirty-fourth week of Ordinary Time",
     "Saint Catherine of Alexandria, Virgin and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "catherine-of-alexandria-virgin",
+    "kind": "saint",
     "name": "Saint Catherine of Alexandria, Virgin and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Catherine of Alexandria, Virgin and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

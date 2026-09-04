@@ -8,12 +8,15 @@
   "all_celebrations": [
     "twenty-fifth Sunday in Ordinary Time"
   ],
-  "saint": {
+  "subject": {
     "id": "ordinary-time-25-sunday",
+    "kind": "day",
     "name": "twenty-fifth Sunday in Ordinary Time",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

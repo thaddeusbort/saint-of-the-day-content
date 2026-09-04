@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Thérèse of the Child Jesus, Virgin and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin",
+    "kind": "saint",
     "name": "Saint Thérèse of the Child Jesus, Virgin and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Thérèse of the Child Jesus, Virgin and Doctor of the Church, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -9,12 +9,15 @@
     "Tuesday of the fourth week of Lent",
     "Saint Frances of Rome, Religious"
   ],
-  "saint": {
+  "subject": {
     "id": "frances-of-rome-religious",
+    "kind": "saint",
     "name": "Saint Frances of Rome, Religious",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Frances of Rome, Religious, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

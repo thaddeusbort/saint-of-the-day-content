@@ -9,12 +9,15 @@
     "Saturday of the twenty-second week of Ordinary Time",
     "Saint Teresa of Calcutta, Virgin"
   ],
-  "saint": {
+  "subject": {
     "id": "teresa-of-calcutta-virgin",
+    "kind": "saint",
     "name": "Saint Teresa of Calcutta, Virgin",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Teresa of Calcutta, Virgin, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

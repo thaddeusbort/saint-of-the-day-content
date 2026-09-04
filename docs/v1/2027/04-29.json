@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Catherine of Siena, Virgin and Doctor of the Church"
   ],
-  "saint": {
+  "subject": {
     "id": "catherine-of-siena-virgin",
+    "kind": "saint",
     "name": "Saint Catherine of Siena, Virgin and Doctor of the Church",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Catherine of Siena, Virgin and Doctor of the Church, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

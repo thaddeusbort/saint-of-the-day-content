@@ -8,12 +8,15 @@
   "all_celebrations": [
     "December 19"
   ],
-  "saint": {
+  "subject": {
     "id": "advent-december-19",
+    "kind": "day",
     "name": "December 19",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

@@ -9,12 +9,15 @@
     "Thursday of the seventh week of Easter",
     "Our Lady of Fatima"
   ],
-  "saint": {
+  "subject": {
     "id": "our-lady-of-fatima",
+    "kind": "feast",
     "name": "Our Lady of Fatima",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Our Lady of Fatima, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

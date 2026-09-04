@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Our Lady of Sorrows"
   ],
-  "saint": {
+  "subject": {
     "id": "our-lady-of-sorrows",
+    "kind": "feast",
     "name": "Our Lady of Sorrows",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Our Lady of Sorrows, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

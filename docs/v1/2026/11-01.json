@@ -8,12 +8,15 @@
   "all_celebrations": [
     "All Saints"
   ],
-  "saint": {
+  "subject": {
     "id": "all-saints",
+    "kind": "feast",
     "name": "All Saints",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

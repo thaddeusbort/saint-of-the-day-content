@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saturday after the Epiphany of the Lord"
   ],
-  "saint": {
+  "subject": {
     "id": "saturday-after-epiphany",
+    "kind": "day",
     "name": "Saturday after the Epiphany of the Lord",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

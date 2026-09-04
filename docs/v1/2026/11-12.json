@@ -8,12 +8,15 @@
   "all_celebrations": [
     "Saint Josaphat, Bishop and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "josaphat-kuntsevych-bishop",
+    "kind": "saint",
     "name": "Saint Josaphat, Bishop and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": false
+    "notification": "Saint Josaphat, Bishop and Martyr, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

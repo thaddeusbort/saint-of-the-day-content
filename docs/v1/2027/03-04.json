@@ -9,12 +9,15 @@
     "Thursday of the third week of Lent",
     "Saint Casimir"
   ],
-  "saint": {
+  "subject": {
     "id": "casimir-of-poland",
+    "kind": "saint",
     "name": "Saint Casimir",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Casimir, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

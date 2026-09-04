@@ -10,12 +10,15 @@
     "Saint Sixtus II, Pope, and Companions, Martyrs",
     "Saint Cajetan, Priest"
   ],
-  "saint": {
+  "subject": {
     "id": "sixtus-ii-pope-and-companions-martyrs",
+    "kind": "saint",
     "name": "Saint Sixtus II, Pope, and Companions, Martyrs",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Sixtus II, Pope, and Companions, Martyrs, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",

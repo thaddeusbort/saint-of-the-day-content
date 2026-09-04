@@ -9,12 +9,15 @@
     "Tuesday of the second week of Lent",
     "Saint Polycarp, Bishop and Martyr"
   ],
-  "saint": {
+  "subject": {
     "id": "polycarp-of-smyrna-bishop",
+    "kind": "saint",
     "name": "Saint Polycarp, Bishop and Martyr",
-    "years": "",
+    "subtitle": "",
     "blurb": "",
-    "is_fallback": true
+    "notification": "Saint Polycarp, Bishop and Martyr, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",
