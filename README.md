@@ -264,15 +264,21 @@ anywhere else would mean a second copy of those rules, and a second copy drifts.
 It adds **no dependency**: `node:http`, `fetch`, `sharp` and `yaml` were already
 here.
 
+It searches **Wikimedia Commons** by default and the **Met Museum's Open
+Access collection** as a second source, chosen from a picker. The Met usually
+holds a much larger scan of a painting than Commons does, which is what makes
+it worth the extra adapter. Sources live behind one interface in
+`src/curate/sources/`, so adding another is a file rather than a refactor.
+
 Three deliberate constraints:
 
-- **Wikimedia Commons only.** CI cannot verify that an image is free to publish,
-  so the tool must not make it easy to save one that is not. Commons returns
-  machine-readable licence and attribution per file, so `credit`, `license` and
-  `source` are derived from the API rather than typed from memory. Files whose
-  licence is not demonstrably free are dropped, and the count of what was
-  dropped is shown. A generic image search would do the opposite, which is why
-  there isn't one.
+- **Only sources that publish a licence.** CI cannot verify that an image is
+  free to publish, so the tool must not make it easy to save one that is not.
+  Commons returns machine-readable licence and attribution per file, and the Met
+  an explicit `isPublicDomain` flag, so `credit`, `license` and `source` are
+  derived from the API rather than typed from memory. Files whose licence is not
+  demonstrably free are dropped, and the count of what was dropped is shown. A
+  generic image search would do the opposite, which is why there isn't one.
 - **Attribution is re-read on save.** The client cannot assert a licence — the
   server fetches the file's metadata again and writes what Commons actually
   says.

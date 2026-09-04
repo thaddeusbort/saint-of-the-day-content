@@ -189,6 +189,14 @@
       }
       /* The search row is a control strip, not a form: keep it shallow so the
          results start higher up the page. */
+      .searchbar select.src {
+        font: inherit;
+        color: inherit;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 3px 6px;
+      }
       .searchbar input[type='text'] {
         flex: 1 1 220px;
         padding: 3px 8px;
@@ -404,6 +412,8 @@
         step: 'search',
         hideSmall: true,
         maxUpscale: 3,
+        sources: [],
+        sourceId: 'commons',
         allowUpscale: false,
         excludeStructures: false,
         nextOffset: null,
@@ -559,6 +569,16 @@
         if (item.curated && item.entry) main.append(curatedCard(item.entry));
 
         if (state.step === 'search') {
+          const picker = el('select', { id: 'source', className: 'src' });
+          for (const src of state.sources) {
+            picker.append(el('option', { value: src.id, textContent: src.label, title: src.note }));
+          }
+          picker.value = state.sourceId;
+          picker.onchange = () => {
+            state.sourceId = picker.value;
+            runSearch(input.value);
+          };
+
           const input = el('input', {
             id: 'q',
             type: 'text',
@@ -597,16 +617,17 @@
             el(
               'div',
               { className: 'card' },
-              el('h3', { textContent: 'Wikimedia Commons', style: 'font-size:14px' }),
+              el('h3', { textContent: 'Image sources', style: 'font-size:14px' }),
               el('div', {
                 className: 'sub',
                 style: 'font-size:12px;margin-top:3px',
                 textContent:
-                  'Only Commons is searched, and only files whose licence reads as free. Attribution is taken from the file, not typed.',
+                  'Only sources that publish a machine-readable licence are searched, and only files whose licence reads as free. Attribution is taken from the source, not typed.',
               }),
               el(
                 'div',
                 { className: 'searchbar' },
+                picker,
                 input,
                 go,
                 el(
@@ -629,6 +650,16 @@
                   'Exclude buildings',
                 ),
               ),
+              (() => {
+                const note = state.sources.find((x) => x.id === state.sourceId)?.note;
+                return note
+                  ? el('div', {
+                      className: 'sub',
+                      style: 'font-size:12px;margin-top:8px',
+                      textContent: note,
+                    })
+                  : '';
+              })(),
               el('div', { id: 'results' }),
               el('div', { id: 'searchMsg' }),
               el('div', { id: 'more', style: 'margin-top:10px' }),
@@ -657,13 +688,13 @@
         try {
           const offset = append && state.nextOffset != null ? state.nextOffset : 0;
           const res = await api(
-            `/api/search?q=${encodeURIComponent(term)}&offset=${offset}` +
+            `/api/search?q=${encodeURIComponent(term)}&offset=${offset}&source=${state.sourceId}` +
               (state.hideSmall ? '&big=1' : '') +
               (state.excludeStructures ? '&nostructures=1' : ''),
           );
           // Commons can return the same file on two pages; keep the first.
-          const seen = new Set(state.results.map((f) => f.title));
-          state.results = state.results.concat(res.files.filter((f) => !seen.has(f.title)));
+          const seen = new Set(state.results.map((f) => f.ref));
+          state.results = state.results.concat(res.files.filter((f) => !seen.has(f.ref)));
           state.rejectedForLicense += res.rejectedForLicense;
           state.nextOffset = res.nextOffset;
           renderResults();
@@ -677,8 +708,9 @@
 
       function searchNotes() {
         const notes = [];
-        const tooSmall = state.results.filter((f) => !f.largeEnough).length;
-        const usable = state.results.length - tooSmall;
+        const sized = state.results.filter((f) => f.width > 0);
+        const tooSmall = sized.filter((f) => !f.largeEnough).length;
+        const usableCount = state.results.length - tooSmall;
         if (!state.results.length)
           notes.push(
             state.excludeStructures
@@ -687,7 +719,7 @@
                 ? `No results at ${state.render.width}x${state.render.height} or larger — untick the size filter to see what else there is.`
                 : 'No usable results.',
           );
-        else notes.push(`${usable} usable result(s).`);
+        else notes.push(`${usableCount} usable result(s).`);
         if (state.rejectedForLicense)
           notes.push(`${state.rejectedForLicense} hidden: licence not free or unreadable.`);
         if (tooSmall)
@@ -723,7 +755,7 @@
         $('#results').replaceChildren(
           ...shown.map((f) => {
             const card = el('div', { className: 'hit' + (usable(f) ? '' : ' small') });
-            card.setAttribute('aria-selected', String(state.file?.title === f.title));
+            card.setAttribute('aria-selected', String(state.file?.ref === f.ref));
             card.append(
               el('img', { src: f.thumbUrl, loading: 'lazy', alt: '' }),
               el(
@@ -731,14 +763,16 @@
                 { className: 'meta' },
                 el('div', { className: 'lic', textContent: f.license || 'unknown licence' }),
                 el('div', {
-                  className: f.largeEnough ? '' : usable(f) ? 'warn' : '',
+                  className: f.width === 0 ? '' : f.largeEnough ? '' : usable(f) ? 'warn' : '',
                   textContent:
-                    `${f.width}x${f.height}` +
-                    (f.largeEnough
-                      ? ''
-                      : usable(f)
-                        ? ` — needs ${f.upscaleFactor.toFixed(1)}x enlargement`
-                        : ' — too small to use'),
+                    f.width === 0
+                      ? 'size checked when you pick it'
+                      : `${f.width}x${f.height}` +
+                        (f.largeEnough
+                          ? ''
+                          : usable(f)
+                            ? ` — needs ${f.upscaleFactor.toFixed(1)}x enlargement`
+                            : ' — too small to use'),
                 }),
                 f.restrictions
                   ? el('div', {
@@ -756,7 +790,9 @@
 
       async function chooseFile(file) {
         // Re-read at a larger thumbnail so the crop is chosen on something legible.
-        state.file = await api('/api/file?width=1200&title=' + encodeURIComponent(file.title));
+        state.file = await api(
+          `/api/file?width=1200&source=${state.sourceId}&title=` + encodeURIComponent(file.ref),
+        );
         state.step = 'crop';
         renderMain();
       }
@@ -927,7 +963,8 @@
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                fileTitle: f.title,
+                sourceId: state.sourceId,
+                fileTitle: f.ref,
                 crop: state.crop,
                 allowUpscale: state.allowUpscale,
               }),
@@ -959,7 +996,8 @@
                 name: nameI.value,
                 years: yearsI.value,
                 blurb: blurbI.value,
-                fileTitle: f.title,
+                sourceId: state.sourceId,
+                fileTitle: f.ref,
                 crop: state.crop,
                 allowUpscale: state.allowUpscale,
               }),
@@ -1039,7 +1077,7 @@
                 el('code', { textContent: f.credit || 'Wikimedia Commons' }),
               ),
               el('div', {}, 'license: ', el('code', { textContent: f.license || '—' })),
-              el('div', {}, 'source: ', el('code', { textContent: f.descriptionUrl })),
+              el('div', {}, 'source: ', el('code', { textContent: f.pageUrl })),
               f.description
                 ? el('div', {
                     style: 'margin-top:6px',
@@ -1069,6 +1107,8 @@
       state.curatedCount = boot.curatedCount;
       state.render = boot.render;
       state.maxUpscale = boot.maxUpscale;
+      state.sources = boot.sources ?? [];
+      state.sourceId = state.sources[0]?.id ?? 'commons';
       renderQueue();
       const first = visible()[0];
       if (first) select(first);

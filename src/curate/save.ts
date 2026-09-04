@@ -15,8 +15,8 @@ import { judgeCrop } from '../crop.js';
 import { parseSaintEntry, type CropBox, type SaintEntry } from '../curation/schema.js';
 import { imageSize } from '../render/images.js';
 import { pathsFor } from '../paths.js';
-import type { CommonsFile, Fetcher } from './commons.js';
-import { fileByTitle } from './commons.js';
+import type { Candidate, Fetcher } from './sources/index.js';
+import { sizeKnown, sourceById } from './sources/index.js';
 
 const LARGEST = VARIANTS[0];
 
@@ -32,7 +32,9 @@ export interface SaveRequest {
   readonly name: string;
   readonly years: string;
   readonly blurb: string;
-  /** Commons page title of the chosen file. */
+  /** Which source the file came from. */
+  readonly sourceId: string;
+  /** The chosen file's reference within that source. */
   readonly fileTitle: string;
   readonly crop: CropBox;
   /** Permit a crop smaller than the largest variant, within MAX_UPSCALE. */
@@ -87,9 +89,14 @@ export interface SaveDeps {
 export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Promise<SaveResult> {
   const paths = pathsFor(deps.root);
 
-  const file = await fileByTitle(deps.fetcher, request.fileTitle);
+  // Re-read from the source rather than trusting the client: the attribution
+  // written into the repository is always what the source itself claims.
+  const source = sourceById(request.sourceId);
+  const file = await source.byRef(deps.fetcher, request.fileTitle);
   if (!file) {
-    throw new SaveError(`Commons has no file titled ${JSON.stringify(request.fileTitle)}`);
+    throw new SaveError(
+      `${source.label} has no file matching ${JSON.stringify(request.fileTitle)}`,
+    );
   }
   if (!file.licenseAccepted) {
     throw new SaveError(
@@ -98,7 +105,9 @@ export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Pr
       }, which this tool will not publish.`,
     );
   }
-  assertCropFits(request.crop, file, request.allowUpscale);
+  // Some sources publish no dimensions. The crop is checked against the bytes
+  // below either way, so this is an early exit, not the real gate.
+  if (sizeKnown(file)) assertCropFits(request.crop, file, request.allowUpscale);
 
   const extension = EXTENSION_BY_MIME[file.mime];
   if (extension === undefined) {
@@ -111,9 +120,9 @@ export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Pr
     name: request.name,
     ...(request.years.trim() === '' ? {} : { years: request.years.trim() }),
     blurb: request.blurb,
-    credit: file.credit === '' ? 'Wikimedia Commons' : file.credit,
+    credit: file.credit,
     license: file.license,
-    source: file.descriptionUrl,
+    source: file.pageUrl,
     crop: request.crop,
     // Recorded only when true, so an ordinary entry stays as it was.
     ...(request.allowUpscale ? { allow_upscale: true } : {}),
@@ -189,7 +198,7 @@ function assertCropFits(
 
 /** Renders what the app will actually show, at full variant size. */
 export async function renderPreview(
-  file: CommonsFile,
+  file: Candidate,
   crop: CropBox,
   downloader: Downloader,
 ): Promise<Buffer> {

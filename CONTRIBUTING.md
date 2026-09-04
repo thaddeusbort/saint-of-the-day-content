@@ -50,6 +50,24 @@ untouched, so you can add your own terms — `-window`, `incategory:Paintings`,
 `insource:Goya` — alongside the name. See
 [Help:CirrusSearch](https://www.mediawiki.org/wiki/Help:CirrusSearch).
 
+### Sources
+
+The picker beside the search box chooses where to look. **Wikimedia Commons**
+is the default. **Met Museum** searches the Metropolitan Museum's Open Access
+collection, which often holds a far larger scan of the same painting than
+Commons does — worth trying whenever the Commons copy is too small.
+
+Only sources that publish a machine-readable licence are offered, and only
+files whose licence reads as free: Commons' `extmetadata`, the Met's
+`isPublicDomain`. Attribution is read from the source and re-read again on
+save, never typed.
+
+The Met publishes no image dimensions, so its results say _"size checked when
+you pick it"_ — the file is measured for real when you select it, and the crop
+is checked against the downloaded bytes before anything is written either way.
+Its search returns object ids only, so each result costs a second request and
+pages are smaller.
+
 **Load more results** fetches another page from Commons. Choosing
 an image hides the search and moves you to the crop; **← Back to results**
 returns without re-running the search.
