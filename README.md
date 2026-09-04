@@ -97,6 +97,7 @@ One file per day at `v1/{yyyy}/{MM-dd}.json`:
   "rank": "memorial",
   "celebration": "Saint John Bosco, Priest",
   "all_celebrations": ["Saint John Bosco, Priest"],
+  "notification": "St. John Bosco, pray for us!",
   "saint": {
     "id": "john-bosco-priest",
     "name": "St. John Bosco",
@@ -147,6 +148,12 @@ celebration of a saint. The pipeline takes, in order:
    `is_fallback: true`.
 3. Otherwise the liturgical day itself: a Sunday, a ferial weekday, or a
    solemnity of the Lord — `is_fallback: true`.
+
+`notification` is a short line to address the day with. It is derived for a
+saint whose name can be addressed — one beginning _Saint_, _St._, _Blessed_ or
+_Our Lady_ — and left empty otherwise, because "The Baptism of the Lord, pray
+for us!" is wrong and no line beats a wrong one. A curator overrides it with
+`notification:` in the saint's YAML, which is how a temporal day gets one.
 
 `saint.source` says which of the three it was — `proper`, `optional`, or
 `temporal` — so a reader can tell a memorial the day requires from one the

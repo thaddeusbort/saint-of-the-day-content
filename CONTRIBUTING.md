@@ -133,6 +133,7 @@ crop:
 | `license`       | yes      | The licence the image is actually under.                                                                     |
 | `source`        | yes      | `http(s)` URL of the page you took the image from — the page, not the raw file, so the licensing is visible. |
 | `crop`          | yes      | Region of the original to render, in pixels from its top-left.                                               |
+| `notification`  | no       | The line shown with the image, e.g. `St. Gregory the Great, pray for us!`. Omit to accept the derived one.   |
 | `allow_upscale` | no       | `true` to permit a crop smaller than 1440×3200, enlarged to reach it. Off unless stated.                     |
 
 Unknown fields are rejected rather than ignored, so a typo (`licence`) fails the
@@ -163,6 +164,23 @@ lock-screen clock, poor close up. Prefer finding a larger scan first.
 Pick the crop with the lock screen in mind: the clock sits over the top third,
 and notifications over the bottom. A face somewhere in the upper-middle reads
 well.
+
+## The notification line
+
+A short address to go with the image. For a saint it is derived — the tool
+prefills `{name}, pray for us!` and writes nothing to the file if you accept
+it, so improving the wording later still reaches every entry that did.
+
+It is derived only for a name that can be addressed: one beginning _Saint_,
+_Saints_, _St._, _Blessed_, _Bl._ or _Our Lady_. Everything else is left empty
+for you, because a wrong line is worse than none — "The Nativity of the Blessed
+Virgin Mary, pray for us!" addresses an event, and "The Baptism of the Lord,
+pray for us!" is worse still. Temporal days want their own wording: _Christ is
+risen!_, _Merry Christmas!_
+
+Override it whenever the derived line reads badly. Compound saints are the
+usual case: _"Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs, pray for
+us!"_ wants shortening by hand.
 
 ## Writing the blurb
 

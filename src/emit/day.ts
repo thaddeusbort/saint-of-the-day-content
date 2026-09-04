@@ -11,6 +11,7 @@ import type { LiturgicalDay } from '../calendar/types.js';
 import type { CuratedSaint } from '../curation/loader.js';
 import { variantsFor } from '../render/images.js';
 import type { DayRecord, ImageVariant } from './record.js';
+import { resolveNotification } from './notification.js';
 import { resolveSubject, type Subject } from './subject.js';
 
 /** The plate id a day falls back to, e.g. `fallback-violet`. */
@@ -35,6 +36,7 @@ export interface BuiltDay {
 
 export function buildDay(day: LiturgicalDay, curated: CuratedSaint | undefined): BuiltDay {
   const subject = resolveSubject(day);
+  const displayName = curated?.entry.name ?? subject.name;
   const imageId = curated ? subject.id : fallbackImageId(day.color);
   const variants: readonly ImageVariant[] = variantsFor(imageId);
 
@@ -46,9 +48,10 @@ export function buildDay(day: LiturgicalDay, curated: CuratedSaint | undefined):
     rank: day.rank,
     celebration: day.celebrations[0]?.name ?? '',
     all_celebrations: day.celebrations.map((celebration) => celebration.name),
+    notification: resolveNotification(subject, displayName, curated?.entry.notification),
     saint: {
       id: subject.id,
-      name: curated?.entry.name ?? subject.name,
+      name: displayName,
       years: curated?.entry.years ?? '',
       blurb: curated?.entry.blurb ?? '',
       is_fallback: subject.isFallback,

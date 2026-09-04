@@ -8,6 +8,7 @@
   "all_celebrations": [
     "first Sunday of Advent"
   ],
+  "notification": "",
   "saint": {
     "id": "advent-1-sunday",
     "name": "first Sunday of Advent",

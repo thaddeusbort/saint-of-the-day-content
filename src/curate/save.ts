@@ -32,6 +32,8 @@ export interface SaveRequest {
   readonly name: string;
   readonly years: string;
   readonly blurb: string;
+  /** The day's notification line. Stored only when it differs from the default. */
+  readonly notification: string;
   /** Which source the file came from. */
   readonly sourceId: string;
   /** The chosen file's reference within that source. */
@@ -120,6 +122,9 @@ export async function saveCuratedSaint(request: SaveRequest, deps: SaveDeps): Pr
     name: request.name,
     ...(request.years.trim() === '' ? {} : { years: request.years.trim() }),
     blurb: request.blurb,
+    // Only recorded when the curator changed it, so improving the derived
+    // wording later still reaches every entry that accepted it.
+    ...(request.notification.trim() === '' ? {} : { notification: request.notification.trim() }),
     credit: file.credit,
     license: file.license,
     source: file.pageUrl,

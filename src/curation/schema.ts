@@ -27,6 +27,13 @@ export interface SaintEntry {
   readonly source: string;
   readonly crop: CropBox;
   /**
+   * The day's notification line, e.g. "St. Gregory the Great, pray for us!".
+   *
+   * Empty means "use the derived one", which is the ordinary invocation for a
+   * saint and nothing at all for a temporal day.
+   */
+  readonly notification: string;
+  /**
    * Permits a crop smaller than the largest variant, enlarged to reach it.
    *
    * Off unless the file says otherwise, so every enlarged image is a recorded,
@@ -106,6 +113,11 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
     throw new CurationError(file, '`crop.width` and `crop.height` must be greater than zero');
   }
 
+  const notification = document['notification'];
+  if (notification !== undefined && typeof notification !== 'string') {
+    throw new CurationError(file, '`notification` must be a string when present');
+  }
+
   const allowUpscale = document['allow_upscale'];
   if (allowUpscale !== undefined && typeof allowUpscale !== 'boolean') {
     throw new CurationError(file, '`allow_upscale` must be true or false when present');
@@ -116,6 +128,7 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
       !REQUIRED_STRINGS.includes(key as (typeof REQUIRED_STRINGS)[number]) &&
       key !== 'years' &&
       key !== 'crop' &&
+      key !== 'notification' &&
       key !== 'allow_upscale',
   );
   if (unknownKeys.length > 0) {
@@ -136,6 +149,7 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
       width: box['width'] as number,
       height: box['height'] as number,
     },
+    notification: (notification ?? '').trim(),
     allowUpscale: allowUpscale === true,
   };
 }

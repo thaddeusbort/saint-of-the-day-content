@@ -8,6 +8,7 @@
   "all_celebrations": [
     "Saint Francis of Assisi"
   ],
+  "notification": "Saint Francis of Assisi, pray for us!",
   "saint": {
     "id": "francis-of-assisi",
     "name": "Saint Francis of Assisi",

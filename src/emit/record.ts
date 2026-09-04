@@ -56,6 +56,14 @@ export interface DayRecord {
   readonly rank: string;
   readonly celebration: string;
   readonly all_celebrations: readonly string[];
+  /**
+   * A short line to address the day with, e.g. "St. John Bosco, pray for us!".
+   *
+   * Top level rather than under `saint`, because on a solemnity of the Lord it
+   * is not about a saint at all. Empty where nothing has been written and
+   * nothing sensible can be derived.
+   */
+  readonly notification: string;
   readonly saint: SaintRecord;
   readonly image: ImageRecord;
 }

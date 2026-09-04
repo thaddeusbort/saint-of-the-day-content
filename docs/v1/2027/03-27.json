@@ -8,6 +8,7 @@
   "all_celebrations": [
     "Holy Saturday/Easter Vigil"
   ],
+  "notification": "",
   "saint": {
     "id": "holy-saturday",
     "name": "Holy Saturday/Easter Vigil",

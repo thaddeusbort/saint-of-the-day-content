@@ -8,6 +8,7 @@
   "all_celebrations": [
     "All Saints"
   ],
+  "notification": "",
   "saint": {
     "id": "all-saints",
     "name": "All Saints",

@@ -73,6 +73,26 @@ describe('the curation schema', () => {
   });
 });
 
+describe('notification', () => {
+  it('defaults to empty, meaning "use the derived line"', () => {
+    expect(parseSaintEntry('x', 'saints/x.yaml', valid).notification).toBe('');
+  });
+
+  it('is read and trimmed when present', () => {
+    const entry = parseSaintEntry('x', 'saints/x.yaml', {
+      ...valid,
+      notification: '  Merry Christmas!  ',
+    });
+    expect(entry.notification).toBe('Merry Christmas!');
+  });
+
+  it('rejects a non-string', () => {
+    expect(() => parseSaintEntry('x', 'saints/x.yaml', { ...valid, notification: 42 })).toThrow(
+      /must be a string/,
+    );
+  });
+});
+
 describe('allow_upscale', () => {
   it('defaults to off', () => {
     expect(parseSaintEntry('x', 'saints/x.yaml', valid).allowUpscale).toBe(false);

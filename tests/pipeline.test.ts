@@ -95,6 +95,22 @@ describe('a run with no curated saints', () => {
     }
   });
 
+  it('carries a notification line, derived where it can be', async () => {
+    // 3 September 2026: Saint Gregory the Great, addressable, so a line comes
+    // for free.
+    const saint = await readDay(root, '2026-09-03');
+    expect(saint.notification).toMatch(/, pray for us!$/);
+    expect(saint.notification).toContain('Gregory');
+
+    // A Sunday in Ordinary Time has no one to address; a curator supplies it.
+    const sunday = await readDay(root, '2026-09-06');
+    expect(sunday.notification).toBe('');
+
+    // Christmas likewise: "The Nativity of the Lord, pray for us!" is wrong.
+    const christmas = await readDay(root, '2026-12-25');
+    expect(christmas.notification).toBe('');
+  });
+
   it('emits a complete placeholder record for a day with no curated saint', async () => {
     const record = await readDay(root, '2026-09-03');
     // USCCB 2026 calendar, 3 September: Saint Gregory the Great, Pope and

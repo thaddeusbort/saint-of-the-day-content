@@ -13,6 +13,7 @@ import { LiturgicalCalendar } from '../calendar/adapter.js';
 import { WINDOW_DAYS_AHEAD } from '../config.js';
 import { loadCuration } from '../curation/loader.js';
 import { addDays, dateRange, todayUtc } from '../dates.js';
+import { defaultNotification } from '../emit/notification.js';
 import { resolveSubject } from '../emit/subject.js';
 import path from 'node:path';
 import { pathsFor } from '../paths.js';
@@ -26,6 +27,7 @@ export interface CuratedEntry {
   readonly license: string;
   readonly source: string;
   readonly crop: { x: number; y: number; width: number; height: number };
+  readonly notification: string;
   /** Basename of the committed original, for display. */
   readonly original: string;
 }
@@ -56,6 +58,8 @@ export interface QueueItem {
   readonly allCelebrations: readonly string[];
   readonly rank: string;
   readonly color: string;
+  /** The line the day would carry with nothing written for it. */
+  readonly defaultNotification: string;
   /** True when `saints/{id}.yaml` already exists. */
   readonly curated: boolean;
   /** The entry on disk, present only when `curated`. */
@@ -121,6 +125,7 @@ export async function buildQueue(options: QueueOptions = {}): Promise<Queue> {
         allCelebrations: day.celebrations.map((celebration) => celebration.name),
         rank: day.rank,
         color: day.color,
+        defaultNotification: defaultNotification(subject, curated?.entry.name ?? subject.name),
         curated: curated !== undefined,
         ...(curated === undefined
           ? {}
@@ -133,6 +138,7 @@ export async function buildQueue(options: QueueOptions = {}): Promise<Queue> {
                 license: curated.entry.license,
                 source: curated.entry.source,
                 crop: curated.entry.crop,
+                notification: curated.entry.notification,
                 original: path.basename(curated.originalPath),
               },
             }),
