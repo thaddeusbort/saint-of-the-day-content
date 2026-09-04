@@ -13,6 +13,7 @@
  */
 
 import { VARIANTS } from '../config.js';
+import { sourceUpscaleFactor } from '../crop.js';
 
 const API = 'https://commons.wikimedia.org/w/api.php';
 
@@ -98,11 +99,14 @@ export interface CommonsFile {
   readonly licenseCode: string;
   /** True when the licence is one this tool will save. */
   readonly licenseAccepted: boolean;
-  /**
-   * True when a {@link LARGEST}-sized crop fits inside the original. Anything
-   * smaller would have to be upscaled, which the renderer refuses to do.
-   */
+  /** True when a {@link LARGEST}-sized crop fits inside the original. */
   readonly largeEnough: boolean;
+  /**
+   * How much this file would have to be enlarged to reach the largest
+   * variant, at its best crop. 1 when none is needed. Above MAX_UPSCALE the
+   * file is no use at any setting.
+   */
+  readonly upscaleFactor: number;
   /** Any usage restriction Commons flags (trademark, personality rights). */
   readonly restrictions: string;
   /** Commons' own description, shown for reference. Never copied into a blurb. */
@@ -192,6 +196,7 @@ function toFile(page: Record<string, unknown>): CommonsFile | null {
     licenseCode,
     licenseAccepted: isFreeLicense(licenseCode, license),
     largeEnough: width >= LARGEST.w && height >= LARGEST.h,
+    upscaleFactor: sourceUpscaleFactor({ width, height }),
     restrictions: meta(extmetadata, 'Restrictions'),
     description: meta(extmetadata, 'ImageDescription'),
   };

@@ -106,15 +106,16 @@ crop:
   height: 3033
 ```
 
-| Field     | Required | Notes                                                                                                        |
-| --------- | -------- | ------------------------------------------------------------------------------------------------------------ |
-| `name`    | yes      | Display name, as the app should show it.                                                                     |
-| `years`   | no       | Life span. Omit it if the dates are not reliably known; it defaults to `""`.                                 |
-| `blurb`   | yes      | One or two sentences. See below.                                                                             |
-| `credit`  | yes      | Attribution line for the image, as the source states it.                                                     |
-| `license` | yes      | The licence the image is actually under.                                                                     |
-| `source`  | yes      | `http(s)` URL of the page you took the image from — the page, not the raw file, so the licensing is visible. |
-| `crop`    | yes      | Region of the original to render, in pixels from its top-left.                                               |
+| Field           | Required | Notes                                                                                                        |
+| --------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+| `name`          | yes      | Display name, as the app should show it.                                                                     |
+| `years`         | no       | Life span. Omit it if the dates are not reliably known; it defaults to `""`.                                 |
+| `blurb`         | yes      | One or two sentences. See below.                                                                             |
+| `credit`        | yes      | Attribution line for the image, as the source states it.                                                     |
+| `license`       | yes      | The licence the image is actually under.                                                                     |
+| `source`        | yes      | `http(s)` URL of the page you took the image from — the page, not the raw file, so the licensing is visible. |
+| `crop`          | yes      | Region of the original to render, in pixels from its top-left.                                               |
+| `allow_upscale` | no       | `true` to permit a crop smaller than 1440×3200, enlarged to reach it. Off unless stated.                     |
 
 Unknown fields are rejected rather than ignored, so a typo (`licence`) fails the
 check instead of silently dropping your text.
@@ -125,9 +126,21 @@ check instead of silently dropping your text.
 never modify it.
 
 The crop box is rendered at three sizes — 1440×3200, 1260×2800 and 1080×2400,
-all exactly 20:9 — and rendering never upscales, so **the crop box must be at
-least 1440×3200**. The two smaller sizes are pure downscales of that crop, so
+all exactly 20:9. The two smaller sizes are pure downscales of that crop, so
 nothing is trimmed after you have framed it.
+
+By default **the crop box must be at least 1440×3200**, because enlarging an
+image makes it soft. There is an escape hatch, and it exists for a reason: the
+large files on Commons are overwhelmingly modern photographs, while scans of
+paintings are old uploads and small — so the rule quietly selects against
+exactly the artwork this project wants.
+
+Setting `allow_upscale: true` permits a smaller crop, enlarged to reach the
+render size, up to **3×** and no further. The tool shows the factor before you
+commit and will not save without the box ticked, and **Preview at full size**
+renders exactly what will ship — look at it. At 2.8× an image keeps its
+composition and loses its brushwork: acceptable at arm's length behind a
+lock-screen clock, poor close up. Prefer finding a larger scan first.
 
 Pick the crop with the lock screen in mind: the clock sits over the top third,
 and notifications over the bottom. A face somewhere in the upper-middle reads

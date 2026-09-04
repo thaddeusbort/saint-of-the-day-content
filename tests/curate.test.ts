@@ -391,6 +391,7 @@ describe('saving', () => {
           blurb: 'Turin priest who built schools and workshops for boys.',
           fileTitle: 'File:Example.jpg',
           crop,
+          allowUpscale: false,
         },
         { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
       );
@@ -448,6 +449,7 @@ describe('saving', () => {
             blurb: 'b',
             fileTitle: 'File:Example.jpg',
             crop: { x: 0, y: 0, width: 900, height: 1950 },
+            allowUpscale: false,
           },
           { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
         ),
@@ -469,6 +471,7 @@ describe('saving', () => {
             blurb: 'b',
             fileTitle: 'File:Example.jpg',
             crop: { x: 1500, y: 0, width: 1440, height: 3200 },
+            allowUpscale: false,
           },
           { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
         ),
@@ -490,6 +493,7 @@ describe('saving', () => {
             blurb: '   ',
             fileTitle: 'File:Example.jpg',
             crop,
+            allowUpscale: false,
           },
           { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
         ),
@@ -553,6 +557,7 @@ describe('saving', () => {
           blurb: 'A blurb.',
           fileTitle: 'File:Example.jpg',
           crop,
+          allowUpscale: false,
         },
         { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
       );
@@ -576,10 +581,63 @@ describe('saving', () => {
           blurb: 'b',
           fileTitle: 'File:Example.jpg',
           crop,
+          allowUpscale: false,
         },
         { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
       );
       expect(result.staleRenders).toBe(0);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  it('saves an enlarged crop when asked, and records the decision', async () => {
+    const root = await makeCheckout();
+    try {
+      // A 720x1600 crop from the 2000x4000 stand-in: exactly 2x.
+      await saveCuratedSaint(
+        {
+          id: 'small-source',
+          name: 'X',
+          years: '',
+          blurb: 'b',
+          fileTitle: 'File:Example.jpg',
+          crop: { x: 0, y: 0, width: 720, height: 1600 },
+          allowUpscale: true,
+        },
+        { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+      );
+
+      const yaml = await readFile(path.join(root, 'saints', 'small-source.yaml'), 'utf8');
+      // Written into the file, so the enlargement is visible in review.
+      expect(yaml).toMatch(/allow_upscale: true/);
+      expect(parseSaintEntry('small-source', 'x', parseYaml(yaml)).allowUpscale).toBe(true);
+
+      // And CI agrees.
+      const report = await validateCuration(root);
+      expect(report.problems).toEqual([]);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  it('does not record the flag on an ordinary save', async () => {
+    const root = await makeCheckout();
+    try {
+      await saveCuratedSaint(
+        {
+          id: 'ordinary',
+          name: 'X',
+          years: '',
+          blurb: 'b',
+          fileTitle: 'File:Example.jpg',
+          crop,
+          allowUpscale: false,
+        },
+        { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+      );
+      const yaml = await readFile(path.join(root, 'saints', 'ordinary.yaml'), 'utf8');
+      expect(yaml).not.toMatch(/allow_upscale/);
     } finally {
       await rm(root, { recursive: true, force: true });
     }
@@ -651,6 +709,29 @@ describe('saving', () => {
             { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
           ),
         ).rejects.toThrow(/blurb/);
+        await expectNothingWritten(root);
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    });
+
+    it('when an enlargement is past the cap even though it was allowed', async () => {
+      const root = await makeCheckout();
+      try {
+        await expect(
+          saveCuratedSaint(
+            {
+              id: 'way-too-small',
+              name: 'X',
+              years: '',
+              blurb: 'b',
+              fileTitle: 'File:Example.jpg',
+              crop: { x: 0, y: 0, width: 400, height: 889 },
+              allowUpscale: true,
+            },
+            { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
+          ),
+        ).rejects.toThrow(/beyond the 3x limit/);
         await expectNothingWritten(root);
       } finally {
         await rm(root, { recursive: true, force: true });

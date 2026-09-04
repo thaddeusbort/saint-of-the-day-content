@@ -73,6 +73,23 @@ describe('the curation schema', () => {
   });
 });
 
+describe('allow_upscale', () => {
+  it('defaults to off', () => {
+    expect(parseSaintEntry('x', 'saints/x.yaml', valid).allowUpscale).toBe(false);
+  });
+
+  it('is read when present', () => {
+    const entry = parseSaintEntry('x', 'saints/x.yaml', { ...valid, allow_upscale: true });
+    expect(entry.allowUpscale).toBe(true);
+  });
+
+  it('rejects a non-boolean', () => {
+    expect(() => parseSaintEntry('x', 'saints/x.yaml', { ...valid, allow_upscale: 'yes' })).toThrow(
+      /must be true or false/,
+    );
+  });
+});
+
 describe('PR validation', () => {
   it('passes a well-formed saint', async () => {
     const root = await makeCheckout();
@@ -86,12 +103,43 @@ describe('PR validation', () => {
     }
   });
 
-  it('rejects a crop box that would have to be upscaled', async () => {
+  it('rejects a crop box that would have to be upscaled, unless asked', async () => {
     const root = await makeCheckout();
     try {
-      await addCuratedSaint(root, 'small-crop', { crop: { x: 0, y: 0, width: 900, height: 1950 } });
+      // 720x1600 needs exactly 2x, inside the cap but not permitted by default.
+      await addCuratedSaint(root, 'small-crop', { crop: { x: 0, y: 0, width: 720, height: 1600 } });
       const report = await validateCuration(root);
-      expect(report.problems.join('\n')).toMatch(/smaller than the largest variant 1440x3200/);
+      expect(report.problems.join('\n')).toMatch(/set `allow_upscale: true`/);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  it('accepts an enlarged crop when the entry allows it', async () => {
+    const root = await makeCheckout();
+    try {
+      await addCuratedSaint(root, 'enlarged', {
+        crop: { x: 0, y: 0, width: 720, height: 1600 },
+        allow_upscale: true,
+      });
+      const report = await validateCuration(root);
+      expect(report.problems).toEqual([]);
+      expect(report.checked).toBe(1);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  it('refuses an enlargement beyond the cap even when allowed', async () => {
+    const root = await makeCheckout();
+    try {
+      // 3.2x, past MAX_UPSCALE.
+      await addCuratedSaint(root, 'far-too-small', {
+        crop: { x: 0, y: 0, width: 450, height: 1000 },
+        allow_upscale: true,
+      });
+      const report = await validateCuration(root);
+      expect(report.problems.join('\n')).toMatch(/beyond the 3x limit/);
     } finally {
       await rm(root, { recursive: true, force: true });
     }

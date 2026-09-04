@@ -26,6 +26,14 @@ export interface SaintEntry {
   readonly license: string;
   readonly source: string;
   readonly crop: CropBox;
+  /**
+   * Permits a crop smaller than the largest variant, enlarged to reach it.
+   *
+   * Off unless the file says otherwise, so every enlarged image is a recorded,
+   * reviewable decision rather than something that crept in. Capped by
+   * MAX_UPSCALE regardless.
+   */
+  readonly allowUpscale: boolean;
 }
 
 const REQUIRED_STRINGS = ['name', 'blurb', 'credit', 'license', 'source'] as const;
@@ -98,11 +106,17 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
     throw new CurationError(file, '`crop.width` and `crop.height` must be greater than zero');
   }
 
+  const allowUpscale = document['allow_upscale'];
+  if (allowUpscale !== undefined && typeof allowUpscale !== 'boolean') {
+    throw new CurationError(file, '`allow_upscale` must be true or false when present');
+  }
+
   const unknownKeys = Object.keys(document).filter(
     (key) =>
       !REQUIRED_STRINGS.includes(key as (typeof REQUIRED_STRINGS)[number]) &&
       key !== 'years' &&
-      key !== 'crop',
+      key !== 'crop' &&
+      key !== 'allow_upscale',
   );
   if (unknownKeys.length > 0) {
     throw new CurationError(file, `unknown field(s): ${unknownKeys.sort().join(', ')}`);
@@ -122,6 +136,7 @@ export function parseSaintEntry(id: string, file: string, document: unknown): Sa
       width: box['width'] as number,
       height: box['height'] as number,
     },
+    allowUpscale: allowUpscale === true,
   };
 }
 

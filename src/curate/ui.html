@@ -20,6 +20,11 @@
       * {
         box-sizing: border-box;
       }
+      /* An author `display` beats the UA sheet's [hidden] rule, so anything
+         with a display of its own stays visible when hidden is set. */
+      [hidden] {
+        display: none !important;
+      }
       body {
         margin: 0;
         background: var(--bg);
@@ -252,6 +257,9 @@
       .hit.small .lic {
         color: var(--bad);
       }
+      .hit .warn {
+        color: var(--accent);
+      }
 
       /* ---- cropper ---- */
       #cropWrap {
@@ -328,6 +336,9 @@
       #main {
         padding-bottom: 24px;
       }
+      .warn {
+        color: var(--accent);
+      }
       .rowline {
         display: flex;
         align-items: center;
@@ -392,6 +403,8 @@
         // competing with a grid of alternatives.
         step: 'search',
         hideSmall: true,
+        maxUpscale: 3,
+        allowUpscale: false,
         excludeStructures: false,
         nextOffset: null,
         lastQuery: '',
@@ -687,8 +700,11 @@
         return notes.join(' ');
       }
 
+      /** Anything beyond the cap is no use at any setting. */
+      const usable = (f) => f.upscaleFactor <= state.maxUpscale;
+
       function renderResults() {
-        const shown = state.hideSmall ? state.results.filter((f) => f.largeEnough) : state.results;
+        const shown = state.hideSmall ? state.results.filter(usable) : state.results;
         const more = $('#more');
         if (more) {
           more.replaceChildren();
@@ -706,7 +722,7 @@
         if (msg && msg.className === 'msg') msg.textContent = searchNotes();
         $('#results').replaceChildren(
           ...shown.map((f) => {
-            const card = el('div', { className: 'hit' + (f.largeEnough ? '' : ' small') });
+            const card = el('div', { className: 'hit' + (usable(f) ? '' : ' small') });
             card.setAttribute('aria-selected', String(state.file?.title === f.title));
             card.append(
               el('img', { src: f.thumbUrl, loading: 'lazy', alt: '' }),
@@ -715,7 +731,14 @@
                 { className: 'meta' },
                 el('div', { className: 'lic', textContent: f.license || 'unknown licence' }),
                 el('div', {
-                  textContent: `${f.width}x${f.height}` + (f.largeEnough ? '' : ' — too small'),
+                  className: f.largeEnough ? '' : usable(f) ? 'warn' : '',
+                  textContent:
+                    `${f.width}x${f.height}` +
+                    (f.largeEnough
+                      ? ''
+                      : usable(f)
+                        ? ` — needs ${f.upscaleFactor.toFixed(1)}x enlargement`
+                        : ' — too small to use'),
                 }),
                 f.restrictions
                   ? el('div', {
@@ -725,7 +748,7 @@
                   : '',
               ),
             );
-            if (f.largeEnough) card.onclick = () => chooseFile(f);
+            if (usable(f)) card.onclick = () => chooseFile(f);
             return card;
           }),
         );
@@ -780,9 +803,12 @@
         if (!f) return;
 
         // Start with the largest centred crop the source allows.
-        const minW = state.render.width;
-        const minH = state.render.height;
-        const ratio = minW / minH;
+        const ratio = state.render.width / state.render.height;
+        // The crop may go down to what MAX_UPSCALE allows; anything smaller is
+        // refused on save whatever the checkbox says.
+        const floorH = Math.ceil(state.render.height / state.maxUpscale);
+        const minH = Math.min(state.render.height, Math.min(f.height, Math.floor(f.width / ratio)));
+        const minW = Math.round(minH * ratio);
         let h = Math.min(f.height, Math.floor(f.width / ratio));
         let w = Math.round(h * ratio);
         if (w > f.width) {
@@ -802,6 +828,20 @@
 
         const size = el('input', { type: 'range', min: '30', max: '100', value: '100' });
         const readout = el('span', { className: 'sub' });
+
+        // Only appears when the crop is actually below the render size, so an
+        // ordinary curation never sees it.
+        const upscale = el('input', { type: 'checkbox', checked: state.allowUpscale });
+        upscale.onchange = () => {
+          state.allowUpscale = upscale.checked;
+        };
+        const upscaleLabel = el('span', {});
+        const upscaleRow = el(
+          'label',
+          { className: 'rowline warn', style: 'margin-top:8px;cursor:pointer', hidden: true },
+          upscale,
+          upscaleLabel,
+        );
         const nameI = el('input', { value: item.entry?.name ?? item.name });
         const yearsI = el('input', {
           value: item.entry?.years ?? '',
@@ -824,15 +864,23 @@
           box.style.top = state.crop.y * s + 'px';
           box.style.width = state.crop.width * s + 'px';
           box.style.height = state.crop.height * s + 'px';
-          readout.textContent = `${state.crop.width}x${state.crop.height} at (${state.crop.x}, ${state.crop.y}) · source ${f.width}x${f.height}`;
+          const factor = state.render.width / state.crop.width;
+          readout.textContent =
+            `${state.crop.width}x${state.crop.height} at (${state.crop.x}, ${state.crop.y}) · source ${f.width}x${f.height}` +
+            (factor > 1 ? ` · enlarged ${factor.toFixed(2)}x` : '');
+          readout.className = factor > 1 ? 'warn' : 'sub';
+          if (upscaleRow) upscaleRow.hidden = factor <= 1;
+          if (upscaleLabel)
+            upscaleLabel.textContent = `Allow enlarging this image ${factor.toFixed(2)}x — it will be softer than a full-size source`;
         };
         const resize = () => {
           const pct = Number(size.value) / 100;
           const maxH = Math.min(f.height, Math.floor(f.width / ratio));
-          let nh = Math.max(minH, Math.round(maxH * pct));
+          let nh = Math.max(floorH, Math.round(maxH * pct));
           let nw = Math.round(nh * ratio);
-          if (nw < minW) {
-            nw = minW;
+          const floorW = Math.round(floorH * ratio);
+          if (nw < floorW) {
+            nw = floorW;
             nh = Math.round(nw / ratio);
           }
           state.crop.width = nw;
@@ -878,7 +926,11 @@
             const r = await fetch('/api/preview', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ fileTitle: f.title, crop: state.crop }),
+              body: JSON.stringify({
+                fileTitle: f.title,
+                crop: state.crop,
+                allowUpscale: state.allowUpscale,
+              }),
             });
             if (!r.ok) throw new Error((await r.json()).error);
             previewImg.src = URL.createObjectURL(await r.blob());
@@ -909,6 +961,7 @@
                 blurb: blurbI.value,
                 fileTitle: f.title,
                 crop: state.crop,
+                allowUpscale: state.allowUpscale,
               }),
             });
             msg.style.display = 'block';
@@ -958,6 +1011,7 @@
             }),
             wrap,
             el('div', { className: 'rowline', style: 'margin-top:10px' }, 'Size', size, readout),
+            upscaleRow,
             el('div', { style: 'margin-top:10px' }, preview),
             previewImg,
           ),
@@ -1014,6 +1068,7 @@
       state.items = boot.items;
       state.curatedCount = boot.curatedCount;
       state.render = boot.render;
+      state.maxUpscale = boot.maxUpscale;
       renderQueue();
       const first = visible()[0];
       if (first) select(first);

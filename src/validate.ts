@@ -8,13 +8,11 @@
  */
 
 import path from 'node:path';
-import { VARIANTS } from './config.js';
+import { judgeCrop } from './crop.js';
 import { loadCuration } from './curation/loader.js';
 import { CurationError } from './curation/schema.js';
 import { imageSize } from './render/images.js';
 import { pathsFor } from './paths.js';
-
-const LARGEST = VARIANTS[0];
 
 export interface ValidationReport {
   readonly checked: number;
@@ -63,14 +61,11 @@ export async function validateCuration(root?: string): Promise<ValidationReport>
       continue;
     }
 
-    // Rendering never upscales, so the crop must be at least as large as the
-    // largest variant in both dimensions.
-    if (crop.width < LARGEST.w || crop.height < LARGEST.h) {
-      problems.push(
-        `saints/${id}.yaml: crop box is ${crop.width}x${crop.height}, ` +
-          `smaller than the largest variant ${LARGEST.w}x${LARGEST.h}; ` +
-          'the image would have to be upscaled',
-      );
+    // Rendering does not upscale unless the entry asks for it, and never by
+    // more than MAX_UPSCALE.
+    const verdict = judgeCrop(crop, entry.allowUpscale);
+    if (!verdict.ok) {
+      problems.push(`saints/${id}.yaml: ${verdict.reason}`);
     }
   }
 

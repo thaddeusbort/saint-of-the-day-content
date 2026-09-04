@@ -239,6 +239,11 @@ unrecoverable without a history rewrite. If the sizes genuinely must change,
 that is a new repository and a bump to `v2/`, which the app's path-versioned
 contract already supports.
 
+Enlargement is the one exception, and it is per entry: `allow_upscale: true`
+in a saint's YAML permits a crop below the render size, capped at
+`MAX_UPSCALE` (3×). It is off unless the file says otherwise, so every enlarged
+image is a recorded decision rather than a drift.
+
 The same applies to `npm run plates`: redrawing a plate in `fallbacks/` has no
 effect on anything already rendered into `docs/v1/img/`, by design.
 

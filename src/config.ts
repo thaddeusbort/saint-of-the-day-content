@@ -72,6 +72,21 @@ export const JPEG_OPTIONS = {
  */
 export const LOWEST_PRIVILEGED_TABLE_RANK = 5;
 
+/**
+ * The most a curated image may be enlarged to reach the largest variant.
+ *
+ * Rendering never upscales by default, and that rule is what keeps published
+ * images sharp. But large files on Commons are overwhelmingly modern
+ * photographs; painting scans are old uploads and small, so the rule quietly
+ * selects against exactly the artwork this project wants. A per-entry
+ * `allow_upscale` is the escape hatch, and this is its ceiling — the exception
+ * is for a good painting that only exists small, not for any thumbnail.
+ *
+ * At 3x an image carries an eighth of the pixels it should. It reads
+ * acceptably at arm's length behind a lock-screen clock, and poorly close up.
+ */
+export const MAX_UPSCALE = 3;
+
 /** Liturgical colours that have a fallback plate. */
 export const FALLBACK_COLORS = ['white', 'red', 'green', 'violet', 'rose'] as const;
 

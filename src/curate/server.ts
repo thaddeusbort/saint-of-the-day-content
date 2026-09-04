@@ -24,7 +24,8 @@ import {
   type Downloader,
 } from './save.js';
 import { CurationError } from '../curation/schema.js';
-import { VARIANTS } from '../config.js';
+import { MAX_UPSCALE, VARIANTS } from '../config.js';
+import { minimumSource } from '../crop.js';
 
 /** The largest variant: the crop must be at least this, and shares its ratio. */
 const LARGEST = VARIANTS[0];
@@ -132,6 +133,7 @@ export function createCurationServer(options: ServerOptions = {}) {
         // The crop constraint travels with the queue so the page never
         // restates the frozen sizes. Changing VARIANTS changes the UI too.
         render: { width: LARGEST.w, height: LARGEST.h },
+        maxUpscale: MAX_UPSCALE,
         items: queue.items.map((item) => ({ ...item, query: defaultQuery(item.name) })),
       });
       return;
@@ -146,10 +148,13 @@ export function createCurationServer(options: ServerOptions = {}) {
       const offset = Number(url.searchParams.get('offset') ?? '0');
       // The size minimum is pushed into the query so paging returns usable
       // results; `largeEnough` is still recomputed from what comes back.
+      // The threshold is what the renderer can actually use: a source small
+      // enough to need more than MAX_UPSCALE is no use at any setting.
       const bigOnly = url.searchParams.get('big') === '1';
+      const floor = minimumSource();
       const result = await search(fetcher, term, {
         offset: Number.isFinite(offset) ? offset : 0,
-        ...(bigOnly ? { minWidth: LARGEST.w, minHeight: LARGEST.h } : {}),
+        ...(bigOnly ? { minWidth: floor.width, minHeight: floor.height } : {}),
         excludeStructures: url.searchParams.get('nostructures') === '1',
       });
       sendJson(response, 200, result);
@@ -195,6 +200,7 @@ export function createCurationServer(options: ServerOptions = {}) {
           blurb: asString(body, 'blurb'),
           fileTitle: asString(body, 'fileTitle'),
           crop: asCrop(body),
+          allowUpscale: body['allowUpscale'] === true,
         },
         { fetcher, downloader, ...(options.root === undefined ? {} : { root: options.root }) },
       );
