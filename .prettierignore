@@ -3,3 +3,4 @@ docs/
 node_modules/
 WORKLIST.md
 package-lock.json
+.claude/settings.local.json

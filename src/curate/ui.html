@@ -883,6 +883,14 @@
           value: item.entry?.subtitle ?? '',
           placeholder: '1815–1888, or whatever suits (optional)',
         });
+        // Blank means "use the derived line", which is why the default is shown
+        // as a placeholder rather than filled in: a value here is written to
+        // the entry, and an entry that merely echoes the default would stop
+        // tracking it if the derivation is ever improved.
+        const notifyI = el('input', {
+          value: item.entry?.notification ?? '',
+          placeholder: item.defaultNotification || 'no line is shown for this day',
+        });
         const blurbI = el('textarea', {
           value: item.entry?.blurb ?? '',
           placeholder:
@@ -995,6 +1003,7 @@
                 id: item.id,
                 name: nameI.value,
                 subtitle: subtitleI.value,
+                notification: notifyI.value,
                 blurb: blurbI.value,
                 sourceId: state.sourceId,
                 fileTitle: f.ref,
@@ -1063,7 +1072,9 @@
               el('div', {}, el('label', { textContent: 'name' }), nameI),
               el('div', {}, el('label', { textContent: 'subtitle (optional)' }), subtitleI),
             ),
-            el('label', { textContent: 'notification — the line shown with the image' }),
+            el('label', {
+              textContent: 'notification — blank uses the greyed line already in the field',
+            }),
             notifyI,
             el('label', {
               textContent: 'blurb — yours to write; licence clearance is yours to judge',

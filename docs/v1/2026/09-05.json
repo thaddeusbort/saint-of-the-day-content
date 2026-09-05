@@ -13,32 +13,32 @@
     "id": "teresa-of-calcutta-virgin",
     "kind": "saint",
     "name": "Saint Teresa of Calcutta, Virgin",
-    "subtitle": "",
-    "blurb": "",
-    "notification": "Saint Teresa of Calcutta, Virgin, pray for us!",
+    "subtitle": "1910–1997",
+    "blurb": "Saint Teresa of Calcutta, born Anjezë Gonxhe Bojaxhiu in Skopje to an Albanian family, left her teaching post with the Loreto Sisters in 1946 to work among the destitute and dying in Calcutta's slums, founding the Missionaries of Charity two years later. She received the Nobel Peace Prize in 1979 and was canonized by Pope Francis in 2016.",
+    "notification": "St. Teresa of Calcutta, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },
   "image": {
-    "credit": "Generated liturgical colour plate",
-    "license": "CC0-1.0",
-    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
-    "is_placeholder": true,
+    "credit": "Rajasekharan Parameswaran, 2022-09-05 06:14:33",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:MOTHER_TERESA_-_OIL_PAINTING_BY_RAJASEKHARAN.jpg",
+    "is_placeholder": false,
     "variants": [
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-green-1440x3200.jpg"
+        "url": "img/teresa-of-calcutta-virgin-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-green-1260x2800.jpg"
+        "url": "img/teresa-of-calcutta-virgin-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-green-1080x2400.jpg"
+        "url": "img/teresa-of-calcutta-virgin-1080x2400.jpg"
       }
     ]
   }

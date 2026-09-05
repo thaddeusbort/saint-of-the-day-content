@@ -1,0 +1,20 @@
+name: Saint Peter Claver, Priest
+subtitle: 1580-1654
+blurb: Saint Peter Claver was a Spanish Jesuit who spent forty years at
+  Cartagena, the main slave port of the Spanish Americas, meeting arriving ships
+  to bring food, water, and medical care to the enslaved Africans aboard before
+  catechizing them. He called himself the slave of the Africans forever, is said
+  to have baptized some 300,000 people, and was canonized in 1888.
+notification: St. Peter Claver, pray for us!
+credit: "https://wellcomeimages.org/indexplus/obf_images/a4/f1/1f33a0b31e0bbc7d\
+  33974919682c.jpg Gallery:
+  https://wellcomeimages.org/indexplus/image/V0032875.html Wellcome Collection
+  gallery (2018-04-02): https://wellcomecollection.org/works/k8at2qmp CC-BY-4.0"
+license: CC BY 4.0
+source: https://commons.wikimedia.org/wiki/File:Saint_Peter_Claver._Engraving_by_J._Vitta_after_P._Gagliardi_Wellcome_V0032875.jpg
+crop:
+  x: 500
+  y: 172
+  width: 1150
+  height: 2555
+allow_upscale: true
