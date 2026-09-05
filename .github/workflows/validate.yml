@@ -42,9 +42,13 @@ jobs:
         run: |
           set -euo pipefail
           npm run check:derived
-          if ! git diff --quiet -- docs; then
+          # `git diff` ignores untracked files, and a newly curated saint's
+          # renders arrive as untracked ones — so a tree missing only its
+          # images would have passed. `git status --porcelain` sees both.
+          if [ -n "$(git status --porcelain -- docs)" ]; then
             echo '::error::docs/ does not match a fresh run of the generator.'
             echo 'docs/ is entirely derived — change an input, never the output.'
-            git diff --stat -- docs
+            echo 'If a saint was curated, run `npm run generate` and commit the result.'
+            git status --porcelain -- docs
             exit 1
           fi
