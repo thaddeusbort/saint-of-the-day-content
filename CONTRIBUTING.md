@@ -1,116 +1,92 @@
 # Adding a saint
 
-Curation is an input, not a step. Add files in a pull request on whatever
-schedule suits you; the job reads whatever exists on the day it runs. Every day
-already emits a valid record pointing at a generic liturgical-colour plate, so
-nothing is broken while a day waits its turn — a curated saint is a strict
-improvement that goes live on the next run, with no app release.
+Curation is an input, not a step. Every day already emits a valid record
+pointing at a generic liturgical-colour plate, so nothing is broken while a day
+waits its turn — a curated saint is a strict improvement that goes live on the
+next publish, with no app release.
 
-## The quick way: `npm run curate`
+## Where to work
+
+**Curate on `main`.** The publish job runs on every push to `main` that touches
+`saints/` or `originals/`: it regenerates `docs/` and commits it for you, live
+in a couple of minutes.
+
+Use `dev` and a pull request for changes to the pipeline itself — `src/`,
+workflows, dependencies. That is where review earns its keep.
 
 ```bash
-npm ci
-npm run curate      # http://127.0.0.1:4173
+git pull                     # the publish bot commits to main; start current
+npm run curate               # http://127.0.0.1:4173 — search, crop, save
+npm run validate             # schema + crop geometry, ~5s
+git add saints originals
+git commit -m "Add St. N"
+git push
 ```
 
-This walks the outstanding queue soonest first, searches Wikimedia Commons,
-gives you a crop box fixed at the render's 1440:3200 with guide lines where the
-clock and notifications sit, and writes both files for you. It validates with
+`git pull` first is the one that bites: the bot has almost certainly pushed
+since your last session.
+
+You do not need `npm run generate` — that is the publish job's business. Run it
+if you want to see the output locally, but then commit `docs/` too, or the job
+will simply redo it.
+
+## `npm run curate`
+
+Walks the outstanding queue soonest first, searches for images, gives you a crop
+box fixed at the render's 1440:3200, and writes both files. It validates with
 the same schema and geometry checks CI runs, so if it saves, CI will pass.
 
-Two things it will not do for you, by design:
+Two things it will not do, by design:
 
-- **It will not clear the licence.** It only searches Commons and only offers
-  files whose licence reads as free, and it copies `credit`, `license` and
-  `source` from the file's own metadata rather than letting you type them. That
-  is a floor, not a guarantee — read the file page it links before you save.
-- **It will not write the blurb.** Commons' description is shown for reference
-  and is never copied. An empty blurb is rejected.
+- **It will not clear the licence.** It offers only files whose licence reads as
+  free, and copies `credit`, `license` and `source` from the file's own metadata
+  rather than letting you type them. That is a floor, not a guarantee — read the
+  file page it links before you save.
+- **It will not write the blurb.** The source's description is shown for
+  reference and never copied. An empty blurb is rejected.
 
-The queue has five views. **Saints** is the work that matters: days
-the calendar gives a saint for. **Major** is the privileged days — Christmas,
-Easter, the Sundays of Advent and Lent — which take no saint but their own, so
-the subject is final and an image of it is worth having. **Awaiting** is the
-rest: ordinary days with no saint in the calendar, standing in with the
-liturgical day until there is a martyrology to draw from. Those are waiting on
-data rather than on you, and curating "Tuesday of the twenty-second week of
-Ordinary Time" is rarely worth the effort. **Curated** shows what has already
-been done, and **All** is everything.
+**Queue views.** _Saints_ is the work that matters. _Major_ is the privileged
+days — Christmas, Easter, the Sundays of Advent and Lent — which take no saint
+but their own, so the subject is final and worth an image. _Awaiting_ is
+ordinary days with no saint in the calendar, waiting on a martyrology rather
+than on you. _Curated_ and _All_ are what they sound like.
 
-Two checkboxes sit beside the search box. **Filter out small images** is on by
-default; it asks Commons for files at least as large as the largest variant and
-still checks whatever comes back, so paging does not walk through unusable
-results. **Exclude buildings** is off by default and negates words like
-_church_, _chapel_, _street_ and _monument_ — the photographs of things named
-after a saint rather than images of the saint. It is blunt, and will also drop
-a painting whose description happens to name the church holding it.
+**Filters.** _Filter out small images_ (on) asks for files at least as large as
+the largest variant. _Exclude buildings_ (off) negates _church_, _chapel_,
+_street_ and similar — photographs of things named after a saint rather than
+images of the saint. It is blunt, and will also drop a painting whose
+description names the church holding it.
 
-The search box is a CirrusSearch box: whatever you type reaches Commons
-untouched, so you can add your own terms — `-window`, `incategory:Paintings`,
-`insource:Goya` — alongside the name. See
+The search box reaches Commons untouched, so you can add your own terms:
+`-window`, `incategory:Paintings`, `insource:Goya`. See
 [Help:CirrusSearch](https://www.mediawiki.org/wiki/Help:CirrusSearch).
 
-### Sources
-
-The picker beside the search box chooses where to look. **Wikimedia Commons**
-is the default. **Met Museum** searches the Metropolitan Museum's Open Access
-collection, which often holds a far larger scan of the same painting than
-Commons does — worth trying whenever the Commons copy is too small.
-
-Only sources that publish a machine-readable licence are offered, and only
-files whose licence reads as free: Commons' `extmetadata`, the Met's
-`isPublicDomain`. Attribution is read from the source and re-read again on
-save, never typed.
-
-The Met publishes no image dimensions, so its results say _"size checked when
-you pick it"_ — the file is measured for real when you select it, and the crop
-is checked against the downloaded bytes before anything is written either way.
-Its search returns object ids only, so each result costs a second request and
-pages are smaller.
-
-**Load more results** fetches another page from Commons. Choosing
-an image hides the search and moves you to the crop; **← Back to results**
-returns without re-running the search.
+**Sources.** _Wikimedia Commons_ is the default. _Met Museum_ often holds a far
+larger scan of the same painting — worth trying whenever the Commons copy is too
+small. The Met publishes no dimensions, so its results say _"size checked when
+you pick it"_; the crop is checked against the downloaded bytes before anything
+is written either way.
 
 Re-saving an existing saint overwrites the entry **and deletes its rendered
 images**, because renders are keyed by id and size and are otherwise never
-rewritten — without that, a new crop would change the YAML and nothing a device
-ever sees. Run `npm run generate` before committing so the tree carries the new
-renders.
+rewritten. The next publish redraws them from the new crop.
 
-The rest of this document describes the files themselves, which is what you need
-if you are adding one by hand or reviewing somebody else's pull request.
+## The files
 
-## Pick something from the worklist
-
-[`WORKLIST.md`](WORKLIST.md) lists upcoming days still showing a plate, soonest
-first. It is regenerated on every run, so it prioritises itself.
-
-The `Id` column is the id to use, and the `Kind` column says what you are
-looking at:
-
-- **`saint`** — a person in the martyrology. These are the valuable ones.
-- **`day`** — a Sunday, a ferial weekday or a solemnity of the Lord. There is no
-  saint to find; a curated image here is optional polish. Ids are stable across
-  years, so one image for `easter-sunday` serves every Easter.
-
-## Add two files
-
-For an id of `john-bosco-priest`:
+For an id of `john-bosco-priest`, taken from
+[`WORKLIST.md`](WORKLIST.md)'s `Id` column:
 
 ```
 saints/john-bosco-priest.yaml
 originals/john-bosco-priest.jpg
 ```
 
-The two names must match. The id comes from the filename, never from a field
-inside the file, so the two can never disagree.
-
-### `saints/{id}.yaml`
+The names must match. The id comes from the filename, never a field inside the
+file, so the two can never disagree.
 
 ```yaml
 name: 'St. John Bosco'
-years: '1815–1888'
+subtitle: '1815–1888'
 blurb: >-
   Turin priest who built schools and workshops for boys left destitute by the
   city's industrial boom, and founded the Salesians to carry the work on.
@@ -124,97 +100,85 @@ crop:
   height: 3033
 ```
 
-| Field           | Required | Notes                                                                                                        |
-| --------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
-| `name`          | yes      | Display name, as the app should show it.                                                                     |
-| `subtitle`      | no       | The line under the name — a saint's dates, or whatever suits a subject with none. Defaults to `""`.          |
-| `blurb`         | yes      | One or two sentences. See below.                                                                             |
-| `credit`        | yes      | Attribution line for the image, as the source states it.                                                     |
-| `license`       | yes      | The licence the image is actually under.                                                                     |
-| `source`        | yes      | `http(s)` URL of the page you took the image from — the page, not the raw file, so the licensing is visible. |
-| `crop`          | yes      | Region of the original to render, in pixels from its top-left.                                               |
-| `notification`  | no       | The line shown with the image, e.g. `St. Gregory the Great, pray for us!`. Omit to accept the derived one.   |
-| `allow_upscale` | no       | `true` to permit a crop smaller than 1440×3200, enlarged to reach it. Off unless stated.                     |
+| Field           | Required | Notes                                                                                                    |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------------- |
+| `name`          | yes      | Display name, as the app should show it.                                                                 |
+| `subtitle`      | no       | The line under the name — a saint's dates, or whatever suits a subject with none.                        |
+| `blurb`         | yes      | One or two sentences. See below.                                                                         |
+| `credit`        | yes      | Attribution line, as the source states it.                                                               |
+| `license`       | yes      | The licence the image is actually under.                                                                 |
+| `source`        | yes      | `http(s)` URL of the page you took the image from — the page, not the raw file, so licensing is visible. |
+| `crop`          | yes      | Region of the original to render, in pixels from its top-left.                                           |
+| `notification`  | no       | Overrides the derived line. See below.                                                                   |
+| `allow_upscale` | no       | `true` to permit a crop smaller than 1440×3200, enlarged to reach it.                                    |
 
 Unknown fields are rejected rather than ignored, so a typo (`licence`) fails the
 check instead of silently dropping your text.
 
-### `originals/{id}.jpg`
+`.jpg`, `.jpeg`, `.png` and `.webp` are accepted for the original. Commit it
+once and never modify it.
 
-`.jpg`, `.jpeg`, `.png` and `.webp` are accepted. Commit the original once and
-never modify it.
+## Crop
 
-The crop box is rendered at three sizes — 1440×3200, 1260×2800 and 1080×2400,
-all exactly 20:9. The two smaller sizes are pure downscales of that crop, so
-nothing is trimmed after you have framed it.
+The crop is rendered at 1440×3200, 1260×2800 and 1080×2400, all exactly 20:9.
+The two smaller sizes are pure downscales, so nothing is trimmed after you have
+framed it.
 
-By default **the crop box must be at least 1440×3200**, because enlarging an
-image makes it soft. There is an escape hatch, and it exists for a reason: the
-large files on Commons are overwhelmingly modern photographs, while scans of
-paintings are old uploads and small — so the rule quietly selects against
-exactly the artwork this project wants.
+Two dashed guides cross the crop box at 33% and 72%, marking roughly where the
+lock screen's clock and notification shade sit. **Aim to keep the face in the
+band between them.** The positions are estimates rather than measurements from a
+device, so treat them as a hint, not a boundary.
 
-Setting `allow_upscale: true` permits a smaller crop, enlarged to reach the
-render size, up to **3×** and no further. The tool shows the factor before you
-commit and will not save without the box ticked, and **Preview at full size**
-renders exactly what will ship — look at it. At 2.8× an image keeps its
-composition and loses its brushwork: acceptable at arm's length behind a
-lock-screen clock, poor close up. Prefer finding a larger scan first.
-
-Pick the crop with the lock screen in mind: the clock sits over the top third,
-and notifications over the bottom. A face somewhere in the upper-middle reads
-well.
+By default **the crop must be at least 1440×3200**, because enlarging makes an
+image soft. `allow_upscale: true` permits a smaller crop enlarged up to **3×**
+and no further. The escape hatch exists for a real reason: large files on
+Commons are overwhelmingly modern photographs, while scans of paintings are old
+uploads and small — so the rule quietly selects against exactly the artwork this
+project wants. The tool shows the factor before you commit, and **Preview at
+full size** renders exactly what will ship. Look at it: at 2.8× an image keeps
+its composition and loses its brushwork.
 
 ## The notification line
 
-A short address to go with the image. For a saint it is derived — the tool
-prefills `{name}, pray for us!` and writes nothing to the file if you accept
-it, so improving the wording later still reaches every entry that did.
+A short address shown with the image. It is derived from what the subject is,
+not from how its name is spelled: a person in the martyrology gets
+`{name}, pray for us!`, and everything else gets nothing, because a wrong line
+is worse than none — "The Baptism of the Lord, pray for us!" addresses an event.
+Titles of Our Lady are the one exception, being addressed like a person.
 
-It is derived only for a name that can be addressed: one beginning _Saint_,
-_Saints_, _St._, _Blessed_, _Bl._ or _Our Lady_. Everything else is left empty
-for you, because a wrong line is worse than none — "The Nativity of the Blessed
-Virgin Mary, pray for us!" addresses an event, and "The Baptism of the Lord,
-pray for us!" is worse still. Temporal days want their own wording: _Christ is
-risen!_, _Merry Christmas!_
+The tool shows the derived line as **greyed placeholder text**, not as a value.
+Leave the field blank to accept it and nothing is written to the file, so
+improving the wording later still reaches every entry that accepted it. Type
+something to override — compound saints are the usual case: _"Saints Cornelius,
+Pope, and Cyprian, Bishop, Martyrs, pray for us!"_ wants shortening by hand.
 
-Override it whenever the derived line reads badly. Compound saints are the
-usual case: _"Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs, pray for
-us!"_ wants shortening by hand.
+## The blurb
 
-## Writing the blurb
-
-One or two sentences, present-tense-free, concrete. Say what the person
-actually did, not what they are a symbol of. Aim for the level of detail in the
-example above — a place, a period, and the thing they are remembered for.
+One or two sentences, concrete. Say what the person actually did, not what they
+are a symbol of. Aim for the level of detail in the example above — a place, a
+period, and the thing they are remembered for.
 
 ## What CI checks, and what it cannot
 
-`npm run validate` runs on every pull request. It checks:
+`npm run validate` runs on every push to `main` and every pull request. It
+checks that the YAML parses with every required field non-empty, that `source`
+is a well-formed `http(s)` URL, that the crop lies inside the original and is
+large enough for every variant, and that each `saints/*.yaml` has a matching
+original and vice versa.
 
-- the YAML parses and every required field is present and non-empty
-- `source` is a well-formed `http(s)` URL
-- the `crop` box lies inside the original's bounds
-- the crop is large enough to render every variant without upscaling
-- every `saints/*.yaml` has a matching `originals/*`, and every original has a
-  matching YAML
+**CI cannot verify that an image is free to publish, and does not try.** A
+non-empty `license` string proves nothing — it is a string. Nothing here checks
+that the image is what you say it is, that the licence you named is the one it
+carries, or that you had the right to include it.
 
-**CI cannot verify that an image is actually in the public domain, and it does
-not try.** A non-empty `license` string proves nothing whatsoever — it is a
-string. Nothing in this repository checks that the image is what you say it is,
-that the licence you named is the licence it carries, or that you had the right
-to include it.
-
-**Licence clearance is the curator's responsibility.** Before you open a pull
-request, satisfy yourself that the image is genuinely free to publish, and link
-a `source` page where a reviewer can see the same evidence you did. Wikimedia
-Commons file pages are ideal for this because they state the licence next to the
-file.
+**Licence clearance is yours.** Satisfy yourself the image is genuinely free,
+and link a `source` page where a reviewer can see the same evidence you did.
+Commons file pages are ideal because they state the licence beside the file.
 
 Blurb quality is the same kind of thing: a human judgement that stays human.
 
 ## Do not edit `docs/`
 
-`docs/` is entirely derived, and only the publish job writes there. A pull
-request that changes it fails CI, which regenerates the tree for the window it
-already holds and diffs the result. To change the output, change an input.
+`docs/` is entirely derived, and only the publish job writes there. A push or
+pull request that changes it fails CI, which regenerates the tree and compares.
+To change the output, change an input.
