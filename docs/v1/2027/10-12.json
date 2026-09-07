@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-08-30",
+  "date": "2027-10-12",
   "season": "ordinary",
   "color": "green",
-  "rank": "sunday",
-  "celebration": "twenty-second Sunday in Ordinary Time",
+  "rank": "weekday",
+  "celebration": "Tuesday of the twenty-eighth week of Ordinary Time",
   "all_celebrations": [
-    "twenty-second Sunday in Ordinary Time"
+    "Tuesday of the twenty-eighth week of Ordinary Time"
   ],
   "subject": {
-    "id": "ordinary-time-22-sunday",
+    "id": "ordinary-time-28-tuesday",
     "kind": "day",
-    "name": "twenty-second Sunday in Ordinary Time",
+    "name": "Tuesday of the twenty-eighth week of Ordinary Time",
     "subtitle": "",
     "blurb": "",
     "notification": "",
