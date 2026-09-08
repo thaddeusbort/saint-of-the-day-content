@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-08-31",
+  "date": "2027-10-13",
   "season": "ordinary",
   "color": "green",
   "rank": "weekday",
-  "celebration": "Monday of the twenty-second week of Ordinary Time",
+  "celebration": "Wednesday of the twenty-eighth week of Ordinary Time",
   "all_celebrations": [
-    "Monday of the twenty-second week of Ordinary Time"
+    "Wednesday of the twenty-eighth week of Ordinary Time"
   ],
   "subject": {
-    "id": "ordinary-time-22-monday",
+    "id": "ordinary-time-28-wednesday",
     "kind": "day",
-    "name": "Monday of the twenty-second week of Ordinary Time",
+    "name": "Wednesday of the twenty-eighth week of Ordinary Time",
     "subtitle": "",
     "blurb": "",
     "notification": "",

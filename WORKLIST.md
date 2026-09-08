@@ -6,12 +6,10 @@ Upcoming days still showing a generic liturgical-colour plate, soonest first.
 To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 [CONTRIBUTING.md](CONTRIBUTING.md). Anything curated goes live on the next run.
 
-120 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
+119 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-07 | day | `ordinary-time-23-monday` | Monday of the twenty-third week of Ordinary Time | weekday | green |
-| 2026-09-08 | saint | `nativity-of-the-blessed-virgin-mary` | The Nativity of the Blessed Virgin Mary | feast | white |
 | 2026-09-10 | day | `ordinary-time-23-thursday` | Thursday of the twenty-third week of Ordinary Time | weekday | green |
 | 2026-09-11 | day | `ordinary-time-23-friday` | Friday of the twenty-third week of Ordinary Time | weekday | green |
 | 2026-09-12 | saint | `most-holy-name-of-mary` | The Most Holy Name of Mary | weekday | green |
@@ -70,3 +68,5 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-04 | saint | `charles-borromeo-bishop` | Saint Charles Borromeo, Bishop | memorial | white |
 | 2026-11-05 | day | `ordinary-time-31-thursday` | Thursday of the thirty-first week of Ordinary Time | weekday | green |
 | 2026-11-06 | day | `ordinary-time-31-friday` | Friday of the thirty-first week of Ordinary Time | weekday | green |
+| 2026-11-07 | day | `ordinary-time-31-saturday` | Saturday of the thirty-first week of Ordinary Time | weekday | green |
+| 2026-11-08 | day | `ordinary-time-32-sunday` | thirty-second Sunday in Ordinary Time | sunday | green |

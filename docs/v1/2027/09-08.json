@@ -12,32 +12,32 @@
     "id": "nativity-of-the-blessed-virgin-mary",
     "kind": "feast",
     "name": "The Nativity of the Blessed Virgin Mary",
-    "subtitle": "",
-    "blurb": "",
-    "notification": "",
+    "subtitle": "Feast, September 8",
+    "blurb": "The Nativity of the Blessed Virgin Mary, celebrated September 8, commemorates Mary's birth, an event not recorded in the canonical Gospels but drawn from the second-century Protoevangelium of James, which names her parents as Joachim and Anne. It is one of only three birthdays in the liturgical calendar — alongside Christ's and John the Baptist's — and the date fixes the Immaculate Conception nine months earlier on December 8.",
+    "notification": "Your birth, O Virgin Mother of God, proclaimed joy to the whole world.",
     "is_fallback": false,
     "source": "proper"
   },
   "image": {
-    "credit": "Generated liturgical colour plate",
-    "license": "CC0-1.0",
-    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
-    "is_placeholder": true,
+    "credit": "Daderot, 24 April 2013, 16:00:45",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:The_Nativity_of_the_Virgin_by_Andrea_di_Bartolo,_c._1400,_tempera_on_panel_-_National_Gallery_of_Art,_Washington_-_DSC00162.JPG",
+    "is_placeholder": false,
     "variants": [
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-white-1440x3200.jpg"
+        "url": "img/nativity-of-the-blessed-virgin-mary-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-white-1260x2800.jpg"
+        "url": "img/nativity-of-the-blessed-virgin-mary-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-white-1080x2400.jpg"
+        "url": "img/nativity-of-the-blessed-virgin-mary-1080x2400.jpg"
       }
     ]
   }
