@@ -1,22 +1,23 @@
 {
   "schema": 1,
-  "date": "2026-09-01",
+  "date": "2027-10-14",
   "season": "ordinary",
   "color": "green",
   "rank": "weekday",
-  "celebration": "Tuesday of the twenty-second week of Ordinary Time",
+  "celebration": "Thursday of the twenty-eighth week of Ordinary Time",
   "all_celebrations": [
-    "Tuesday of the twenty-second week of Ordinary Time"
+    "Thursday of the twenty-eighth week of Ordinary Time",
+    "Saint Callistus I, Pope and Martyr"
   ],
   "subject": {
-    "id": "ordinary-time-22-tuesday",
-    "kind": "day",
-    "name": "Tuesday of the twenty-second week of Ordinary Time",
+    "id": "callistus-i-pope",
+    "kind": "saint",
+    "name": "Saint Callistus I, Pope and Martyr",
     "subtitle": "",
     "blurb": "",
-    "notification": "",
+    "notification": "Saint Callistus I, Pope and Martyr, pray for us!",
     "is_fallback": true,
-    "source": "temporal"
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",
