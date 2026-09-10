@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "date": "2027-10-15",
+  "season": "ordinary",
+  "color": "white",
+  "rank": "memorial",
+  "celebration": "Saint Teresa of Jesus, Virgin and Doctor of the Church",
+  "all_celebrations": [
+    "Saint Teresa of Jesus, Virgin and Doctor of the Church"
+  ],
+  "subject": {
+    "id": "teresa-of-jesus-of-avila-virgin",
+    "kind": "saint",
+    "name": "Saint Teresa of Jesus, Virgin and Doctor of the Church",
+    "subtitle": "",
+    "blurb": "",
+    "notification": "Saint Teresa of Jesus, Virgin and Doctor of the Church, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
+  },
+  "image": {
+    "credit": "Generated liturgical colour plate",
+    "license": "CC0-1.0",
+    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
+    "is_placeholder": true,
+    "variants": [
+      {
+        "w": 1440,
+        "h": 3200,
+        "url": "img/fallback-white-1440x3200.jpg"
+      },
+      {
+        "w": 1260,
+        "h": 2800,
+        "url": "img/fallback-white-1260x2800.jpg"
+      },
+      {
+        "w": 1080,
+        "h": 2400,
+        "url": "img/fallback-white-1080x2400.jpg"
+      }
+    ]
+  }
+}
