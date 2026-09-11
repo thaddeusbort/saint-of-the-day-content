@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-10 | day | `ordinary-time-23-thursday` | Thursday of the twenty-third week of Ordinary Time | weekday | green |
 | 2026-09-11 | day | `ordinary-time-23-friday` | Friday of the twenty-third week of Ordinary Time | weekday | green |
 | 2026-09-12 | saint | `most-holy-name-of-mary` | The Most Holy Name of Mary | weekday | green |
 | 2026-09-13 | day | `ordinary-time-24-sunday` | twenty-fourth Sunday in Ordinary Time | sunday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-06 | day | `ordinary-time-31-friday` | Friday of the thirty-first week of Ordinary Time | weekday | green |
 | 2026-11-07 | day | `ordinary-time-31-saturday` | Saturday of the thirty-first week of Ordinary Time | weekday | green |
 | 2026-11-08 | day | `ordinary-time-32-sunday` | thirty-second Sunday in Ordinary Time | sunday | green |
+| 2026-11-09 | saint | `dedication-of-the-lateran-basilica` | The Dedication of the Lateran Basilica | feast | white |

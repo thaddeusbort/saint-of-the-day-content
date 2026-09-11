@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "date": "2027-10-16",
+  "season": "ordinary",
+  "color": "green",
+  "rank": "weekday",
+  "celebration": "Saturday of the twenty-eighth week of Ordinary Time",
+  "all_celebrations": [
+    "Saturday of the twenty-eighth week of Ordinary Time",
+    "Saint Hedwig, Religious",
+    "Saint Margaret Mary Alacoque, Virgin"
+  ],
+  "subject": {
+    "id": "hedwig-of-silesia-religious",
+    "kind": "saint",
+    "name": "Saint Hedwig, Religious",
+    "subtitle": "",
+    "blurb": "",
+    "notification": "Saint Hedwig, Religious, pray for us!",
+    "is_fallback": true,
+    "source": "optional"
+  },
+  "image": {
+    "credit": "Generated liturgical colour plate",
+    "license": "CC0-1.0",
+    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
+    "is_placeholder": true,
+    "variants": [
+      {
+        "w": 1440,
+        "h": 3200,
+        "url": "img/fallback-green-1440x3200.jpg"
+      },
+      {
+        "w": 1260,
+        "h": 2800,
+        "url": "img/fallback-green-1260x2800.jpg"
+      },
+      {
+        "w": 1080,
+        "h": 2400,
+        "url": "img/fallback-green-1080x2400.jpg"
+      }
+    ]
+  }
+}
