@@ -6,12 +6,10 @@ Upcoming days still showing a generic liturgical-colour plate, soonest first.
 To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 [CONTRIBUTING.md](CONTRIBUTING.md). Anything curated goes live on the next run.
 
-121 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
+120 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-11 | day | `ordinary-time-23-friday` | Friday of the twenty-third week of Ordinary Time | weekday | green |
-| 2026-09-12 | saint | `most-holy-name-of-mary` | The Most Holy Name of Mary | weekday | green |
 | 2026-09-13 | day | `ordinary-time-24-sunday` | twenty-fourth Sunday in Ordinary Time | sunday | green |
 | 2026-09-14 | saint | `exaltation-of-the-holy-cross` | The Exaltation of the Holy Cross | feast | red |
 | 2026-09-15 | saint | `our-lady-of-sorrows` | Our Lady of Sorrows | memorial | white |
@@ -70,3 +68,5 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-07 | day | `ordinary-time-31-saturday` | Saturday of the thirty-first week of Ordinary Time | weekday | green |
 | 2026-11-08 | day | `ordinary-time-32-sunday` | thirty-second Sunday in Ordinary Time | sunday | green |
 | 2026-11-09 | saint | `dedication-of-the-lateran-basilica` | The Dedication of the Lateran Basilica | feast | white |
+| 2026-11-10 | saint | `leo-i-the-great-pope` | Saint Leo the Great, Pope and Doctor of the Church | memorial | white |
+| 2026-11-11 | saint | `martin-of-tours-bishop` | Saint Martin of Tours, Bishop | memorial | white |

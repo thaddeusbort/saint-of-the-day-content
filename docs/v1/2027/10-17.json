@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-09-04",
+  "date": "2027-10-17",
   "season": "ordinary",
   "color": "green",
-  "rank": "weekday",
-  "celebration": "Friday of the twenty-second week of Ordinary Time",
+  "rank": "sunday",
+  "celebration": "twenty-ninth Sunday in Ordinary Time",
   "all_celebrations": [
-    "Friday of the twenty-second week of Ordinary Time"
+    "twenty-ninth Sunday in Ordinary Time"
   ],
   "subject": {
-    "id": "ordinary-time-22-friday",
+    "id": "ordinary-time-29-sunday",
     "kind": "day",
-    "name": "Friday of the twenty-second week of Ordinary Time",
+    "name": "twenty-ninth Sunday in Ordinary Time",
     "subtitle": "",
     "blurb": "",
     "notification": "",
