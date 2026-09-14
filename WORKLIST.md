@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-13 | day | `ordinary-time-24-sunday` | twenty-fourth Sunday in Ordinary Time | sunday | green |
 | 2026-09-14 | saint | `exaltation-of-the-holy-cross` | The Exaltation of the Holy Cross | feast | red |
 | 2026-09-15 | saint | `our-lady-of-sorrows` | Our Lady of Sorrows | memorial | white |
 | 2026-09-16 | saint | `cornelius-i-pope-and-cyprian-of-carthage-bishop-martyrs` | Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs | memorial | red |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-09 | saint | `dedication-of-the-lateran-basilica` | The Dedication of the Lateran Basilica | feast | white |
 | 2026-11-10 | saint | `leo-i-the-great-pope` | Saint Leo the Great, Pope and Doctor of the Church | memorial | white |
 | 2026-11-11 | saint | `martin-of-tours-bishop` | Saint Martin of Tours, Bishop | memorial | white |
+| 2026-11-12 | saint | `josaphat-kuntsevych-bishop` | Saint Josaphat, Bishop and Martyr | memorial | red |
