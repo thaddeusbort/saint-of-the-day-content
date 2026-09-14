@@ -1,0 +1,19 @@
+name: The Exaltation of the Holy Cross
+subtitle: Feast, September 14
+blurb: >-
+  Commemorates the finding of the True Cross by St Helena in 326 and the
+  dedication in 335 of the basilica built over Calvary and the Holy Sepulchre.
+  Piero's fresco shows the last episode of the legend: the emperor Heraclius
+  carrying the Cross back into Jerusalem in 630, barefoot and stripped of his
+  crown, after a mysterious force barred the gate to him in his imperial robes.
+notification: We adore you, O Christ, and we bless you, because by your holy Cross
+  you have redeemed the world.
+credit: Piero della Francesca, c. 1452-1466
+license: Public domain
+source: https://commons.wikimedia.org/wiki/File:Piero_della_Francesca_-_9._Exaltation_of_the_Cross_-_WGA17570.jpg
+crop:
+  x: 330
+  y: 0
+  width: 405
+  height: 900
+allow_upscale: true

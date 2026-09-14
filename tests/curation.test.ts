@@ -153,13 +153,13 @@ describe('PR validation', () => {
   it('refuses an enlargement beyond the cap even when allowed', async () => {
     const root = await makeCheckout();
     try {
-      // 3.2x, past MAX_UPSCALE.
+      // 4.8x, past MAX_UPSCALE.
       await addCuratedSaint(root, 'far-too-small', {
-        crop: { x: 0, y: 0, width: 450, height: 1000 },
+        crop: { x: 0, y: 0, width: 300, height: 667 },
         allow_upscale: true,
       });
       const report = await validateCuration(root);
-      expect(report.problems.join('\n')).toMatch(/beyond the 3x limit/);
+      expect(report.problems.join('\n')).toMatch(/beyond the 4x limit/);
     } finally {
       await rm(root, { recursive: true, force: true });
     }

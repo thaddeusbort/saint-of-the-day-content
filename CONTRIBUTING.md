@@ -130,13 +130,18 @@ band between them.** The positions are estimates rather than measurements from a
 device, so treat them as a hint, not a boundary.
 
 By default **the crop must be at least 1440×3200**, because enlarging makes an
-image soft. `allow_upscale: true` permits a smaller crop enlarged up to **3×**
+image soft. `allow_upscale: true` permits a smaller crop enlarged up to **4×**
 and no further. The escape hatch exists for a real reason: large files on
 Commons are overwhelmingly modern photographs, while scans of paintings are old
 uploads and small — so the rule quietly selects against exactly the artwork this
 project wants. The tool shows the factor before you commit, and **Preview at
 full size** renders exactly what will ship. Look at it: at 2.8× an image keeps
 its composition and loses its brushwork.
+
+How far you can push it depends on the medium, not the number. Fresco survives
+the cap — matte, soft-edged, no brushwork or canvas grain to lose — which is why
+the ceiling is 4× rather than 3×. An oil painting at 4× still looks like an oil
+painting at 4×. Judge by the preview, never by the factor.
 
 ## The notification line
 

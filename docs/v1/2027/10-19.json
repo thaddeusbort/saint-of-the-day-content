@@ -1,22 +1,24 @@
 {
   "schema": 1,
-  "date": "2026-09-06",
+  "date": "2027-10-19",
   "season": "ordinary",
   "color": "green",
-  "rank": "sunday",
-  "celebration": "twenty-third Sunday in Ordinary Time",
+  "rank": "weekday",
+  "celebration": "Tuesday of the twenty-ninth week of Ordinary Time",
   "all_celebrations": [
-    "twenty-third Sunday in Ordinary Time"
+    "Tuesday of the twenty-ninth week of Ordinary Time",
+    "Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs",
+    "Saint Paul of the Cross, Priest"
   ],
   "subject": {
-    "id": "ordinary-time-23-sunday",
-    "kind": "day",
-    "name": "twenty-third Sunday in Ordinary Time",
+    "id": "john-de-brebeuf-isaac-jogues-priests-and-companions-martyrs",
+    "kind": "saint",
+    "name": "Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs",
     "subtitle": "",
     "blurb": "",
-    "notification": "",
+    "notification": "Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs, pray for us!",
     "is_fallback": true,
-    "source": "temporal"
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",
