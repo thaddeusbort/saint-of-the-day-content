@@ -20,7 +20,7 @@ import {
   sizeClause,
   type Fetcher,
 } from '../src/curate/commons.js';
-import { VARIANTS } from '../src/config.js';
+import { MAX_UPSCALE, VARIANTS } from '../src/config.js';
 import { buildQueue, defaultQuery } from '../src/curate/queue.js';
 import { saveCuratedSaint, SaveError, type Downloader } from '../src/curate/save.js';
 import { parseSaintEntry } from '../src/curation/schema.js';
@@ -63,6 +63,13 @@ const fetcherFor =
     status: 200,
     json: async () => ({ query: { pages } }),
   });
+
+/** A 20:9 crop one pixel narrower than {@link MAX_UPSCALE} allows. */
+function tooSmallForTheCap() {
+  const largest = VARIANTS[0];
+  const width = Math.ceil(largest.w / MAX_UPSCALE) - 1;
+  return { x: 0, y: 0, width, height: Math.round((width * largest.h) / largest.w) };
+}
 
 describe('licence assessment', () => {
   it('accepts public domain and the free Creative Commons licences', () => {
@@ -766,12 +773,14 @@ describe('saving', () => {
               notification: '',
               sourceId: 'commons',
               fileTitle: 'File:Example.jpg',
-              crop: { x: 0, y: 0, width: 400, height: 889 },
+              // Narrower than the cap permits, derived from it so raising
+              // MAX_UPSCALE cannot turn this into a passing save.
+              crop: tooSmallForTheCap(),
               allowUpscale: true,
             },
             { fetcher: fetcherFor([page()]), downloader: await jpegDownloader(), root },
           ),
-        ).rejects.toThrow(/beyond the 3x limit/);
+        ).rejects.toThrow(new RegExp(`beyond the ${MAX_UPSCALE}x limit`));
         await expectNothingWritten(root);
       } finally {
         await rm(root, { recursive: true, force: true });

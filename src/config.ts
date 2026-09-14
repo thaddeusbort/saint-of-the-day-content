@@ -84,8 +84,15 @@ export const LOWEST_PRIVILEGED_TABLE_RANK = 5;
  *
  * At 3x an image carries an eighth of the pixels it should. It reads
  * acceptably at arm's length behind a lock-screen clock, and poorly close up.
+ *
+ * Raised from 3 to 4 for the Arezzo fresco on 14 September, which exists
+ * online only at around 1200px and needs 3.56x. Fresco is the one medium
+ * that survives this: there is no brushwork, canvas grain or impasto to
+ * lose, so what enlarges is already matte and soft-edged. That is a claim
+ * about frescoes, not a general licence — 4x on an oil painting still looks
+ * like 4x, and the preview is the check that matters.
  */
-export const MAX_UPSCALE = 3;
+export const MAX_UPSCALE = 4;
 
 /** Liturgical colours that have a fallback plate. */
 export const FALLBACK_COLORS = ['white', 'red', 'green', 'violet', 'rose'] as const;

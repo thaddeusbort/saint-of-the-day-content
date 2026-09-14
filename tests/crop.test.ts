@@ -78,8 +78,10 @@ describe('judgeCrop', () => {
   });
 
   it('refuses beyond the cap however the entry is set', () => {
-    // Just past 3x.
-    const tiny = { x: 0, y: 0, width: 479, height: 1064 };
+    // One pixel narrower than the cap allows, derived so that changing
+    // MAX_UPSCALE cannot leave this test quietly asserting nothing.
+    const width = Math.ceil(LARGEST.w / MAX_UPSCALE) - 1;
+    const tiny = { x: 0, y: 0, width, height: Math.round((width * LARGEST.h) / LARGEST.w) };
     expect(judgeCrop(tiny, true).ok).toBe(false);
     expect(judgeCrop(tiny, true).reason).toMatch(new RegExp(`beyond the ${MAX_UPSCALE}x limit`));
   });
