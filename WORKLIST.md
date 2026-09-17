@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-16 | saint | `cornelius-i-pope-and-cyprian-of-carthage-bishop-martyrs` | Saints Cornelius, Pope, and Cyprian, Bishop, Martyrs | memorial | red |
 | 2026-09-17 | saint | `hildegard-of-bingen-abbess` | Saint Hildegard of Bingen, Abbess and Doctor of the Church | weekday | green |
 | 2026-09-18 | day | `ordinary-time-24-friday` | Friday of the twenty-fourth week of Ordinary Time | weekday | green |
 | 2026-09-19 | saint | `januarius-i-of-benevento-bishop` | Saint Januarius, Bishop and Martyr | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-12 | saint | `josaphat-kuntsevych-bishop` | Saint Josaphat, Bishop and Martyr | memorial | red |
 | 2026-11-13 | day | `ordinary-time-32-friday` | Friday of the thirty-second week of Ordinary Time | weekday | green |
 | 2026-11-14 | day | `ordinary-time-32-saturday` | Saturday of the thirty-second week of Ordinary Time | weekday | green |
+| 2026-11-15 | day | `ordinary-time-33-sunday` | thirty-third Sunday in Ordinary Time | sunday | green |
