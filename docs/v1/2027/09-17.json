@@ -14,32 +14,32 @@
     "id": "hildegard-of-bingen-abbess",
     "kind": "saint",
     "name": "Saint Hildegard of Bingen, Abbess and Doctor of the Church",
-    "subtitle": "",
-    "blurb": "",
-    "notification": "Saint Hildegard of Bingen, Abbess and Doctor of the Church, pray for us!",
+    "subtitle": "1098–1179",
+    "blurb": "A twelfth-century Benedictine abbess who founded monasteries near Bingen, preached across Germany, and recorded her visions in Scivias. Her surviving works range across theology, medicine, natural science, and sacred music; Pope Benedict XVI named her a Doctor of the Church in 2012.",
+    "notification": "St. Hildegard of Bingen, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },
   "image": {
-    "credit": "Generated liturgical colour plate",
-    "license": "CC0-1.0",
-    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
-    "is_placeholder": true,
+    "credit": "Unknown author, c. 1175",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Hildegard_von_Bingen.jpg",
+    "is_placeholder": false,
     "variants": [
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-green-1440x3200.jpg"
+        "url": "img/hildegard-of-bingen-abbess-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-green-1260x2800.jpg"
+        "url": "img/hildegard-of-bingen-abbess-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-green-1080x2400.jpg"
+        "url": "img/hildegard-of-bingen-abbess-1080x2400.jpg"
       }
     ]
   }

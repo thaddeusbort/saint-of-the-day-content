@@ -6,11 +6,10 @@ Upcoming days still showing a generic liturgical-colour plate, soonest first.
 To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 [CONTRIBUTING.md](CONTRIBUTING.md). Anything curated goes live on the next run.
 
-121 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
+120 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-17 | saint | `hildegard-of-bingen-abbess` | Saint Hildegard of Bingen, Abbess and Doctor of the Church | weekday | green |
 | 2026-09-18 | day | `ordinary-time-24-friday` | Friday of the twenty-fourth week of Ordinary Time | weekday | green |
 | 2026-09-19 | saint | `januarius-i-of-benevento-bishop` | Saint Januarius, Bishop and Martyr | weekday | green |
 | 2026-09-20 | day | `ordinary-time-25-sunday` | twenty-fifth Sunday in Ordinary Time | sunday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-13 | day | `ordinary-time-32-friday` | Friday of the thirty-second week of Ordinary Time | weekday | green |
 | 2026-11-14 | day | `ordinary-time-32-saturday` | Saturday of the thirty-second week of Ordinary Time | weekday | green |
 | 2026-11-15 | day | `ordinary-time-33-sunday` | thirty-third Sunday in Ordinary Time | sunday | green |
+| 2026-11-16 | saint | `margaret-of-scotland` | Saint Margaret of Scotland | weekday | green |
