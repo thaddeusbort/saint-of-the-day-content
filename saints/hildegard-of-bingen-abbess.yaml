@@ -1,0 +1,16 @@
+name: Saint Hildegard of Bingen, Abbess and Doctor of the Church
+subtitle: 1098–1179
+blurb: A twelfth-century Benedictine abbess who founded monasteries near Bingen,
+  preached across Germany, and recorded her visions in Scivias. Her surviving
+  works range across theology, medicine, natural science, and sacred music; Pope
+  Benedict XVI named her a Doctor of the Church in 2012.
+notification: St. Hildegard of Bingen, pray for us!
+credit: Unknown author, c. 1175
+license: Public domain
+source: https://commons.wikimedia.org/wiki/File:Hildegard_von_Bingen.jpg
+crop:
+  x: 185
+  y: 0
+  width: 891
+  height: 1980
+allow_upscale: true
