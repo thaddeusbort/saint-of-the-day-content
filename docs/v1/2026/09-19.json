@@ -13,32 +13,32 @@
     "id": "januarius-i-of-benevento-bishop",
     "kind": "saint",
     "name": "Saint Januarius, Bishop and Martyr",
-    "subtitle": "",
-    "blurb": "",
-    "notification": "Saint Januarius, Bishop and Martyr, pray for us!",
+    "subtitle": "d. c. 305",
+    "blurb": "A bishop of Benevento martyred near Pozzuoli during the persecution of Diocletian, probably around 305. Naples honors him as its principal patron, and the cathedral preserves vials traditionally believed to contain his blood.",
+    "notification": "St. Januarius, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },
   "image": {
-    "credit": "Generated liturgical colour plate",
-    "license": "CC0-1.0",
-    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
-    "is_placeholder": true,
+    "credit": "Louis Finson, c. 1610–1612",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Saint_Januarius.jpg",
+    "is_placeholder": false,
     "variants": [
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-green-1440x3200.jpg"
+        "url": "img/januarius-i-of-benevento-bishop-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-green-1260x2800.jpg"
+        "url": "img/januarius-i-of-benevento-bishop-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-green-1080x2400.jpg"
+        "url": "img/januarius-i-of-benevento-bishop-1080x2400.jpg"
       }
     ]
   }

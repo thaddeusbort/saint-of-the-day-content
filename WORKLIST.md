@@ -6,21 +6,17 @@ Upcoming days still showing a generic liturgical-colour plate, soonest first.
 To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 [CONTRIBUTING.md](CONTRIBUTING.md). Anything curated goes live on the next run.
 
-120 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
+116 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
 | 2026-09-18 | day | `ordinary-time-24-friday` | Friday of the twenty-fourth week of Ordinary Time | weekday | green |
-| 2026-09-19 | saint | `januarius-i-of-benevento-bishop` | Saint Januarius, Bishop and Martyr | weekday | green |
 | 2026-09-20 | day | `ordinary-time-25-sunday` | twenty-fifth Sunday in Ordinary Time | sunday | green |
 | 2026-09-21 | saint | `matthew-apostle` | Saint Matthew, Apostle and Evangelist | feast | red |
 | 2026-09-22 | day | `ordinary-time-25-tuesday` | Tuesday of the twenty-fifth week of Ordinary Time | weekday | green |
-| 2026-09-23 | saint | `pius-francesco-forgione-priest` | Saint Pius of Pietrelcina, Priest | memorial | white |
 | 2026-09-24 | day | `ordinary-time-25-thursday` | Thursday of the twenty-fifth week of Ordinary Time | weekday | green |
 | 2026-09-25 | day | `ordinary-time-25-friday` | Friday of the twenty-fifth week of Ordinary Time | weekday | green |
-| 2026-09-26 | saint | `cosmas-of-cilicia-and-damian-of-cilicia-martyrs` | Saints Cosmas and Damian, Martyrs | weekday | green |
 | 2026-09-27 | day | `ordinary-time-26-sunday` | twenty-sixth Sunday in Ordinary Time | sunday | green |
-| 2026-09-28 | saint | `wenceslaus-i-of-bohemia-martyr` | Saint Wenceslaus, Martyr | weekday | green |
 | 2026-09-29 | saint | `michael-gabriel-and-raphael-archangels` | Saints Michael, Gabriel and Raphael, Archangels | feast | white |
 | 2026-09-30 | saint | `jerome-of-stridon-priest` | Saint Jerome, Priest and Doctor of the Church | memorial | white |
 | 2026-10-01 | saint | `therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin` | Saint Thérèse of the Child Jesus, Virgin and Doctor of the Church | memorial | white |
@@ -70,3 +66,7 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-14 | day | `ordinary-time-32-saturday` | Saturday of the thirty-second week of Ordinary Time | weekday | green |
 | 2026-11-15 | day | `ordinary-time-33-sunday` | thirty-third Sunday in Ordinary Time | sunday | green |
 | 2026-11-16 | saint | `margaret-of-scotland` | Saint Margaret of Scotland | weekday | green |
+| 2026-11-17 | saint | `elizabeth-of-hungary-religious` | Saint Elizabeth of Hungary, Religious | memorial | white |
+| 2026-11-18 | saint | `dedication-of-the-basilicas-of-saints-peter-and-paul-apostles` | The Dedication of the Basilicas of Saints Peter and Paul, Apostles | weekday | green |
+| 2026-11-19 | day | `ordinary-time-33-thursday` | Thursday of the thirty-third week of Ordinary Time | weekday | green |
+| 2026-11-20 | day | `ordinary-time-33-friday` | Friday of the thirty-third week of Ordinary Time | weekday | green |

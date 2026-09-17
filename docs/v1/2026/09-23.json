@@ -12,32 +12,32 @@
     "id": "pius-francesco-forgione-priest",
     "kind": "saint",
     "name": "Saint Pius of Pietrelcina, Priest",
-    "subtitle": "",
-    "blurb": "",
-    "notification": "Saint Pius of Pietrelcina, Priest, pray for us!",
+    "subtitle": "1887–1968",
+    "blurb": "Born Francesco Forgione, this Capuchin priest spent more than fifty years at San Giovanni Rotondo, where crowds sought his Masses, confessions, and spiritual counsel. He bore the stigmata and founded the Casa Sollievo della Sofferenza hospital, which opened in 1956.",
+    "notification": "St. Pius of Pietrelcina, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },
   "image": {
-    "credit": "Generated liturgical colour plate",
-    "license": "CC0-1.0",
-    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
-    "is_placeholder": true,
+    "credit": "Solomenco Bogdan, May 2010",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Padre_Pio_portret.jpg",
+    "is_placeholder": false,
     "variants": [
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-white-1440x3200.jpg"
+        "url": "img/pius-francesco-forgione-priest-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-white-1260x2800.jpg"
+        "url": "img/pius-francesco-forgione-priest-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-white-1080x2400.jpg"
+        "url": "img/pius-francesco-forgione-priest-1080x2400.jpg"
       }
     ]
   }

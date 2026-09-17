@@ -13,32 +13,32 @@
     "id": "cosmas-of-cilicia-and-damian-of-cilicia-martyrs",
     "kind": "saint",
     "name": "Saints Cosmas and Damian, Martyrs",
-    "subtitle": "",
-    "blurb": "",
-    "notification": "Saints Cosmas and Damian, Martyrs, pray for us!",
+    "subtitle": "Third century",
+    "blurb": "According to early Christian tradition, twin brothers and physicians in Cilicia who treated the sick without payment, earning the name ‘the moneyless ones.’ They were martyred during Diocletian’s persecution and became patrons of physicians, surgeons, and pharmacists.",
+    "notification": "Sts. Cosmas and Damian, pray for us!",
     "is_fallback": true,
     "source": "optional"
   },
   "image": {
-    "credit": "Generated liturgical colour plate",
-    "license": "CC0-1.0",
-    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
-    "is_placeholder": true,
+    "credit": "Unknown Spanish painter, 17th century; Wellcome Collection",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:SS._Cosmas_and_Damian_in_a_landscape._Oil_painting,_17th_c._Wellcome_V0017401.jpg",
+    "is_placeholder": false,
     "variants": [
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-green-1440x3200.jpg"
+        "url": "img/cosmas-of-cilicia-and-damian-of-cilicia-martyrs-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-green-1260x2800.jpg"
+        "url": "img/cosmas-of-cilicia-and-damian-of-cilicia-martyrs-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-green-1080x2400.jpg"
+        "url": "img/cosmas-of-cilicia-and-damian-of-cilicia-martyrs-1080x2400.jpg"
       }
     ]
   }
