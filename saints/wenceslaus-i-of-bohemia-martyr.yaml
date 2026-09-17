@@ -1,0 +1,16 @@
+name: Saint Wenceslaus, Martyr
+subtitle: c. 907–935
+blurb: A tenth-century duke of Bohemia who promoted Christianity, supported
+  priests, and built churches while ruling his young state. He was killed at
+  Stará Boleslav in a struggle with his brother Boleslav and was soon venerated
+  as a martyr and patron of the Czech lands.
+notification: St. Wenceslaus, pray for us!
+credit: Karel Škréta, 1650s
+license: Public domain
+source: https://commons.wikimedia.org/wiki/File:%C5%A0kr%C3%A9ta_Saint_Wenceslaus.jpg
+crop:
+  x: 350
+  y: 0
+  width: 1087
+  height: 2415
+allow_upscale: true

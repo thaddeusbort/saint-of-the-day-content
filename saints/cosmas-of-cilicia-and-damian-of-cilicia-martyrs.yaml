@@ -1,0 +1,16 @@
+name: Saints Cosmas and Damian, Martyrs
+subtitle: Third century
+blurb: According to early Christian tradition, twin brothers and physicians in
+  Cilicia who treated the sick without payment, earning the name ‘the moneyless
+  ones.’ They were martyred during Diocletian’s persecution and became patrons
+  of physicians, surgeons, and pharmacists.
+notification: Sts. Cosmas and Damian, pray for us!
+credit: Unknown Spanish painter, 17th century; Wellcome Collection
+license: CC BY 4.0
+source: https://commons.wikimedia.org/wiki/File:SS._Cosmas_and_Damian_in_a_landscape._Oil_painting,_17th_c._Wellcome_V0017401.jpg
+crop:
+  x: 544
+  y: 0
+  width: 1389
+  height: 3087
+allow_upscale: true

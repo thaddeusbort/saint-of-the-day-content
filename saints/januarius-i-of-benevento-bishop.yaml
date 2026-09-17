@@ -1,0 +1,15 @@
+name: Saint Januarius, Bishop and Martyr
+subtitle: d. c. 305
+blurb: A bishop of Benevento martyred near Pozzuoli during the persecution of
+  Diocletian, probably around 305. Naples honors him as its principal patron,
+  and the cathedral preserves vials traditionally believed to contain his blood.
+notification: St. Januarius, pray for us!
+credit: Louis Finson, c. 1610–1612
+license: Public domain
+source: https://commons.wikimedia.org/wiki/File:Saint_Januarius.jpg
+crop:
+  x: 250
+  y: 0
+  width: 880
+  height: 1956
+allow_upscale: true
