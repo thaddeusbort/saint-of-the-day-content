@@ -42,8 +42,9 @@ export interface SubjectRecord {
   readonly is_fallback: boolean;
   /**
    * Why this subject was chosen: `proper` for the day's own celebration,
-   * `optional` for a coinciding optional memorial, `temporal` when no saint
-   * was available and the liturgical day stands in.
+   * `optional` for a coinciding optional memorial, `martyrology` for a saint
+   * supplied by the local registry, or `temporal` when no saint was available
+   * and the liturgical day stands in.
    *
    * The app has no default for unknown keys but ignores them, so this is
    * additive. It exists so a reader can tell a memorial the day requires from

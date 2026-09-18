@@ -13,6 +13,7 @@
 
 import { LOWEST_PRIVILEGED_TABLE_RANK } from '../config.js';
 import type { LiturgicalDay } from '../calendar/types.js';
+import { martyrologyEntry } from '../calendar/martyrology.js';
 
 /**
  * Where the subject came from.
@@ -21,10 +22,10 @@ import type { LiturgicalDay } from '../calendar/types.js';
  * `optional` a coinciding optional memorial the day does not require
  * `temporal` no saint was available, so the liturgical day stands in
  *
- * A fourth, `martyrology`, belongs here once there is a martyrology to draw
- * from; it would take the place of `temporal` on days that admit a saint.
+ * `martyrology` is a local entry for an ordinary day on which the General
+ * Roman Calendar supplies no saint.
  */
-export type SubjectSource = 'proper' | 'optional' | 'temporal';
+export type SubjectSource = 'proper' | 'optional' | 'martyrology' | 'temporal';
 
 /**
  * What the subject is, as distinct from how it was chosen.
@@ -90,6 +91,21 @@ export function resolveSubject(day: LiturgicalDay): Subject {
       isSanctoral: true,
       source: 'optional',
       kind: optional.isPerson ? 'saint' : 'feast',
+      admitsSaint,
+    };
+  }
+
+  // A saint from the local martyrology registry fills an ordinary day for
+  // which the General Roman Calendar offers no sanctoral celebration.
+  const martyrology = admitsSaint ? martyrologyEntry(day.date) : undefined;
+  if (martyrology) {
+    return {
+      id: martyrology.id,
+      name: martyrology.name,
+      isFallback: true,
+      isSanctoral: true,
+      source: 'martyrology',
+      kind: 'saint',
       admitsSaint,
     };
   }

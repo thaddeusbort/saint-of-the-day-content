@@ -68,7 +68,7 @@ export const JPEG_OPTIONS = {
  * Nativity, not an obscure martyr who shares the date.
  *
  * Rank 6 and below — Sundays in Ordinary Time, feasts, ferial weekdays — do
- * admit one, which is where a martyrology saint would go.
+ * admit one, which is where a local martyrology saint goes.
  */
 export const LOWEST_PRIVILEGED_TABLE_RANK = 5;
 

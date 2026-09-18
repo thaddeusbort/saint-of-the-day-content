@@ -40,7 +40,7 @@ export interface QueueItem {
   readonly isSanctoral: boolean;
   /** False when the day's own celebration is this saint. */
   readonly isFallback: boolean;
-  /** `proper`, `optional`, or `temporal` when no saint was available. */
+  /** `proper`, `optional`, `martyrology`, or `temporal`. */
   readonly source: string;
   /**
    * False for the Triduum, solemnities, privileged Sundays and feasts of the

@@ -48,8 +48,8 @@ Two things it will not do, by design:
 **Queue views.** _Saints_ is the work that matters. _Major_ is the privileged
 days — Christmas, Easter, the Sundays of Advent and Lent — which take no saint
 but their own, so the subject is final and worth an image. _Awaiting_ is
-ordinary days with no saint in the calendar, waiting on a martyrology rather
-than on you. _Curated_ and _All_ are what they sound like.
+ordinary days with no saint in either the calendar or the local martyrology
+registry. _Curated_ and _All_ are what they sound like.
 
 **Filters.** _Filter out small images_ (on) asks for files at least as large as
 the largest variant. _Exclude buildings_ (off) negates _church_, _chapel_,

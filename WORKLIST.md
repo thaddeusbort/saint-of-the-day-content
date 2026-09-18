@@ -6,11 +6,10 @@ Upcoming days still showing a generic liturgical-colour plate, soonest first.
 To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 [CONTRIBUTING.md](CONTRIBUTING.md). Anything curated goes live on the next run.
 
-117 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
+116 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-18 | day | `ordinary-time-24-friday` | Friday of the twenty-fourth week of Ordinary Time | weekday | green |
 | 2026-09-20 | day | `ordinary-time-25-sunday` | twenty-fifth Sunday in Ordinary Time | sunday | green |
 | 2026-09-21 | saint | `matthew-apostle` | Saint Matthew, Apostle and Evangelist | feast | red |
 | 2026-09-22 | day | `ordinary-time-25-tuesday` | Tuesday of the twenty-fifth week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-18 | saint | `dedication-of-the-basilicas-of-saints-peter-and-paul-apostles` | The Dedication of the Basilicas of Saints Peter and Paul, Apostles | weekday | green |
 | 2026-11-19 | day | `ordinary-time-33-thursday` | Thursday of the thirty-third week of Ordinary Time | weekday | green |
 | 2026-11-20 | day | `ordinary-time-33-friday` | Friday of the thirty-third week of Ordinary Time | weekday | green |
+| 2026-11-21 | saint | `presentation-of-the-blessed-virgin-mary` | The Presentation of the Blessed Virgin Mary | memorial | white |
