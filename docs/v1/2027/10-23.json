@@ -1,22 +1,23 @@
 {
   "schema": 1,
-  "date": "2026-09-10",
+  "date": "2027-10-23",
   "season": "ordinary",
   "color": "green",
   "rank": "weekday",
-  "celebration": "Thursday of the twenty-third week of Ordinary Time",
+  "celebration": "Saturday of the twenty-ninth week of Ordinary Time",
   "all_celebrations": [
-    "Thursday of the twenty-third week of Ordinary Time"
+    "Saturday of the twenty-ninth week of Ordinary Time",
+    "Saint John of Capistrano, Priest"
   ],
   "subject": {
-    "id": "ordinary-time-23-thursday",
-    "kind": "day",
-    "name": "Thursday of the twenty-third week of Ordinary Time",
+    "id": "john-of-capistrano-priest",
+    "kind": "saint",
+    "name": "Saint John of Capistrano, Priest",
     "subtitle": "",
     "blurb": "",
-    "notification": "",
+    "notification": "Saint John of Capistrano, Priest, pray for us!",
     "is_fallback": true,
-    "source": "temporal"
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",
