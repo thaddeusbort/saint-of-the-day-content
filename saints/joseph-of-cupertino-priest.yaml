@@ -1,0 +1,16 @@
+name: Saint Joseph of Cupertino, Priest
+subtitle: 1603–1663
+blurb: An Italian Conventual Franciscan friar who was ordained in 1628 despite
+  struggling with formal studies. His ecstatic levitations during prayer drew
+  crowds and repeated transfers between friaries; he met the scrutiny with
+  humility and obedience.
+notification: St. Joseph of Cupertino, pray for us!
+credit: Ludovico Mazzanti, 1767
+license: Public domain
+source: https://commons.wikimedia.org/wiki/File:San_Giuseppe_da_Copertino_si_eleva_in_volo_alla_vista_della_Basilica_di_Loreto.jpg
+crop:
+  x: 150
+  y: 30
+  width: 756
+  height: 1680
+allow_upscale: true

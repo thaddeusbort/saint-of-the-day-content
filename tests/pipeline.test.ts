@@ -142,6 +142,15 @@ describe('a run with no curated saints', () => {
     expect(optional.subject.is_fallback).toBe(true);
     expect(optional.subject.name).toContain('Teresa');
 
+    // 18 September: Saint Joseph of Cupertino comes from the local
+    // martyrology registry because romcal supplies only the ferial weekday.
+    const martyrology = await readDay(root, '2026-09-18');
+    expect(martyrology.rank).toBe('weekday');
+    expect(martyrology.color).toBe('green');
+    expect(martyrology.subject.id).toBe('joseph-of-cupertino-priest');
+    expect(martyrology.subject.source).toBe('martyrology');
+    expect(martyrology.subject.is_fallback).toBe(true);
+
     // 6 September: a Sunday in Ordinary Time. Nothing sanctoral at all.
     const sunday = await readDay(root, '2026-09-06');
     expect(sunday.rank).toBe('sunday');

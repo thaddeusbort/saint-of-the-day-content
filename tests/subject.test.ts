@@ -2,8 +2,8 @@
  * Subject resolution: which saint a day gets, and which days take none.
  *
  * The pipeline offers the day's own saint first, then a coinciding optional
- * memorial, then the liturgical day itself. A martyrology tier would sit
- * between the last two, on days that admit a saint at all.
+ * memorial, then a local martyrology entry, and finally the liturgical day
+ * itself.
  */
 
 import { describe, expect, it, beforeAll } from 'vitest';
@@ -36,6 +36,18 @@ describe('where the subject comes from', () => {
     expect(s.isFallback).toBe(true);
     expect(s.isSanctoral).toBe(true);
     expect(s.name).toContain('Teresa');
+  });
+
+  it('reaches for a martyrology saint when the calendar supplies none', async () => {
+    // 18 September is Saint Joseph of Cupertino's feast, but he is not in the
+    // General Roman Calendar data supplied by romcal.
+    const s = await subjectFor('2026-09-18');
+    expect(s.id).toBe('joseph-of-cupertino-priest');
+    expect(s.name).toBe('Saint Joseph of Cupertino, Priest');
+    expect(s.source).toBe('martyrology');
+    expect(s.isFallback).toBe(true);
+    expect(s.isSanctoral).toBe(true);
+    expect(s.kind).toBe('saint');
   });
 
   it('falls back to the liturgical day when no saint is available', async () => {
@@ -144,7 +156,7 @@ describe('every day still yields a subject', () => {
       const s = await subjectFor(date);
       expect(s.id).not.toBe('');
       expect(s.name).not.toBe('');
-      expect(['proper', 'optional', 'temporal']).toContain(s.source);
+      expect(['proper', 'optional', 'martyrology', 'temporal']).toContain(s.source);
       // is_fallback stays exactly "not the day's own saint".
       expect(s.isFallback).toBe(s.source !== 'proper');
     }

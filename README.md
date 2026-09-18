@@ -148,7 +148,9 @@ celebration of a saint. The pipeline takes, in order:
    `is_fallback: false`.
 2. Otherwise a coinciding optional memorial, if the day carries one —
    `is_fallback: true`.
-3. Otherwise the liturgical day itself: a Sunday, a ferial weekday, or a
+3. Otherwise a saint in the local martyrology registry for that date, when the
+   day admits one — `is_fallback: true`.
+4. Otherwise the liturgical day itself: a Sunday, a ferial weekday, or a
    solemnity of the Lord — `is_fallback: true`.
 
 `subject.kind` says what the day is about, which is not always a saint:
@@ -172,9 +174,10 @@ a wrong one. `notification:` in the subject's YAML overrides it, and is how a
 suits a subject that has none. It is not always a year range, which is why it
 is not called `years`.
 
-`subject.source` says which of the three it was — `proper`, `optional`, or
-`temporal` — so a reader can tell a memorial the day requires from one the
-pipeline reached for. `is_fallback` stays exactly `source !== "proper"`.
+`subject.source` says which of the four it was — `proper`, `optional`,
+`martyrology`, or `temporal` — so a reader can tell a memorial the day requires
+from one the pipeline reached for. `is_fallback` stays exactly
+`source !== "proper"`.
 
 ### Days that take no saint but their own
 
@@ -192,14 +195,14 @@ nobody has computed yet.
 
 Everything from rank 6 down — Sundays in Ordinary Time, feasts, ferial
 weekdays — does admit a saint. Roughly 170 days a year currently fall through
-to `temporal` there: they have no saint in the General Roman Calendar and are
-waiting on a martyrology, which this repository does not yet have. The curation
-tool keeps them in their own queue for that reason.
+to `temporal` there: they have no saint in the General Roman Calendar and no
+entry yet in `src/calendar/martyrology.ts`. The curation tool keeps them in
+their own queue for that reason.
 
 Subject ids are romcal identifiers with underscores replaced by hyphens
 (`john_bosco_priest` → `john-bosco-priest`), so they are stable from year to
-year. That holds for temporal days too: a curated image for
-`easter-sunday` serves every Easter.
+year. Local martyrology entries declare their own stable ids. That holds for
+temporal days too: a curated image for `easter-sunday` serves every Easter.
 
 ## The liturgical calendar
 
