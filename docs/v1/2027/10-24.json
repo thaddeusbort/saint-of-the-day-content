@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-09-11",
+  "date": "2027-10-24",
   "season": "ordinary",
   "color": "green",
-  "rank": "weekday",
-  "celebration": "Friday of the twenty-third week of Ordinary Time",
+  "rank": "sunday",
+  "celebration": "thirtieth Sunday in Ordinary Time",
   "all_celebrations": [
-    "Friday of the twenty-third week of Ordinary Time"
+    "thirtieth Sunday in Ordinary Time"
   ],
   "subject": {
-    "id": "ordinary-time-23-friday",
+    "id": "ordinary-time-30-sunday",
     "kind": "day",
-    "name": "Friday of the twenty-third week of Ordinary Time",
+    "name": "thirtieth Sunday in Ordinary Time",
     "subtitle": "",
     "blurb": "",
     "notification": "",
