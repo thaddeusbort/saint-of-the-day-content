@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-09-13",
+  "date": "2027-10-26",
   "season": "ordinary",
   "color": "green",
-  "rank": "sunday",
-  "celebration": "twenty-fourth Sunday in Ordinary Time",
+  "rank": "weekday",
+  "celebration": "Tuesday of the thirtieth week of Ordinary Time",
   "all_celebrations": [
-    "twenty-fourth Sunday in Ordinary Time"
+    "Tuesday of the thirtieth week of Ordinary Time"
   ],
   "subject": {
-    "id": "ordinary-time-24-sunday",
+    "id": "ordinary-time-30-tuesday",
     "kind": "day",
-    "name": "twenty-fourth Sunday in Ordinary Time",
+    "name": "Tuesday of the thirtieth week of Ordinary Time",
     "subtitle": "",
     "blurb": "",
     "notification": "",
