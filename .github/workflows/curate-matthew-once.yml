@@ -1,0 +1,51 @@
+name: Curate Saint Matthew (one time)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/curate-matthew-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  curate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add Saint Matthew curation
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          curl -fL --retry 3 \
+            'https://upload.wikimedia.org/wikipedia/commons/8/8e/Vocazione_di_San_Matteo_%28particolare_1%29.jpg' \
+            -o originals/matthew-apostle.jpg
+
+          cat > saints/matthew-apostle.yaml <<'EOF'
+          name: Saint Matthew, Apostle and Evangelist
+          subtitle: 1st century
+          blurb: >-
+            One of the Twelve Apostles, Matthew was called by Jesus while sitting
+            at the tax booth. Christian tradition identifies him as the author of
+            the Gospel according to Matthew.
+          notification: St. Matthew, pray for us!
+          credit: Caravaggio, Rizzoli-Skira
+          license: Public domain (PD-Art)
+          source: https://commons.wikimedia.org/wiki/File:Vocazione_di_San_Matteo_(particolare_1).jpg
+          crop:
+            x: 2250
+            y: 0
+            width: 1440
+            height: 3200
+          EOF
+
+          git rm .github/workflows/curate-matthew-once.yml
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add saints/matthew-apostle.yaml originals/matthew-apostle.jpg
+          git commit -m 'Add St. Matthew'
+          git push
