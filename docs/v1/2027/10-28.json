@@ -1,20 +1,20 @@
 {
   "schema": 1,
-  "date": "2026-09-15",
+  "date": "2027-10-28",
   "season": "ordinary",
-  "color": "white",
-  "rank": "memorial",
-  "celebration": "Our Lady of Sorrows",
+  "color": "red",
+  "rank": "feast",
+  "celebration": "Saints Simon and Jude, Apostles",
   "all_celebrations": [
-    "Our Lady of Sorrows"
+    "Saints Simon and Jude, Apostles"
   ],
   "subject": {
-    "id": "our-lady-of-sorrows",
-    "kind": "feast",
-    "name": "Our Lady of Sorrows",
+    "id": "simon-and-jude-apostles",
+    "kind": "saint",
+    "name": "Saints Simon and Jude, Apostles",
     "subtitle": "",
     "blurb": "",
-    "notification": "Our Lady of Sorrows, pray for us!",
+    "notification": "Saints Simon and Jude, Apostles, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },
@@ -27,17 +27,17 @@
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-white-1440x3200.jpg"
+        "url": "img/fallback-red-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-white-1260x2800.jpg"
+        "url": "img/fallback-red-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-white-1080x2400.jpg"
+        "url": "img/fallback-red-1080x2400.jpg"
       }
     ]
   }
