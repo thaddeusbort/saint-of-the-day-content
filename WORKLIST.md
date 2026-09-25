@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-24 | day | `ordinary-time-25-thursday` | Thursday of the twenty-fifth week of Ordinary Time | weekday | green |
 | 2026-09-25 | day | `ordinary-time-25-friday` | Friday of the twenty-fifth week of Ordinary Time | weekday | green |
 | 2026-09-27 | day | `ordinary-time-26-sunday` | twenty-sixth Sunday in Ordinary Time | sunday | green |
 | 2026-09-29 | saint | `michael-gabriel-and-raphael-archangels` | Saints Michael, Gabriel and Raphael, Archangels | feast | white |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-22 | day | `our-lord-jesus-christ-king-of-the-universe` | Our Lord Jesus Christ, King of the Universe | solemnity | white |
 | 2026-11-23 | saint | `clement-i-pope` | Saint Clement I, Pope and Martyr | weekday | green |
 | 2026-11-24 | saint | `andrew-dung-lac-priest-and-companions-martyrs` | Saint Andrew Dũng-Lạc, Priest, and Companions, Martyrs | memorial | red |
+| 2026-11-25 | saint | `catherine-of-alexandria-virgin` | Saint Catherine of Alexandria, Virgin and Martyr | weekday | green |
