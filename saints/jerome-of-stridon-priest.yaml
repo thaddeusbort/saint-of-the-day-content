@@ -1,0 +1,18 @@
+name: Saint Jerome, Priest and Doctor of the Church
+subtitle: c. 347–420
+blurb: >-
+  Dalmatian scholar who learned Hebrew so that he could translate the Bible
+  into Latin from the original rather than from the Greek, producing the
+  Vulgate that the Western Church read for the next thousand years. He spent
+  his last thirty-four years in a monastery at Bethlehem, writing commentaries
+  and letters of famous asperity.
+notification: St. Jerome, pray for us!
+credit: Michelangelo Merisi da Caravaggio, c. 1605-1606
+license: Public domain
+source: https://commons.wikimedia.org/wiki/File:Saint_Jerome_Writing-Caravaggio_(1605-6).jpg
+crop:
+  x: 1992
+  y: 0
+  width: 1232
+  height: 2739
+allow_upscale: true
