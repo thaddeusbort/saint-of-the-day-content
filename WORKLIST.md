@@ -24,7 +24,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-10-12 | day | `ordinary-time-28-monday` | Monday of the twenty-eighth week of Ordinary Time | weekday | green |
 | 2026-10-13 | day | `ordinary-time-28-tuesday` | Tuesday of the twenty-eighth week of Ordinary Time | weekday | green |
 | 2026-10-14 | saint | `callistus-i-pope` | Saint Callistus I, Pope and Martyr | weekday | green |
-| 2026-10-15 | saint | `teresa-of-jesus-of-avila-virgin` | Saint Teresa of Jesus, Virgin and Doctor of the Church | memorial | white |
 | 2026-10-16 | saint | `hedwig-of-silesia-religious` | Saint Hedwig, Religious | weekday | green |
 | 2026-10-17 | saint | `ignatius-of-antioch-bishop` | Saint Ignatius of Antioch, Bishop and Martyr | memorial | red |
 | 2026-10-18 | day | `ordinary-time-29-sunday` | twenty-ninth Sunday in Ordinary Time | sunday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-27 | day | `ordinary-time-34-friday` | Friday of the thirty-fourth week of Ordinary Time | weekday | green |
 | 2026-11-28 | day | `ordinary-time-34-saturday` | Saturday of the thirty-fourth week of Ordinary Time | weekday | green |
 | 2026-11-29 | day | `advent-1-sunday` | first Sunday of Advent | sunday | violet |
+| 2026-11-30 | saint | `andrew-apostle` | Saint Andrew, Apostle | feast | red |

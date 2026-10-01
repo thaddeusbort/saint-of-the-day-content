@@ -12,32 +12,32 @@
     "id": "teresa-of-jesus-of-avila-virgin",
     "kind": "saint",
     "name": "Saint Teresa of Jesus, Virgin and Doctor of the Church",
-    "subtitle": "",
-    "blurb": "",
-    "notification": "Saint Teresa of Jesus, Virgin and Doctor of the Church, pray for us!",
+    "subtitle": "1515–1582",
+    "blurb": "Spanish Carmelite who reformed her order into the Discalced Carmelites against determined opposition, founding seventeen houses in twenty years while writing The Interior Castle and the Life. In 1970 she became the first woman named a Doctor of the Church.",
+    "notification": "St. Teresa of Ávila, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },
   "image": {
-    "credit": "Generated liturgical colour plate",
-    "license": "CC0-1.0",
-    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
-    "is_placeholder": true,
+    "credit": "Qwertzu111111, 30 August 2025",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Interior_of_Mariapark_(Sittard);_Tile_panels_in_the_Netherlands;_Gothic_Revival_Tiles;_Th%C3%A9r%C3%A8se_de_Lisieux_in_art,_Christian_votive_plaques,_2025_in_Sittard.jpg",
+    "is_placeholder": false,
     "variants": [
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-white-1440x3200.jpg"
+        "url": "img/teresa-of-jesus-of-avila-virgin-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-white-1260x2800.jpg"
+        "url": "img/teresa-of-jesus-of-avila-virgin-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-white-1080x2400.jpg"
+        "url": "img/teresa-of-jesus-of-avila-virgin-1080x2400.jpg"
       }
     ]
   }
