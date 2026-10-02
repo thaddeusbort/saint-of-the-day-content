@@ -10,8 +10,7 @@ credit: Maurice Denis, 1917
 license: Public domain
 source: https://commons.wikimedia.org/wiki/File:Vierge_%C3%A0_l%27enfant_et_Sainte_Th%C3%A9r%C3%A8se_-_estampe_-_Maurice_Denis_-_btv1b53262060s.jpg
 crop:
-  x: 0
+  x: 1200
   y: 0
-  width: 360
-  height: 800
-allow_upscale: true
+  width: 2520
+  height: 5600
