@@ -1,0 +1,58 @@
+name: Repair Therese source image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/repair-therese.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download verified Maurice Denis scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://upload.wikimedia.org/wikipedia/commons/1/16/Vierge_%C3%A0_l%27enfant_et_Sainte_Th%C3%A9r%C3%A8se_-_estampe_-_Maurice_Denis_-_btv1b53262060s.jpg'
+          out='/tmp/therese.jpg'
+          curl -fL --retry 3 --retry-delay 2 "$url" -o "$out"
+          echo '4a1bdc79853f80f8169a348eacdc0c89035edd3c  /tmp/therese.jpg' | sha1sum -c -
+          mv "$out" originals/therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin.jpg
+
+      - name: Update crop for full source scan
+        shell: bash
+        run: |
+          cat > saints/therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin.yaml <<'EOF'
+          name: St. Thérèse of Lisieux
+          subtitle: 1873–1897
+          blurb: >-
+            French Carmelite nun whose “little way” taught holiness through ordinary
+            acts done with trust and love. Her spiritual autobiography, Story of a Soul,
+            spread her teaching around the world, and Pope John Paul II named her a
+            Doctor of the Church in 1997.
+          notification: St. Thérèse of Lisieux, pray for us!
+          credit: Maurice Denis, 1917
+          license: Public domain
+          source: https://commons.wikimedia.org/wiki/File:Vierge_%C3%A0_l%27enfant_et_Sainte_Th%C3%A9r%C3%A8se_-_estampe_-_Maurice_Denis_-_btv1b53262060s.jpg
+          crop:
+            x: 1200
+            y: 0
+            width: 2520
+            height: 5600
+          EOF
+
+      - name: Commit repaired source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add originals/therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin.jpg saints/therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin.yaml
+          git commit -m 'Repair St. Therese source image from Commons'
+          git push
