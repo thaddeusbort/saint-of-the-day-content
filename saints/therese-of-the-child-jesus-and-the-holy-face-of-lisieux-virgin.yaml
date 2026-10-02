@@ -6,12 +6,12 @@ blurb: >-
   spread her teaching around the world, and Pope John Paul II named her a
   Doctor of the Church in 1997.
 notification: St. Thérèse of Lisieux, pray for us!
-credit: Maurice Denis, 1917; AI-assisted derivative composition
-license: Public-domain source artwork; derivative released CC0-1.0
+credit: Maurice Denis, 1917
+license: Public domain
 source: https://commons.wikimedia.org/wiki/File:Vierge_%C3%A0_l%27enfant_et_Sainte_Th%C3%A9r%C3%A8se_-_estampe_-_Maurice_Denis_-_btv1b53262060s.jpg
 crop:
   x: 0
   y: 0
-  width: 450
-  height: 1000
+  width: 360
+  height: 800
 allow_upscale: true
