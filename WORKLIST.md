@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-01 | saint | `therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin` | Saint Thérèse of the Child Jesus, Virgin and Doctor of the Church | memorial | white |
 | 2026-10-02 | saint | `holy-guardian-angels` | The Holy Guardian Angels | memorial | white |
 | 2026-10-03 | day | `ordinary-time-26-saturday` | Saturday of the twenty-sixth week of Ordinary Time | weekday | green |
 | 2026-10-04 | day | `ordinary-time-27-sunday` | twenty-seventh Sunday in Ordinary Time | sunday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-11-28 | day | `ordinary-time-34-saturday` | Saturday of the thirty-fourth week of Ordinary Time | weekday | green |
 | 2026-11-29 | day | `advent-1-sunday` | first Sunday of Advent | sunday | violet |
 | 2026-11-30 | saint | `andrew-apostle` | Saint Andrew, Apostle | feast | red |
+| 2026-12-01 | day | `advent-1-tuesday` | Tuesday of the first week of Advent | weekday | violet |

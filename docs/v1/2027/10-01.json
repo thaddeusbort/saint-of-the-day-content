@@ -11,33 +11,33 @@
   "subject": {
     "id": "therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin",
     "kind": "saint",
-    "name": "Saint Thérèse of the Child Jesus, Virgin and Doctor of the Church",
-    "subtitle": "",
-    "blurb": "",
-    "notification": "Saint Thérèse of the Child Jesus, Virgin and Doctor of the Church, pray for us!",
+    "name": "St. Thérèse of Lisieux",
+    "subtitle": "1873–1897",
+    "blurb": "French Carmelite nun whose “little way” taught holiness through ordinary acts done with trust and love. Her spiritual autobiography, Story of a Soul, spread her teaching around the world, and Pope John Paul II named her a Doctor of the Church in 1997.",
+    "notification": "St. Thérèse of Lisieux, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },
   "image": {
-    "credit": "Generated liturgical colour plate",
-    "license": "CC0-1.0",
-    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
-    "is_placeholder": true,
+    "credit": "Maurice Denis, 1917",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Vierge_%C3%A0_l%27enfant_et_Sainte_Th%C3%A9r%C3%A8se_-_estampe_-_Maurice_Denis_-_btv1b53262060s.jpg",
+    "is_placeholder": false,
     "variants": [
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-white-1440x3200.jpg"
+        "url": "img/therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-white-1260x2800.jpg"
+        "url": "img/therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-white-1080x2400.jpg"
+        "url": "img/therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin-1080x2400.jpg"
       }
     ]
   }

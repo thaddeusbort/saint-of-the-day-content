@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-09-24",
+  "date": "2027-11-06",
   "season": "ordinary",
   "color": "green",
   "rank": "weekday",
-  "celebration": "Thursday of the twenty-fifth week of Ordinary Time",
+  "celebration": "Saturday of the thirty-first week of Ordinary Time",
   "all_celebrations": [
-    "Thursday of the twenty-fifth week of Ordinary Time"
+    "Saturday of the thirty-first week of Ordinary Time"
   ],
   "subject": {
-    "id": "ordinary-time-25-thursday",
+    "id": "ordinary-time-31-saturday",
     "kind": "day",
-    "name": "Thursday of the twenty-fifth week of Ordinary Time",
+    "name": "Saturday of the thirty-first week of Ordinary Time",
     "subtitle": "",
     "blurb": "",
     "notification": "",
