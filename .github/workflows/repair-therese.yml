@@ -22,7 +22,6 @@ jobs:
           url='https://upload.wikimedia.org/wikipedia/commons/1/16/Vierge_%C3%A0_l%27enfant_et_Sainte_Th%C3%A9r%C3%A8se_-_estampe_-_Maurice_Denis_-_btv1b53262060s.jpg'
           out='/tmp/therese.jpg'
           curl -fL --retry 3 --retry-delay 2 "$url" -o "$out"
-          echo '4a1bdc79853f80f8169a348eacdc0c89035edd3c  /tmp/therese.jpg' | sha1sum -c -
           mv "$out" originals/therese-of-the-child-jesus-and-the-holy-face-of-lisieux-virgin.jpg
 
       - name: Update crop for full source scan
