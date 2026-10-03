@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-09-25",
+  "date": "2027-11-07",
   "season": "ordinary",
   "color": "green",
-  "rank": "weekday",
-  "celebration": "Friday of the twenty-fifth week of Ordinary Time",
+  "rank": "sunday",
+  "celebration": "thirty-second Sunday in Ordinary Time",
   "all_celebrations": [
-    "Friday of the twenty-fifth week of Ordinary Time"
+    "thirty-second Sunday in Ordinary Time"
   ],
   "subject": {
-    "id": "ordinary-time-25-friday",
+    "id": "ordinary-time-32-sunday",
     "kind": "day",
-    "name": "Friday of the twenty-fifth week of Ordinary Time",
+    "name": "thirty-second Sunday in Ordinary Time",
     "subtitle": "",
     "blurb": "",
     "notification": "",
