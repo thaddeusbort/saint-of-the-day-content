@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | saint | `faustina-kowalska-virgin` | Saint Faustina Kowalska, Virgin | weekday | green |
 | 2026-10-06 | saint | `bruno-of-cologne-priest` | Saint Bruno, Priest | weekday | green |
 | 2026-10-07 | saint | `our-lady-of-the-rosary` | Our Lady of the Rosary | memorial | white |
 | 2026-10-08 | day | `ordinary-time-27-thursday` | Thursday of the twenty-seventh week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-02 | day | `advent-1-wednesday` | Wednesday of the first week of Advent | weekday | violet |
 | 2026-12-03 | saint | `francis-xavier-priest` | Saint Francis Xavier, Priest | memorial | white |
 | 2026-12-04 | saint | `john-damascene-priest` | Saint John Damascene, Priest and Doctor of the Church | weekday | violet |
+| 2026-12-05 | day | `advent-1-saturday` | Saturday of the first week of Advent | weekday | violet |
