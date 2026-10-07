@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "date": "2027-11-11",
+  "season": "ordinary",
+  "color": "white",
+  "rank": "memorial",
+  "celebration": "Saint Martin of Tours, Bishop",
+  "all_celebrations": [
+    "Saint Martin of Tours, Bishop"
+  ],
+  "subject": {
+    "id": "martin-of-tours-bishop",
+    "kind": "saint",
+    "name": "Saint Martin of Tours, Bishop",
+    "subtitle": "",
+    "blurb": "",
+    "notification": "Saint Martin of Tours, Bishop, pray for us!",
+    "is_fallback": false,
+    "source": "proper"
+  },
+  "image": {
+    "credit": "Generated liturgical colour plate",
+    "license": "CC0-1.0",
+    "source": "https://github.com/thaddeusbort/saint-of-the-day-content",
+    "is_placeholder": true,
+    "variants": [
+      {
+        "w": 1440,
+        "h": 3200,
+        "url": "img/fallback-white-1440x3200.jpg"
+      },
+      {
+        "w": 1260,
+        "h": 2800,
+        "url": "img/fallback-white-1260x2800.jpg"
+      },
+      {
+        "w": 1080,
+        "h": 2400,
+        "url": "img/fallback-white-1080x2400.jpg"
+      }
+    ]
+  }
+}
