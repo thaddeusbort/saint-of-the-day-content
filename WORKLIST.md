@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | saint | `our-lady-of-the-rosary` | Our Lady of the Rosary | memorial | white |
 | 2026-10-08 | day | `ordinary-time-27-thursday` | Thursday of the twenty-seventh week of Ordinary Time | weekday | green |
 | 2026-10-09 | saint | `denis-of-paris-bishop-and-companions-martyrs` | Saint Denis, Bishop, and Companions, Martyrs | weekday | green |
 | 2026-10-10 | day | `ordinary-time-27-saturday` | Saturday of the twenty-seventh week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-04 | saint | `john-damascene-priest` | Saint John Damascene, Priest and Doctor of the Church | weekday | violet |
 | 2026-12-05 | day | `advent-1-saturday` | Saturday of the first week of Advent | weekday | violet |
 | 2026-12-06 | day | `advent-2-sunday` | second Sunday of Advent | sunday | violet |
+| 2026-12-07 | saint | `ambrose-of-milan-bishop` | Saint Ambrose, Bishop and Doctor of the Church | memorial | white |
