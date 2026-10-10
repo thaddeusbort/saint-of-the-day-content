@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-09 | saint | `denis-of-paris-bishop-and-companions-martyrs` | Saint Denis, Bishop, and Companions, Martyrs | weekday | green |
 | 2026-10-10 | day | `ordinary-time-27-saturday` | Saturday of the twenty-seventh week of Ordinary Time | weekday | green |
 | 2026-10-11 | day | `ordinary-time-28-sunday` | twenty-eighth Sunday in Ordinary Time | sunday | green |
 | 2026-10-12 | day | `ordinary-time-28-monday` | Monday of the twenty-eighth week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-06 | day | `advent-2-sunday` | second Sunday of Advent | sunday | violet |
 | 2026-12-07 | saint | `ambrose-of-milan-bishop` | Saint Ambrose, Bishop and Doctor of the Church | memorial | white |
 | 2026-12-08 | saint | `immaculate-conception-of-the-blessed-virgin-mary` | The Immaculate Conception of the Blessed Virgin Mary | solemnity | white |
+| 2026-12-09 | saint | `juan-diego-cuauhtlatoatzin` | Saint Juan Diego Cuauhtlatoatzin | weekday | violet |
