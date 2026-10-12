@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-11 | day | `ordinary-time-28-sunday` | twenty-eighth Sunday in Ordinary Time | sunday | green |
 | 2026-10-12 | day | `ordinary-time-28-monday` | Monday of the twenty-eighth week of Ordinary Time | weekday | green |
 | 2026-10-13 | day | `ordinary-time-28-tuesday` | Tuesday of the twenty-eighth week of Ordinary Time | weekday | green |
 | 2026-10-14 | saint | `callistus-i-pope` | Saint Callistus I, Pope and Martyr | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-08 | saint | `immaculate-conception-of-the-blessed-virgin-mary` | The Immaculate Conception of the Blessed Virgin Mary | solemnity | white |
 | 2026-12-09 | saint | `juan-diego-cuauhtlatoatzin` | Saint Juan Diego Cuauhtlatoatzin | weekday | violet |
 | 2026-12-10 | saint | `our-lady-of-loreto` | Our Lady of Loreto | weekday | violet |
+| 2026-12-11 | saint | `damasus-i-pope` | Saint Damasus I, Pope | weekday | violet |
