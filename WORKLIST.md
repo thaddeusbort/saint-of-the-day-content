@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-12 | day | `ordinary-time-28-monday` | Monday of the twenty-eighth week of Ordinary Time | weekday | green |
 | 2026-10-13 | day | `ordinary-time-28-tuesday` | Tuesday of the twenty-eighth week of Ordinary Time | weekday | green |
 | 2026-10-14 | saint | `callistus-i-pope` | Saint Callistus I, Pope and Martyr | weekday | green |
 | 2026-10-16 | saint | `hedwig-of-silesia-religious` | Saint Hedwig, Religious | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-09 | saint | `juan-diego-cuauhtlatoatzin` | Saint Juan Diego Cuauhtlatoatzin | weekday | violet |
 | 2026-12-10 | saint | `our-lady-of-loreto` | Our Lady of Loreto | weekday | violet |
 | 2026-12-11 | saint | `damasus-i-pope` | Saint Damasus I, Pope | weekday | violet |
+| 2026-12-12 | saint | `our-lady-of-guadalupe` | Our Lady of Guadalupe | weekday | violet |
