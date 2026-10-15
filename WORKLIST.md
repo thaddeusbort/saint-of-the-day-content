@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-14 | saint | `callistus-i-pope` | Saint Callistus I, Pope and Martyr | weekday | green |
 | 2026-10-16 | saint | `hedwig-of-silesia-religious` | Saint Hedwig, Religious | weekday | green |
 | 2026-10-17 | saint | `ignatius-of-antioch-bishop` | Saint Ignatius of Antioch, Bishop and Martyr | memorial | red |
 | 2026-10-18 | day | `ordinary-time-29-sunday` | twenty-ninth Sunday in Ordinary Time | sunday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-11 | saint | `damasus-i-pope` | Saint Damasus I, Pope | weekday | violet |
 | 2026-12-12 | saint | `our-lady-of-guadalupe` | Our Lady of Guadalupe | weekday | violet |
 | 2026-12-13 | day | `advent-3-sunday` | third Sunday of Advent | sunday | rose |
+| 2026-12-14 | saint | `john-of-the-cross-priest` | Saint John of the Cross, Priest and Doctor of the Church | memorial | white |
