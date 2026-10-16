@@ -6,7 +6,7 @@ Upcoming days still showing a generic liturgical-colour plate, soonest first.
 To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 [CONTRIBUTING.md](CONTRIBUTING.md). Anything curated goes live on the next run.
 
-120 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
+121 subject(s) outstanding in the next 120 days; the 60 soonest are listed.
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
