@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-17 | saint | `ignatius-of-antioch-bishop` | Saint Ignatius of Antioch, Bishop and Martyr | memorial | red |
 | 2026-10-18 | day | `ordinary-time-29-sunday` | twenty-ninth Sunday in Ordinary Time | sunday | green |
 | 2026-10-19 | saint | `john-de-brebeuf-isaac-jogues-priests-and-companions-martyrs` | Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs | weekday | green |
 | 2026-10-20 | day | `ordinary-time-29-tuesday` | Tuesday of the twenty-ninth week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-13 | day | `advent-3-sunday` | third Sunday of Advent | sunday | rose |
 | 2026-12-14 | saint | `john-of-the-cross-priest` | Saint John of the Cross, Priest and Doctor of the Church | memorial | white |
 | 2026-12-15 | day | `advent-3-tuesday` | Tuesday of the third week of Advent | weekday | violet |
+| 2026-12-16 | day | `advent-3-wednesday` | Wednesday of the third week of Advent | weekday | violet |
