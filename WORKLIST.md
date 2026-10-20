@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-19 | saint | `john-de-brebeuf-isaac-jogues-priests-and-companions-martyrs` | Saints John de Brébeuf and Isaac Jogues, Priests, and Companions, Martyrs | weekday | green |
 | 2026-10-20 | day | `ordinary-time-29-tuesday` | Tuesday of the twenty-ninth week of Ordinary Time | weekday | green |
 | 2026-10-21 | day | `ordinary-time-29-wednesday` | Wednesday of the twenty-ninth week of Ordinary Time | weekday | green |
 | 2026-10-22 | saint | `john-paul-ii-pope` | Saint John Paul II, Pope | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-15 | day | `advent-3-tuesday` | Tuesday of the third week of Advent | weekday | violet |
 | 2026-12-16 | day | `advent-3-wednesday` | Wednesday of the third week of Advent | weekday | violet |
 | 2026-12-17 | day | `advent-december-17` | December 17 | weekday | violet |
+| 2026-12-18 | day | `advent-december-18` | December 18 | weekday | violet |
