@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-21 | day | `ordinary-time-29-wednesday` | Wednesday of the twenty-ninth week of Ordinary Time | weekday | green |
 | 2026-10-22 | saint | `john-paul-ii-pope` | Saint John Paul II, Pope | weekday | green |
 | 2026-10-23 | saint | `john-of-capistrano-priest` | Saint John of Capistrano, Priest | weekday | green |
 | 2026-10-24 | saint | `anthony-mary-claret-bishop` | Saint Anthony Mary Claret, Bishop | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-17 | day | `advent-december-17` | December 17 | weekday | violet |
 | 2026-12-18 | day | `advent-december-18` | December 18 | weekday | violet |
 | 2026-12-19 | day | `advent-december-19` | December 19 | weekday | violet |
+| 2026-12-20 | day | `advent-4-sunday` | fourth Sunday of Advent | sunday | violet |
