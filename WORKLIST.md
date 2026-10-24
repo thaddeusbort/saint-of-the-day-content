@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-23 | saint | `john-of-capistrano-priest` | Saint John of Capistrano, Priest | weekday | green |
 | 2026-10-24 | saint | `anthony-mary-claret-bishop` | Saint Anthony Mary Claret, Bishop | weekday | green |
 | 2026-10-25 | day | `ordinary-time-30-sunday` | thirtieth Sunday in Ordinary Time | sunday | green |
 | 2026-10-26 | day | `ordinary-time-30-monday` | Monday of the thirtieth week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-19 | day | `advent-december-19` | December 19 | weekday | violet |
 | 2026-12-20 | day | `advent-4-sunday` | fourth Sunday of Advent | sunday | violet |
 | 2026-12-21 | saint | `peter-canisius-priest` | Saint Peter Canisius, Priest and Doctor of the Church | weekday | violet |
+| 2026-12-22 | day | `advent-december-22` | December 22 | weekday | violet |
