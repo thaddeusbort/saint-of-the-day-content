@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-10-20",
-  "season": "ordinary",
-  "color": "green",
+  "date": "2027-12-02",
+  "season": "advent",
+  "color": "violet",
   "rank": "weekday",
-  "celebration": "Tuesday of the twenty-ninth week of Ordinary Time",
+  "celebration": "Thursday of the first week of Advent",
   "all_celebrations": [
-    "Tuesday of the twenty-ninth week of Ordinary Time"
+    "Thursday of the first week of Advent"
   ],
   "subject": {
-    "id": "ordinary-time-29-tuesday",
+    "id": "advent-1-thursday",
     "kind": "day",
-    "name": "Tuesday of the twenty-ninth week of Ordinary Time",
+    "name": "Thursday of the first week of Advent",
     "subtitle": "",
     "blurb": "",
     "notification": "",
@@ -27,17 +27,17 @@
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-green-1440x3200.jpg"
+        "url": "img/fallback-violet-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-green-1260x2800.jpg"
+        "url": "img/fallback-violet-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-green-1080x2400.jpg"
+        "url": "img/fallback-violet-1080x2400.jpg"
       }
     ]
   }
