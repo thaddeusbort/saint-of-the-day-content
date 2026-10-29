@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-28 | saint | `simon-and-jude-apostles` | Saints Simon and Jude, Apostles | feast | red |
 | 2026-10-29 | day | `ordinary-time-30-thursday` | Thursday of the thirtieth week of Ordinary Time | weekday | green |
 | 2026-10-30 | day | `ordinary-time-30-friday` | Friday of the thirtieth week of Ordinary Time | weekday | green |
 | 2026-10-31 | day | `ordinary-time-30-saturday` | Saturday of the thirtieth week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-24 | day | `advent-december-24` | December 24 | weekday | violet |
 | 2026-12-25 | day | `nativity-of-the-lord` | The Nativity of the Lord (Christmas) | solemnity | white |
 | 2026-12-26 | saint | `stephen-the-first-martyr` | Saint Stephen, the First Martyr | feast | red |
+| 2026-12-27 | day | `holy-family-of-jesus-mary-and-joseph` | The Holy Family of Jesus, Mary and Joseph | feast | white |
