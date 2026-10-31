@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-30 | day | `ordinary-time-30-friday` | Friday of the thirtieth week of Ordinary Time | weekday | green |
 | 2026-10-31 | day | `ordinary-time-30-saturday` | Saturday of the thirtieth week of Ordinary Time | weekday | green |
 | 2026-11-01 | saint | `all-saints` | All Saints | solemnity | white |
 | 2026-11-02 | saint | `commemoration-of-all-the-faithful-departed` | The Commemoration of All the Faithful Departed (All Soul’s Day) | solemnity | violet |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-26 | saint | `stephen-the-first-martyr` | Saint Stephen, the First Martyr | feast | red |
 | 2026-12-27 | day | `holy-family-of-jesus-mary-and-joseph` | The Holy Family of Jesus, Mary and Joseph | feast | white |
 | 2026-12-28 | saint | `holy-innocents-martyrs` | The Holy Innocents, Martyrs | feast | red |
+| 2026-12-29 | saint | `thomas-becket-bishop` | Saint Thomas Becket, Bishop and Martyr | weekday | white |
