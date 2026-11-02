@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-01 | saint | `all-saints` | All Saints | solemnity | white |
 | 2026-11-02 | saint | `commemoration-of-all-the-faithful-departed` | The Commemoration of All the Faithful Departed (All Soul’s Day) | solemnity | violet |
 | 2026-11-03 | saint | `martin-de-porres-religious` | Saint Martin de Porres, Religious | weekday | green |
 | 2026-11-04 | saint | `charles-borromeo-bishop` | Saint Charles Borromeo, Bishop | memorial | white |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-28 | saint | `holy-innocents-martyrs` | The Holy Innocents, Martyrs | feast | red |
 | 2026-12-29 | saint | `thomas-becket-bishop` | Saint Thomas Becket, Bishop and Martyr | weekday | white |
 | 2026-12-30 | day | `christmas-octave-day-6` | sixth Day within the Octave of the Nativity of the Lord | weekday | white |
+| 2026-12-31 | saint | `sylvester-i-pope` | Saint Sylvester I, Pope | weekday | white |
