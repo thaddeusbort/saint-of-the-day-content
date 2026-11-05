@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-04 | saint | `charles-borromeo-bishop` | Saint Charles Borromeo, Bishop | memorial | white |
 | 2026-11-05 | day | `ordinary-time-31-thursday` | Thursday of the thirty-first week of Ordinary Time | weekday | green |
 | 2026-11-06 | day | `ordinary-time-31-friday` | Friday of the thirty-first week of Ordinary Time | weekday | green |
 | 2026-11-07 | day | `ordinary-time-31-saturday` | Saturday of the thirty-first week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2026-12-31 | saint | `sylvester-i-pope` | Saint Sylvester I, Pope | weekday | white |
 | 2027-01-01 | day | `mary-mother-of-god` | The Octave Day of the Nativity of the Lord: Solemnity of Mary, the Holy Mother of God | solemnity | white |
 | 2027-01-02 | saint | `basil-the-great-and-gregory-nazianzen-bishops` | Saints Basil the Great and Gregory Nazianzen, Bishops and Doctors of the Church | memorial | white |
+| 2027-01-03 | day | `second-sunday-after-christmas` | Second Sunday after the Nativity of the Lord | sunday | white |
