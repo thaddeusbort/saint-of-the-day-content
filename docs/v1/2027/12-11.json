@@ -1,22 +1,23 @@
 {
   "schema": 1,
-  "date": "2026-10-29",
-  "season": "ordinary",
-  "color": "green",
+  "date": "2027-12-11",
+  "season": "advent",
+  "color": "violet",
   "rank": "weekday",
-  "celebration": "Thursday of the thirtieth week of Ordinary Time",
+  "celebration": "Saturday of the second week of Advent",
   "all_celebrations": [
-    "Thursday of the thirtieth week of Ordinary Time"
+    "Saturday of the second week of Advent",
+    "Saint Damasus I, Pope"
   ],
   "subject": {
-    "id": "ordinary-time-30-thursday",
-    "kind": "day",
-    "name": "Thursday of the thirtieth week of Ordinary Time",
+    "id": "damasus-i-pope",
+    "kind": "saint",
+    "name": "Saint Damasus I, Pope",
     "subtitle": "",
     "blurb": "",
-    "notification": "",
+    "notification": "Saint Damasus I, Pope, pray for us!",
     "is_fallback": true,
-    "source": "temporal"
+    "source": "optional"
   },
   "image": {
     "credit": "Generated liturgical colour plate",
@@ -27,17 +28,17 @@
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-green-1440x3200.jpg"
+        "url": "img/fallback-violet-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-green-1260x2800.jpg"
+        "url": "img/fallback-violet-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-green-1080x2400.jpg"
+        "url": "img/fallback-violet-1080x2400.jpg"
       }
     ]
   }
