@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-10-30",
-  "season": "ordinary",
-  "color": "green",
-  "rank": "weekday",
-  "celebration": "Friday of the thirtieth week of Ordinary Time",
+  "date": "2027-12-12",
+  "season": "advent",
+  "color": "rose",
+  "rank": "sunday",
+  "celebration": "third Sunday of Advent",
   "all_celebrations": [
-    "Friday of the thirtieth week of Ordinary Time"
+    "third Sunday of Advent"
   ],
   "subject": {
-    "id": "ordinary-time-30-friday",
+    "id": "advent-3-sunday",
     "kind": "day",
-    "name": "Friday of the thirtieth week of Ordinary Time",
+    "name": "third Sunday of Advent",
     "subtitle": "",
     "blurb": "",
     "notification": "",
@@ -27,17 +27,17 @@
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-green-1440x3200.jpg"
+        "url": "img/fallback-rose-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-green-1260x2800.jpg"
+        "url": "img/fallback-rose-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-green-1080x2400.jpg"
+        "url": "img/fallback-rose-1080x2400.jpg"
       }
     ]
   }
