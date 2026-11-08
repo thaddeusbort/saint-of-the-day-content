@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-07 | day | `ordinary-time-31-saturday` | Saturday of the thirty-first week of Ordinary Time | weekday | green |
 | 2026-11-08 | day | `ordinary-time-32-sunday` | thirty-second Sunday in Ordinary Time | sunday | green |
 | 2026-11-09 | saint | `dedication-of-the-lateran-basilica` | The Dedication of the Lateran Basilica | feast | white |
 | 2026-11-10 | saint | `leo-i-the-great-pope` | Saint Leo the Great, Pope and Doctor of the Church | memorial | white |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2027-01-03 | day | `second-sunday-after-christmas` | Second Sunday after the Nativity of the Lord | sunday | white |
 | 2027-01-04 | day | `christmas-time-january-4` | January 4 | weekday | white |
 | 2027-01-05 | day | `christmas-time-january-5` | January 5 | weekday | white |
+| 2027-01-06 | day | `epiphany-of-the-lord` | The Epiphany of the Lord | solemnity | white |
