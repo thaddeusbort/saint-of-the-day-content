@@ -1,20 +1,20 @@
 {
   "schema": 1,
-  "date": "2026-11-01",
-  "season": "ordinary",
+  "date": "2027-12-14",
+  "season": "advent",
   "color": "white",
-  "rank": "solemnity",
-  "celebration": "All Saints",
+  "rank": "memorial",
+  "celebration": "Saint John of the Cross, Priest and Doctor of the Church",
   "all_celebrations": [
-    "All Saints"
+    "Saint John of the Cross, Priest and Doctor of the Church"
   ],
   "subject": {
-    "id": "all-saints",
-    "kind": "feast",
-    "name": "All Saints",
+    "id": "john-of-the-cross-priest",
+    "kind": "saint",
+    "name": "Saint John of the Cross, Priest and Doctor of the Church",
     "subtitle": "",
     "blurb": "",
-    "notification": "",
+    "notification": "Saint John of the Cross, Priest and Doctor of the Church, pray for us!",
     "is_fallback": false,
     "source": "proper"
   },
