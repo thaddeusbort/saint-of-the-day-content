@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-09 | saint | `dedication-of-the-lateran-basilica` | The Dedication of the Lateran Basilica | feast | white |
 | 2026-11-10 | saint | `leo-i-the-great-pope` | Saint Leo the Great, Pope and Doctor of the Church | memorial | white |
 | 2026-11-11 | saint | `martin-of-tours-bishop` | Saint Martin of Tours, Bishop | memorial | white |
 | 2026-11-12 | saint | `josaphat-kuntsevych-bishop` | Saint Josaphat, Bishop and Martyr | memorial | red |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2027-01-05 | day | `christmas-time-january-5` | January 5 | weekday | white |
 | 2027-01-06 | day | `epiphany-of-the-lord` | The Epiphany of the Lord | solemnity | white |
 | 2027-01-07 | saint | `raymond-of-penyafort-priest` | Saint Raymond of Penyafort, Priest | weekday | white |
+| 2027-01-08 | day | `friday-after-epiphany` | Friday after the Epiphany of the Lord | weekday | white |

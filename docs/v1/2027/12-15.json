@@ -1,22 +1,22 @@
 {
   "schema": 1,
-  "date": "2026-11-02",
-  "season": "ordinary",
+  "date": "2027-12-15",
+  "season": "advent",
   "color": "violet",
-  "rank": "solemnity",
-  "celebration": "The Commemoration of All the Faithful Departed (All Soul’s Day)",
+  "rank": "weekday",
+  "celebration": "Wednesday of the third week of Advent",
   "all_celebrations": [
-    "The Commemoration of All the Faithful Departed (All Soul’s Day)"
+    "Wednesday of the third week of Advent"
   ],
   "subject": {
-    "id": "commemoration-of-all-the-faithful-departed",
-    "kind": "feast",
-    "name": "The Commemoration of All the Faithful Departed (All Soul’s Day)",
+    "id": "advent-3-wednesday",
+    "kind": "day",
+    "name": "Wednesday of the third week of Advent",
     "subtitle": "",
     "blurb": "",
     "notification": "",
-    "is_fallback": false,
-    "source": "proper"
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",
