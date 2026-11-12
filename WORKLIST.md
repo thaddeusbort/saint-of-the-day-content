@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-11 | saint | `martin-of-tours-bishop` | Saint Martin of Tours, Bishop | memorial | white |
 | 2026-11-12 | saint | `josaphat-kuntsevych-bishop` | Saint Josaphat, Bishop and Martyr | memorial | red |
 | 2026-11-13 | day | `ordinary-time-32-friday` | Friday of the thirty-second week of Ordinary Time | weekday | green |
 | 2026-11-14 | day | `ordinary-time-32-saturday` | Saturday of the thirty-second week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2027-01-07 | saint | `raymond-of-penyafort-priest` | Saint Raymond of Penyafort, Priest | weekday | white |
 | 2027-01-08 | day | `friday-after-epiphany` | Friday after the Epiphany of the Lord | weekday | white |
 | 2027-01-09 | day | `saturday-after-epiphany` | Saturday after the Epiphany of the Lord | weekday | white |
+| 2027-01-10 | day | `baptism-of-the-lord` | The Baptism of the Lord | feast | white |
