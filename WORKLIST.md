@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-13 | day | `ordinary-time-32-friday` | Friday of the thirty-second week of Ordinary Time | weekday | green |
 | 2026-11-14 | day | `ordinary-time-32-saturday` | Saturday of the thirty-second week of Ordinary Time | weekday | green |
 | 2026-11-15 | day | `ordinary-time-33-sunday` | thirty-third Sunday in Ordinary Time | sunday | green |
 | 2026-11-16 | saint | `margaret-of-scotland` | Saint Margaret of Scotland | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2027-01-09 | day | `saturday-after-epiphany` | Saturday after the Epiphany of the Lord | weekday | white |
 | 2027-01-10 | day | `baptism-of-the-lord` | The Baptism of the Lord | feast | white |
 | 2027-01-11 | day | `ordinary-time-1-monday` | Monday of the first week of Ordinary Time | weekday | green |
+| 2027-01-12 | day | `ordinary-time-1-tuesday` | Tuesday of the first week of Ordinary Time | weekday | green |
