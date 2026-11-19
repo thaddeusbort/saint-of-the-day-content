@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-18 | saint | `dedication-of-the-basilicas-of-saints-peter-and-paul-apostles` | The Dedication of the Basilicas of Saints Peter and Paul, Apostles | weekday | green |
 | 2026-11-19 | day | `ordinary-time-33-thursday` | Thursday of the thirty-third week of Ordinary Time | weekday | green |
 | 2026-11-20 | day | `ordinary-time-33-friday` | Friday of the thirty-third week of Ordinary Time | weekday | green |
 | 2026-11-21 | saint | `presentation-of-the-blessed-virgin-mary` | The Presentation of the Blessed Virgin Mary | memorial | white |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2027-01-14 | day | `ordinary-time-1-thursday` | Thursday of the first week of Ordinary Time | weekday | green |
 | 2027-01-15 | day | `ordinary-time-1-friday` | Friday of the first week of Ordinary Time | weekday | green |
 | 2027-01-16 | day | `ordinary-time-1-saturday` | Saturday of the first week of Ordinary Time | weekday | green |
+| 2027-01-17 | day | `ordinary-time-2-sunday` | second Sunday in Ordinary Time | sunday | green |
