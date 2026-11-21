@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-11-13",
-  "season": "ordinary",
-  "color": "green",
-  "rank": "weekday",
-  "celebration": "Friday of the thirty-second week of Ordinary Time",
+  "date": "2027-12-26",
+  "season": "christmas",
+  "color": "white",
+  "rank": "feast",
+  "celebration": "The Holy Family of Jesus, Mary and Joseph",
   "all_celebrations": [
-    "Friday of the thirty-second week of Ordinary Time"
+    "The Holy Family of Jesus, Mary and Joseph"
   ],
   "subject": {
-    "id": "ordinary-time-32-friday",
+    "id": "holy-family-of-jesus-mary-and-joseph",
     "kind": "day",
-    "name": "Friday of the thirty-second week of Ordinary Time",
+    "name": "The Holy Family of Jesus, Mary and Joseph",
     "subtitle": "",
     "blurb": "",
     "notification": "",
@@ -27,17 +27,17 @@
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-green-1440x3200.jpg"
+        "url": "img/fallback-white-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-green-1260x2800.jpg"
+        "url": "img/fallback-white-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-green-1080x2400.jpg"
+        "url": "img/fallback-white-1080x2400.jpg"
       }
     ]
   }
