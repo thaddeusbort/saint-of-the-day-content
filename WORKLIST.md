@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-21 | saint | `presentation-of-the-blessed-virgin-mary` | The Presentation of the Blessed Virgin Mary | memorial | white |
 | 2026-11-22 | day | `our-lord-jesus-christ-king-of-the-universe` | Our Lord Jesus Christ, King of the Universe | solemnity | white |
 | 2026-11-23 | saint | `clement-i-pope` | Saint Clement I, Pope and Martyr | weekday | green |
 | 2026-11-24 | saint | `andrew-dung-lac-priest-and-companions-martyrs` | Saint Andrew Dũng-Lạc, Priest, and Companions, Martyrs | memorial | red |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2027-01-17 | day | `ordinary-time-2-sunday` | second Sunday in Ordinary Time | sunday | green |
 | 2027-01-18 | day | `ordinary-time-2-monday` | Monday of the second week of Ordinary Time | weekday | green |
 | 2027-01-19 | day | `ordinary-time-2-tuesday` | Tuesday of the second week of Ordinary Time | weekday | green |
+| 2027-01-20 | saint | `fabian-i-pope` | Saint Fabian, Pope and Martyr | weekday | green |
