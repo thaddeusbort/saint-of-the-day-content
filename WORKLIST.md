@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-24 | saint | `andrew-dung-lac-priest-and-companions-martyrs` | Saint Andrew Dũng-Lạc, Priest, and Companions, Martyrs | memorial | red |
 | 2026-11-25 | saint | `catherine-of-alexandria-virgin` | Saint Catherine of Alexandria, Virgin and Martyr | weekday | green |
 | 2026-11-26 | day | `ordinary-time-34-thursday` | Thursday of the thirty-fourth week of Ordinary Time | weekday | green |
 | 2026-11-27 | day | `ordinary-time-34-friday` | Friday of the thirty-fourth week of Ordinary Time | weekday | green |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2027-01-20 | saint | `fabian-i-pope` | Saint Fabian, Pope and Martyr | weekday | green |
 | 2027-01-21 | saint | `agnes-of-rome-virgin` | Saint Agnes, Virgin and Martyr | memorial | red |
 | 2027-01-22 | saint | `vincent-of-saragossa-deacon` | Saint Vincent, Deacon and Martyr | weekday | green |
+| 2027-01-23 | day | `ordinary-time-2-saturday` | Saturday of the second week of Ordinary Time | weekday | green |

@@ -1,22 +1,22 @@
 {
   "schema": 1,
-  "date": "2026-11-17",
-  "season": "ordinary",
+  "date": "2027-12-30",
+  "season": "christmas",
   "color": "white",
-  "rank": "memorial",
-  "celebration": "Saint Elizabeth of Hungary, Religious",
+  "rank": "weekday",
+  "celebration": "sixth Day within the Octave of the Nativity of the Lord",
   "all_celebrations": [
-    "Saint Elizabeth of Hungary, Religious"
+    "sixth Day within the Octave of the Nativity of the Lord"
   ],
   "subject": {
-    "id": "elizabeth-of-hungary-religious",
-    "kind": "saint",
-    "name": "Saint Elizabeth of Hungary, Religious",
+    "id": "christmas-octave-day-6",
+    "kind": "day",
+    "name": "sixth Day within the Octave of the Nativity of the Lord",
     "subtitle": "",
     "blurb": "",
-    "notification": "Saint Elizabeth of Hungary, Religious, pray for us!",
-    "is_fallback": false,
-    "source": "proper"
+    "notification": "",
+    "is_fallback": true,
+    "source": "temporal"
   },
   "image": {
     "credit": "Generated liturgical colour plate",
