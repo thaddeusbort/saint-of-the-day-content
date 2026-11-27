@@ -10,7 +10,6 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 
 | Next date | Kind | Id | Subject | Rank | Colour |
 | --- | --- | --- | --- | --- | --- |
-| 2026-11-26 | day | `ordinary-time-34-thursday` | Thursday of the thirty-fourth week of Ordinary Time | weekday | green |
 | 2026-11-27 | day | `ordinary-time-34-friday` | Friday of the thirty-fourth week of Ordinary Time | weekday | green |
 | 2026-11-28 | day | `ordinary-time-34-saturday` | Saturday of the thirty-fourth week of Ordinary Time | weekday | green |
 | 2026-11-29 | day | `advent-1-sunday` | first Sunday of Advent | sunday | violet |
@@ -70,3 +69,4 @@ To claim one, add `saints/{id}.yaml` and `originals/{id}.jpg` — see
 | 2027-01-22 | saint | `vincent-of-saragossa-deacon` | Saint Vincent, Deacon and Martyr | weekday | green |
 | 2027-01-23 | day | `ordinary-time-2-saturday` | Saturday of the second week of Ordinary Time | weekday | green |
 | 2027-01-24 | day | `sunday-of-the-word-of-god` | Third Sunday in Ordinary Time, or Sunday of the Word of God | sunday | green |
+| 2027-01-25 | saint | `conversion-of-saint-paul-the-apostle` | The Conversion of Saint Paul the Apostle | feast | white |
