@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "date": "2026-11-20",
-  "season": "ordinary",
-  "color": "green",
-  "rank": "weekday",
-  "celebration": "Friday of the thirty-third week of Ordinary Time",
+  "date": "2028-01-02",
+  "season": "christmas",
+  "color": "white",
+  "rank": "sunday",
+  "celebration": "Second Sunday after the Nativity of the Lord",
   "all_celebrations": [
-    "Friday of the thirty-third week of Ordinary Time"
+    "Second Sunday after the Nativity of the Lord"
   ],
   "subject": {
-    "id": "ordinary-time-33-friday",
+    "id": "second-sunday-after-christmas",
     "kind": "day",
-    "name": "Friday of the thirty-third week of Ordinary Time",
+    "name": "Second Sunday after the Nativity of the Lord",
     "subtitle": "",
     "blurb": "",
     "notification": "",
@@ -27,17 +27,17 @@
       {
         "w": 1440,
         "h": 3200,
-        "url": "img/fallback-green-1440x3200.jpg"
+        "url": "img/fallback-white-1440x3200.jpg"
       },
       {
         "w": 1260,
         "h": 2800,
-        "url": "img/fallback-green-1260x2800.jpg"
+        "url": "img/fallback-white-1260x2800.jpg"
       },
       {
         "w": 1080,
         "h": 2400,
-        "url": "img/fallback-green-1080x2400.jpg"
+        "url": "img/fallback-white-1080x2400.jpg"
       }
     ]
   }
